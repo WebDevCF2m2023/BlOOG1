@@ -15,12 +15,13 @@ class TestAbstractMapping extends AbstractMapping
         parent::__construct($tab);
     }
 
-    public function test()
-    {
-        echo 'Test';
-    }
+   
 }
 
-$test = new TestAbstractMapping(['test_poi_lulu' => 'test']);
-$test->test();
+$test = new TestAbstractMapping([
+    'test_poi_lulu' => 'test',
+    'test_coucou' => 'youpi',
+    'article_title' => 'un titre',
+ ]);
+
 

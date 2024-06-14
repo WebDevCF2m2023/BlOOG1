@@ -16,14 +16,16 @@ abstract class AbstractMapping
     {
         // tant qu'on a des éléments dans le tableau
         foreach ($assoc as $clef => $valeur) {
-            // création du nom de la méthode de type setter
-            $methodeName = "set" . str_replace("_", "", ucfirst($clef));
+
+            $tab = explode("_", $clef);
+            $majuscule = array_map('ucfirst',$tab);
+            $nouveauNomEnCamelCase = implode($majuscule);
+            $methodeName = "set" . $nouveauNomEnCamelCase;
+            
             // si la méthode existe
             if (method_exists($this, $methodeName)) {
+                // on hydrate le paramètre avec la valeur
                 $this->$methodeName($valeur);
-            }else{
-                // sinon on affiche un message d'erreur
-                echo "La méthode $methodeName n'existe pas";
             }
         }
     }

@@ -15,12 +15,6 @@ class TestAbstractMapping extends AbstractMapping
         parent::__construct($tab);
     }
 
-    public function test()
-    {
-        echo 'Test';
-    }
-
-    // création de notre hydratation, en partant d'un tableau associatif et de ses clefs, on va régénérer le nom des setters existants dans les classes enfants
     protected function hydrate(array $assoc): void
     {
         // tant qu'on a des éléments dans le tableau
@@ -32,11 +26,17 @@ class TestAbstractMapping extends AbstractMapping
                 $this->$methodeName($valeur);
             }else{
                 // sinon on affiche un message d'erreur
-                echo "La méthode $methodeName n'existe pas";
+                echo "La méthode $methodeName n'existe pas<br>";
             }
         }
     }
+
 }
 
-$test = new TestAbstractMapping(['test_poi_lulu' => 'test']);
-$test->test();
+$test = new TestAbstractMapping([
+    'test_poi_lulu' => 'test',
+    'test_coucou' => 'youpie',
+    'article_title'=>"un titre",
+    'article_date_update'=>"2024-03-17 21:45",
+]);
+

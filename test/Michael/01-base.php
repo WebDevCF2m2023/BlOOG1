@@ -37,6 +37,7 @@ $test = new TestAbstractMapping([
     'test_poi_lulu' => 'test',
     'test_coucou' => 'youpie',
     'article_title'=>"un titre",
+    'article_date_update'=>"2024-03-17 21:45",
 ]);
 
 

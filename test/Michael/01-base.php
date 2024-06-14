@@ -61,6 +61,3 @@ $test = new TestAbstractMapping([
 ]);
 
 var_dump($test);
-
-
-

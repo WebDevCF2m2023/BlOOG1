@@ -40,5 +40,3 @@ $test = new TestAbstractMapping([
     'article_date_update'=>"2024-03-17 21:45",
 ]);
 
-
-

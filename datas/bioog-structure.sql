@@ -21,10 +21,10 @@ USE `bioog` ;
 DROP TABLE IF EXISTS `bioog`.`permission` ;
 
 CREATE TABLE IF NOT EXISTS `bioog`.`permission` (
-  `persmission_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `permission_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `permission_name` VARCHAR(45) NOT NULL,
   `permission_description` VARCHAR(300) NULL,
-  PRIMARY KEY (`persmission_id`))
+  PRIMARY KEY (`permission_id`))
 ENGINE = InnoDB;
 
 
@@ -41,11 +41,11 @@ CREATE TABLE IF NOT EXISTS `bioog`.`user` (
   `user_mail` VARCHAR(180) NOT NULL,
   `user_status` TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '0 pas actif\n1 actif\n2 banni',
   `user_secret_key` VARCHAR(80) NOT NULL,
-  `permission_persmission_id` INT UNSIGNED NULL,
+  `permission_permission_id` INT UNSIGNED NULL,
   PRIMARY KEY (`user_id`),
   CONSTRAINT `fk_user_permission`
-    FOREIGN KEY (`permission_persmission_id`)
-    REFERENCES `bioog`.`permission` (`persmission_id`)
+    FOREIGN KEY (`permission_permission_id`)
+    REFERENCES `bioog`.`permission` (`permission_id`)
     ON DELETE SET NULL
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -54,7 +54,7 @@ CREATE UNIQUE INDEX `user_login_UNIQUE` ON `bioog`.`user` (`user_login` ASC) VIS
 
 CREATE UNIQUE INDEX `user_mail_UNIQUE` ON `bioog`.`user` (`user_mail` ASC) VISIBLE;
 
-CREATE INDEX `fk_user_permission_idx` ON `bioog`.`user` (`permission_persmission_id` ASC) VISIBLE;
+CREATE INDEX `fk_user_permission_idx` ON `bioog`.`user` (`permission_permission_id` ASC) VISIBLE;
 
 
 -- -----------------------------------------------------

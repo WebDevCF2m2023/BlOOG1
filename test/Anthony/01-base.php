@@ -14,7 +14,6 @@ class TestAbstractMapping extends AbstractMapping
     {
         parent::__construct($tab);
     }
-
     protected function hydrate(array $assoc): void
     {
         // tant qu'on a des éléments dans le tableau
@@ -30,15 +29,11 @@ class TestAbstractMapping extends AbstractMapping
             }
         }
     }
-
+  
 }
 
-$test = new TestAbstractMapping([
-    'test_poi_lulu' => 'test',
-    'test_coucou' => 'youpie',
-    'article_title'=>"un titre",
-    'article_date_update'=>"2024-03-17 21:45",
-]);
-
+$test = new TestAbstractMapping(['bla_bla_bla' => 'test',
+                                'test_coucou ' => 'youpi',
+                                'article_title' =>'un titre']);
 
 

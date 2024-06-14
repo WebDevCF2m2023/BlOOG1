@@ -21,6 +21,9 @@ abstract class AbstractMapping
             // si la méthode existe
             if (method_exists($this, $methodeName)) {
                 $this->$methodeName($valeur);
+            }else{
+                // sinon on affiche un message d'erreur
+                echo "La méthode $methodeName n'existe pas";
             }
         }
     }

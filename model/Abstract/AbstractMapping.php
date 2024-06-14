@@ -23,7 +23,7 @@ abstract class AbstractMapping
                 $this->$methodeName($valeur);
             }else{
                 // sinon on affiche un message d'erreur
-                echo "La méthode $methodeName n'existe pas</br>";
+                echo "La méthode $methodeName n'existe pas";
             }
         }
     }

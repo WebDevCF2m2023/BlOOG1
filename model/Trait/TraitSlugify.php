@@ -28,5 +28,13 @@ trait TraitSlugify
         }
         // résultat
         return $text;
+
+        /*
+         * Autre code possible
+    {
+     $text = strtolower(trim(preg_replace(['~[^\pL\d]+~u', '~[^-\w]+~', '~-+~'], ['-', '', '-'], strip_tags($s)), '-'));
+        return empty($text) ? 'n-a' : $text;
+       }
+         */
     }
 }

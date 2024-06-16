@@ -11,21 +11,22 @@ abstract class AbstractMapping
         $this->hydrate($tab);
     }
 
-    // création de notre hydratation, en partant d'un tableau associatif et de ses clefs, on va régénérer le nom des setters existants dans les classes enfants
+    // création de notre hydratation, en partant d'un tableau associatif et de ses clefs,
+    // on va régénérer le nom des setters existants dans les classes enfants
     protected function hydrate(array $assoc): void
     {
         // tant qu'on a des éléments dans le tableau
-        foreach ($assoc as $clef => $valeur) {
+        foreach ($assoc as $key => $value) {
 
-            $tab = explode("_", $clef);
+            $tab = explode("_", $key);
             $majuscule = array_map('ucfirst',$tab);
-            $nouveauNomEnCamelCase = implode($majuscule);
-            $methodeName = "set" . $nouveauNomEnCamelCase;
+            $newNameCamelCase = implode($majuscule);
+            $methodeName = "set" . $newNameCamelCase;
             
             // si la méthode existe
             if (method_exists($this, $methodeName)) {
                 // on hydrate le paramètre avec la valeur
-                $this->$methodeName($valeur);
+                $this->$methodeName($value);
             }
         }
     }

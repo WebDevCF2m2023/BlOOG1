@@ -1,6 +1,6 @@
 <?php
 
-use model\Abstract\AbstractMapping;
+use model\Abstract\AbstractMapping as Lulu;
 
 // Autoload classes
 spl_autoload_register(function ($class) {
@@ -8,10 +8,17 @@ spl_autoload_register(function ($class) {
     require '../../' .$class . '.php';
 });
 
-class TestAbstractMapping extends AbstractMapping
+// chemin inexistant
+// $lala = new nimport\quoi();
+
+// on ne peut pas instancier une classe abstraite
+//new AbstractMapping([]);
+
+class TestAbstractMapping extends Lulu
 {
     protected ?string $article_title;
     protected ?string $article_date_update;
+
 
     public function __construct(array $tab)
     {
@@ -58,6 +65,7 @@ $test = new TestAbstractMapping([
     'test_coucou' => 'youpie',
     'article_title'=>"un titre",
     'article_date_update'=>"2024-03-17 21:45",
+    'lala_ca_va'=>'lulu',
 ]);
 
 var_dump($test);

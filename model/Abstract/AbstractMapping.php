@@ -1,7 +1,10 @@
 <?php
 
+// Espace de nom (isolation du code)
 namespace model\Abstract;
 
+// Classe abstrait qui ne peut être instanciée
+// Elle est la base de tous les mappings de tables
 abstract class AbstractMapping
 {
     // constructeur - Appelé lors de l'instanciation
@@ -18,6 +21,7 @@ abstract class AbstractMapping
         // tant qu'on a des éléments dans le tableau
         foreach ($assoc as $key => $value) {
 
+            // création du nom d'un setter (méthode public de modification)
             $tab = explode("_", $key);
             $majuscule = array_map('ucfirst',$tab);
             $newNameCamelCase = implode($majuscule);

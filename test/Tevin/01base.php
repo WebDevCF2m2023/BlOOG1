@@ -32,10 +32,10 @@ class TestAbstractMapping extends AbstractMapping
     {
         // tant qu'on a des éléments dans le tableau
         foreach ($assoc as $clef => $valeur) {
-            // on fait exploser la clef où on trouve des _
+            // on explose la clef où on trouve des _
             $tab = explode("_",$clef);
-            // on met en majuscule le nom de chaque clef du tableau
-            // array_map est un raccourci pour appliquer une fonction
+            // on mets en majuscule le nom de chaque clef du tableau 
+            // array_map est un raccouci pour appliquer une fonction 
             // à chaque élément d'un tableau (+ rapide que foreach)
             $majuscule = array_map('ucfirst',$tab);
             // on remet le tout ensemble (on implose quoi)

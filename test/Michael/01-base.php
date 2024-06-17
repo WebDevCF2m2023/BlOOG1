@@ -1,6 +1,6 @@
 <?php
 
-use model\Abstract\AbstractMapping as Lulu;
+use model\Abstract\AbstractMapping;
 
 // Autoload classes
 spl_autoload_register(function ($class) {
@@ -14,7 +14,7 @@ spl_autoload_register(function ($class) {
 // on ne peut pas instancier une classe abstraite
 //new AbstractMapping([]);
 
-class TestAbstractMapping extends Lulu
+class TestAbstractMapping extends AbstractMapping
 {
     protected ?string $article_title;
     protected ?string $article_date_update;
@@ -34,6 +34,7 @@ class TestAbstractMapping extends Lulu
     {
         $this->article_date_update = $value;
     }
+
 
     protected function hydrate(array $assoc): void
     {

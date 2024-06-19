@@ -1,5 +1,7 @@
 <?php
 
+require_once '../../config.php';
+
 use model\Abstract\AbstractMapping;
 
 // Autoload classes
@@ -69,4 +71,19 @@ $test = new TestAbstractMapping([
     'lala_ca_va'=>'lulu',
 ]);
 
+<<<<<<< HEAD
 var_dump($test);
+=======
+var_dump($test);
+
+use model\OurPDO;
+
+$pdo = OurPDO::getInstance(DB_TYPE . ':host=' . DB_HOST . ';dbname=' . DB_NAME.';charset='.DB_CHARSET.";port=".DB_PORT, DB_LOGIN, DB_PWD);
+
+$pdo2 = OurPDO::getInstance(DB_TYPE . ':host=' . DB_HOST . ';dbname=' . DB_NAME.';charset='.DB_CHARSET.";port=".DB_PORT, DB_LOGIN, DB_PWD);
+
+
+
+var_dump($pdo,$pdo2);
+
+>>>>>>> 56d680e6ac1f39b90053f375a8044296afdbb7ec

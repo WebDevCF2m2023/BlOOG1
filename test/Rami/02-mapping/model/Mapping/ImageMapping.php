@@ -43,7 +43,7 @@ class ImageMapping extends AbstractMapping
 
     public function setImageUrl(?string $image_url): void
     {
-        $this->image_url = $image_url;
+        $this->image_url = trim($image_url);
     }
 
     public function getImageDescription(): ?string
@@ -53,7 +53,7 @@ class ImageMapping extends AbstractMapping
 
     public function setImageDescription(?string $image_description): void
     {
-        $this->image_description = $image_description;
+        $this->image_description = htmlspecialchars(trim(strip_tags($image_description)),ENT_QUOTES);
     }
 
     public function getArticleArticleId(): ?int

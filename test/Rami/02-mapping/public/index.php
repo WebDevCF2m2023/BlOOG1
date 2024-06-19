@@ -26,8 +26,8 @@ $image1 = new ImageMapping([
 
 $image2 = new ImageMapping([
     "image_id" => 2,
-    "image_url" => "www.php.be",
-    "image_description" => "Voici une description d'un être aimé",
+    "image_url" => "  www.php.be",
+    "image_description" => "  Voici une description <br> d'un être aimé",
     "article_article_id" => 83,
     
 ]);

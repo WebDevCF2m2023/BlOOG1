@@ -6,7 +6,7 @@ use model\Abstract\AbstractMapping;
 use DateTime;
 use Exception;
 
-class ExempleMapping extends AbstractMapping
+class ImageMapping extends AbstractMapping
 {
     // Les propriétés de la classe sont le nom des
     // attributs de la table Exemple (qui serait en
@@ -14,7 +14,7 @@ class ExempleMapping extends AbstractMapping
     protected ?int $image_id;
     protected ?string $image_url;
     protected ?string $image_description;
-    protected ?int $article_article_id;
+    protected ?int $article_article_id ;
     protected null|string|DateTime $exemple_date;
 
     // Les getters et setters
@@ -24,44 +24,44 @@ class ExempleMapping extends AbstractMapping
     // Les setters permettent de modifier la valeur
     // d'un attribut de la classe, en utilisant l'hydratation
     // venant de la classe AbstractMapping
-    public function getimage_id(): ?int
+    public function getImageId(): ?int
     {
         return $this->image_id;
     }
 
-    public function setimage_url(?int $image_url): void
+    public function setimageId(?string $image_id): void
+    {
+        $this->image_id = $image_id;
+    }
+
+    public function getImageUrlName(): ?string
+    {
+        return $this->image_url;
+    }
+
+    public function setImageUrl(?string $image_url): void
     {
         $this->image_url = $image_url;
     }
 
-    public function getimage_description(): ?string
+    public function getImageDescription(): ?string
     {
         return $this->image_description;
     }
 
-    public function setarticle_article_id (?string $article_article_id): void
+    public function setImageDescription(?string $image_description): void
     {
-        $this->article_article_id = $article_article_id;
+        $this->image_description = $image_description;
     }
 
-    public function getExempleDescription(): ?string
+    public function getArticleArticleId(): ?int
     {
-        return $this->exemple_description;
+        return $this->article_article_id;
     }
 
-    public function setExempleDescription(?string $exemple_description): void
+    public function setArticleArticleId(?int $ArticleArticleId): void
     {
-        $this->exemple_description = $exemple_description;
-    }
-
-    public function getExempleNumber(): ?int
-    {
-        return $this->exemple_number;
-    }
-
-    public function setExempleNumber(?int $exemple_number): void
-    {
-        $this->exemple_number = $exemple_number;
+        $this->article_article_id = $ArticleArticleId;
     }
 
     public function getExempleDate(): null|string|DateTime

@@ -1,7 +1,7 @@
 <?php
 
 // on va chercher le chemin de ExempleMapping
-use model\Mapping\ExempleMapping;
+use model\Mapping\UserMapping;
 
 
 // session
@@ -19,37 +19,17 @@ spl_autoload_register(function ($class) {
 // chemin pris dans le répertoire racine du projet (config.php)
 //echo PROJECT_DIRECTORY;
 
-$exemple1 = new ExempleMapping([
-    "exemple_id" => 1,
-    "exemple_name" => "exemple1",
-    "exemple_description" => "description1",
-    "exemple_number" => 1,
-    "exemple_date" => new DateTime(),
-    "exemple_boolean" => true,
-    "exemple_float" => 1.1,
-    "je_suis_un_champ_inexistant" => "je suis un champ inexistant",
+$test1 = new UserMapping([
+    "user_id" => 1,
+    "user_login" => "login1",
+    "user_password" => "myPassword",
+    "user_full_name" => "Anthony",
+    "user_mail" => "test@mail.com",
+    "user_status" => 1,
+    "user_secret_key" => "ma clé secrete",
+    "permission_permission_id" => 2,
 ]);
 
-$exemple2 = new ExempleMapping([
-    "exemple_id" => 2,
-    "exemple_name" => "Un autre exemple",
-    "exemple_description" => "Voici une description d'un être aimé",
-    "exemple_number" => 83,
-    "exemple_date" => "2024-03-01 12:17:00",
-    "exemple_boolean" => false,
-    "exemple_float" => -82.3465,
-    "je_suis_un_champ_inexistant" => "je suis un champ inexistant",
-]);
 
-$exemple3 = new ExempleMapping([
-    "exemple_id" => 3,
-    "exemple_name" => "Encore un \"autre\" exemple",
-    "exemple_description" => "Voici une description d'un être aimé, <br>, ou non",
-    "exemple_number" => 21,
-    "exemple_date" => "Miam",
-    "exemple_boolean" => false,
-    "exemple_float" => -82.3465,
-    "je_suis_un_champ_inexistant" => "je suis un champ inexistant",
-]);
 
-var_dump($exemple1,$exemple2,$exemple3);
+var_dump($test1);

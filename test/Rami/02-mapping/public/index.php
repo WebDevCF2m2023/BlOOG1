@@ -1,7 +1,7 @@
 <?php
 
 // on va chercher le chemin de ExempleMapping
-use model\Mapping\ExempleMapping;
+use model\Mapping\ImageMapping;
 
 
 // session
@@ -16,37 +16,31 @@ spl_autoload_register(function ($class) {
     require PROJECT_DIRECTORY. '/' .$class . '.php';
 });
 
-$exemple1 = new ExempleMapping([
-    "exemple_id" => 1,
-    "exemple_name" => "exemple1",
-    "exemple_description" => "description1",
-    "exemple_number" => 1,
-    "exemple_date" => new DateTime(),
-    "exemple_boolean" => true,
-    "exemple_float" => 1.1,
-    "je_suis_un_champ_inexistant" => "je suis un champ inexistant",
+$image1 = new ImageMapping([
+    "image_id" => 1,
+    "image_url" => "www.tavie.com",
+    "image_description" => "description1",
+    "article_article_id" => 1,
+    
 ]);
 
-$exemple2 = new ExempleMapping([
-    "exemple_id" => 2,
-    "exemple_name" => "Un autre exemple",
-    "exemple_description" => "Voici une description d'un être aimé",
-    "exemple_number" => 83,
-    "exemple_date" => "2024-03-01 12:17:00",
-    "exemple_boolean" => false,
-    "exemple_float" => -82.3465,
-    "je_suis_un_champ_inexistant" => "je suis un champ inexistant",
+$image2 = new ImageMapping([
+    "image_id" => 2,
+    "image_url" => "www.php.be",
+    "image_description" => "Voici une description d'un être aimé",
+    "article_article_id" => 83,
+    
 ]);
 
-$exemple3 = new ExempleMapping([
-    "exemple_id" => 3,
-    "exemple_name" => "Encore un \"autre\" exemple",
-    "exemple_description" => "Voici une description d'un être aimé, <br>, ou non",
-    "exemple_number" => 21,
-    "exemple_date" => "Miam",
-    "exemple_boolean" => false,
-    "exemple_float" => -82.3465,
-    "je_suis_un_champ_inexistant" => "je suis un champ inexistant",
+$image3 = new ImageMapping([
+    "image_id" => 3,
+    "image_url" => "www.etlaquestioncestpour.com",
+    "image_description" => "Voici une description d'un être pas aimé, <br>, ou non",
+    "article_article_id" => 21,
+    
+    
+    
+    
 ]);
 
-var_dump($exemple1,$exemple2,$exemple3);
+var_dump($image1,$image2,$image3);

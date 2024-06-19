@@ -56,12 +56,12 @@ class ImageMapping extends AbstractMapping
         $this->image_description = $image_description;
     }
 
-    public function getArticleIdid(): ?int
+    public function getArticleArticleId(): ?int
     {
         return $this->article_article_id;
     }
 
-    public function setExempleNumber(?int $article_article_id): void
+    public function setArticleArticleId(?int $article_article_id): void
     {
         $this->article_article_id = $article_article_id;
     }

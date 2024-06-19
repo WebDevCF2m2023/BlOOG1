@@ -1,10 +1,22 @@
 <?php
 
+// Espace de nom (isolation du code),
+// nous sert également à organiser nos classes
+// pour l'autoloading
 namespace model\Interface;
 
+// importation des classes nécessaires (qui se trouvent à la racine du projet,
+// donc dans le namespace global)
 use PDO;
 use Exception;
 
+/**
+ * Interface InterfaceManager
+ *
+ * Cette interface définit les méthodes que toute classe de type Manager doit implémenter.
+ * Ces méthodes sont liées aux opérations CRUD de base (Créer, Lire, Mettre à jour, Supprimer).
+ *
+ */
 interface InterfaceManager
 {
     public function __construct(PDO $pdo);

@@ -1,14 +1,15 @@
 <?php
 
-// on va chercher le chemin de ExempleMapping
+// on va chercher le chemin de ExempleMapping / CommentMapping
 use model\Mapping\ExempleMapping;
-
+use model\Mapping\CommentMapping;
 
 // session
 session_start();
 
 // Appel de la config
 require_once "../config.php";
+
 
 // our autoload
 spl_autoload_register(function ($class) {
@@ -49,4 +50,14 @@ $exemple3 = new ExempleMapping([
     "je_suis_un_champ_inexistant" => "je suis un champ inexistant",
 ]);
 
-var_dump($exemple1,$exemple2,$exemple3);
+$comment = new CommentMapping([
+    "comment_id" => 3,
+    "comment_text" => "Encore un \"autre\" exemple",
+    "comment_parent" => "Voici une description d'un être aimé, <br>, ou non",
+    "comment_date_create" => "2024-03-01 12:17:00",
+    "comment_date_update" => "2024-03-01 12:17:00",
+    "comment_date_publish" => "2024-03-01 12:17:00",
+    "comment_is_published" => 2,
+]);
+
+var_dump($exemple1,$exemple2,$exemple3,$comment);

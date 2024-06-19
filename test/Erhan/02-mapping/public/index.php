@@ -4,7 +4,8 @@
 session_start();
 
 // on va chercher le chemin de ExempleMapping
-use model\Mapping\ExempleMapping;
+
+use model\Mapping\CategoryMapping;
 
 
 // Appel de la config
@@ -16,37 +17,28 @@ spl_autoload_register(function ($class) {
     require PROJECT_DIRECTORY. '/' .$class . '.php';
 });
 
-$exemple1 = new ExempleMapping([
-    "exemple_id" => 1,
-    "exemple_name" => "exemple1",
-    "exemple_description" => "description1",
-    "exemple_number" => 1,
-    "exemple_date" => new DateTime(),
-    "exemple_boolean" => true,
-    "exemple_float" => 1.1,
-    "je_suis_un_champ_inexistant" => "je suis un champ inexistant",
+$exemple1 = new CategoryMapping([
+    "category_id" => 1,
+    "category_name" => "exemple1",
+    "category_slug" => "description1",
+    "category_description" => "heyhey",
+    "category_parent" => 3,
 ]);
 
-$exemple2 = new ExempleMapping([
-    "exemple_id" => 2,
-    "exemple_name" => "Un autre exemple",
-    "exemple_description" => "Voici une description d'un être aimé",
-    "exemple_number" => 83,
-    "exemple_date" => "2024-03-01 12:17:00",
-    "exemple_boolean" => false,
-    "exemple_float" => -82.3465,
-    "je_suis_un_champ_inexistant" => "je suis un champ inexistant",
+$exemple2 = new CategoryMapping([
+    "category_id" => 2,
+    "category_name" => "Un autre exemple",
+    "category_slug" => "Voici une description d'un être aimé",
+    "category_description" => 83,
+    "category_parent" => 13,
 ]);
 
-$exemple3 = new ExempleMapping([
-    "exemple_id" => 3,
-    "exemple_name" => "Encore un \"autre\" exemple",
-    "exemple_description" => "Voici une description d'un être aimé, <br>, ou non",
-    "exemple_number" => 21,
-    "exemple_date" => "Miam",
-    "exemple_boolean" => false,
-    "exemple_float" => -82.3465,
-    "je_suis_un_champ_inexistant" => "je suis un champ inexistant",
+$exemple3 = new CategoryMapping([
+    "category_id" => 3,
+    "category_name" => "Encore un \"autre\" exemple",
+    "category_slug" => "Voici une description d'un être aimé, <br>, ou non",
+    "category_description" => 21,
+    "category_parent" => 22,
 ]);
 
 var_dump($exemple1,$exemple2,$exemple3);

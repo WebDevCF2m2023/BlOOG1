@@ -11,13 +11,11 @@ class ExempleMapping extends AbstractMapping
     // Les propriétés de la classe sont le nom des
     // attributs de la table Exemple (qui serait en
     // base de données)
-    protected ?int $exemple_id;
-    protected ?string $exemple_name;
-    protected ?string $exemple_description;
-    protected ?int $exemple_number;
+    protected ?int $image_id;
+    protected ?string $image_url;
+    protected ?string $image_description;
+    protected ?int $article_article_id;
     protected null|string|DateTime $exemple_date;
-    protected ?bool $exemple_boolean;
-    protected ?float $exemple_float;
 
     // Les getters et setters
     // Les getters permettent de récupérer la valeur
@@ -26,29 +24,24 @@ class ExempleMapping extends AbstractMapping
     // Les setters permettent de modifier la valeur
     // d'un attribut de la classe, en utilisant l'hydratation
     // venant de la classe AbstractMapping
-    public function getExempleId(): ?int
+    public function getimage_id(): ?int
     {
-        return $this->exemple_id;
+        return $this->image_id;
     }
 
-    public function setExempleId(?int $exemple_id): void
+    public function setimage_url(?int $image_url): void
     {
-        if($exemple_id<=0) throw new Exception("ID non valide"); 
-        $this->exemple_id = $exemple_id;
+        $this->image_url = $image_url;
     }
 
-    public function getExempleName(): ?string
+    public function getimage_description(): ?string
     {
-        // décryptage
-        return html_entity_decode($this->exemple_name);
-        // return $this->exemple_name;
+        return $this->image_description;
     }
 
-    public function setExempleName(?string $exemple_name): void
+    public function setarticle_article_id (?string $article_article_id): void
     {
-        // cryptage
-        $text = htmlspecialchars(trim(strip_tags($exemple_name)),ENT_QUOTES);
-        $this->exemple_name = $text;
+        $this->article_article_id = $article_article_id;
     }
 
     public function getExempleDescription(): ?string

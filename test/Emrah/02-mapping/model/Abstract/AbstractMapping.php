@@ -34,6 +34,6 @@ abstract class AbstractMapping
             }
         }
     }
-    
+
     
 }

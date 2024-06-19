@@ -37,6 +37,9 @@ class ArticlesMapping extends AbstractMapping
 
     public function setArticleTitle(?string $article_title): void
     {
+        
+        $this->article_title = htmlspecialchars(trim(strip_tags($article_title)),
+        ENT_QUOTES);
         if($article_title === "") throw new Exception("Merci d'inclure une Titre");
         $this->article_title = htmlspecialchars(trim(strip_tags($article_title)), ENT_QUOTES);
     }

@@ -1,11 +1,11 @@
 <?php
 
+// session
+session_start();
+
 // on va chercher le chemin de ExempleMapping
 use model\Mapping\ExempleMapping;
 
-
-// session
-session_start();
 
 // Appel de la config
 require_once "../config.php";

@@ -37,6 +37,7 @@ class ArticlesMapping extends AbstractMapping
 
     public function setArticleTitle(?string $article_title): void
     {
+        if($article_title === "") throw new Exception("Merci d'inclure une Titre");
         $this->article_title = trim($article_title);
     }
 
@@ -47,6 +48,7 @@ class ArticlesMapping extends AbstractMapping
 
     public function setArticleSlug(?string $article_slug): void
     {
+        if($article_slug === "") throw new Exception("Merci d'inclure le Slug");
         $this->article_slug = $article_slug;
     }
 
@@ -57,6 +59,7 @@ class ArticlesMapping extends AbstractMapping
 
     public function setArticleText(?string $article_text): void
     {
+        if($article_text === "") throw new Exception("Il faut le Text quand même");
         $this->article_text = $article_text;
     }
 

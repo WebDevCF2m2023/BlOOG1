@@ -33,17 +33,22 @@ class ExempleMapping extends AbstractMapping
 
     public function setExempleId(?int $exemple_id): void
     {
+        if($exemple_id<=0) throw new Exception("ID non valide"); 
         $this->exemple_id = $exemple_id;
     }
 
     public function getExempleName(): ?string
     {
-        return $this->exemple_name;
+        // décryptage
+        return html_entity_decode($this->exemple_name);
+        // return $this->exemple_name;
     }
 
     public function setExempleName(?string $exemple_name): void
     {
-        $this->exemple_name = $exemple_name;
+        // cryptage
+        $text = htmlspecialchars(trim(strip_tags($exemple_name)),ENT_QUOTES);
+        $this->exemple_name = $text;
     }
 
     public function getExempleDescription(): ?string

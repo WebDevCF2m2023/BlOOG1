@@ -3,7 +3,7 @@
 // on va chercher le chemin de ExempleMapping
 use model\Mapping\ExempleMapping;
 use model\Mapping\PermissionMapping;
-
+use model\Mapping\TagMapping;
 // session
 session_start();
 
@@ -23,5 +23,11 @@ $exemple1 = new PermissionMapping([
   
 ]);
 
+$exemple2 = new TagMapping([
+    "tag_id" => 1,
+    "tag_slug" => "exemple2",
+    
+  
+]);
 
-var_dump($exemple1);
+var_dump($exemple1,$exemple2);

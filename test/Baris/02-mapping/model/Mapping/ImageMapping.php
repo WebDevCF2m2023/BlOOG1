@@ -91,25 +91,6 @@ class ImageMapping extends AbstractMapping
 
     }
 
-    public function getExempleBoolean(): ?bool
-    {
-        return $this->exemple_boolean;
-    }
-
-    public function setExempleBoolean(?bool $exemple_boolean): void
-    {
-        $this->exemple_boolean = $exemple_boolean;
-    }
-
-    public function getExempleFloat(): ?float
-    {
-        return $this->exemple_float;
-    }
-
-    public function setExempleFloat(?float $exemple_float): void
-    {
-        $this->exemple_float = $exemple_float;
-    }
 
 
 }

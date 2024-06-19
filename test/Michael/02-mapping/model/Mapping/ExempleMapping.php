@@ -3,6 +3,8 @@
 namespace model\Mapping;
 
 use model\Abstract\AbstractMapping;
+use DateTime;
+use Exception;
 
 class ExempleMapping extends AbstractMapping
 {
@@ -13,7 +15,7 @@ class ExempleMapping extends AbstractMapping
     protected ?string $exemple_name;
     protected ?string $exemple_description;
     protected ?int $exemple_number;
-    protected ?\DateTime $exemple_date;
+    protected null|string|DateTime $exemple_date;
     protected ?bool $exemple_boolean;
     protected ?float $exemple_float;
 
@@ -64,14 +66,31 @@ class ExempleMapping extends AbstractMapping
         $this->exemple_number = $exemple_number;
     }
 
-    public function getExempleDate(): ?\DateTime
+    public function getExempleDate(): null|string|DateTime
     {
         return $this->exemple_date;
     }
 
-    public function setExempleDate(?\DateTime $exemple_date): void
+    public function setExempleDate(null|string|DateTime $exemple_date): void
     {
-        $this->exemple_date = $exemple_date;
+        // si c'est une chaine de caractère
+        if(is_string($exemple_date)){
+            try {
+                // on essaye de convertir la date en objet DateTime
+                $exemple_date = new DateTime($exemple_date);
+                $this->exemple_date = $exemple_date->format("Y-m-d H:i:s");
+            } catch (Exception $e) {
+                // en cas d'échec, on met la date à null
+                $this->exemple_date = null;
+            }
+        // si c'est un objet (DateTime seul possible)
+        }elseif (is_object($exemple_date)){
+            // on formate la date en string en DATETIME
+            $this->exemple_date = $exemple_date->format("Y-m-d H:i:s");
+        }else{
+            $this->exemple_date = null;
+        }
+
     }
 
     public function getExempleBoolean(): ?bool

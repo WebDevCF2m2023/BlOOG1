@@ -3,8 +3,6 @@
 namespace model\Mapping;
 
 use model\Abstract\AbstractMapping;
-use DateTime;
-use Exception;
 
 class PermissionMapping extends AbstractMapping
 {

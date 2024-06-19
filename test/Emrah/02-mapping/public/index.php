@@ -17,9 +17,9 @@ spl_autoload_register(function ($class) {
 });
 
 $exemple1 = new PermissionMapping([
-    "exemple_id" => 1,
-    "exemple_name" => "exemple1",
-    "exemple_description" => "description1",
+    "permission_id" => 1,
+    "permission_name" => "exemple1",
+    "permission_description" => "description1",
     "exemple_number" => 1,
     "exemple_date" => new DateTime(),
     "exemple_boolean" => true,
@@ -28,9 +28,9 @@ $exemple1 = new PermissionMapping([
 ]);
 
 $exemple2 = new PermissionMapping([
-    "exemple_id" => 2,
-    "exemple_name" => "Un autre exemple",
-    "exemple_description" => "Voici une description d'un être aimé",
+    "permission_id" => 2,
+    "permission_name" => "Un autre exemple",
+    "permission_description" => "Voici une description d'un être aimé",
     "exemple_number" => 83,
     "exemple_date" => "2024-03-01 12:17:00",
     "exemple_boolean" => false,
@@ -39,9 +39,9 @@ $exemple2 = new PermissionMapping([
 ]);
 
 $exemple3 = new PermissionMapping([
-    "exemple_id" => 3,
-    "exemple_name" => "Encore un \"autre\" exemple",
-    "exemple_description" => "Voici une description d'un être aimé, <br>, ou non",
+    "permission_id" => 3,
+    "permission_name" => "Encore un \"autre\" exemple",
+    "permission_description" => "Voici une description d'un être aimé, <br>, ou non",
     "exemple_number" => 21,
     "exemple_date" => "Miam",
     "exemple_boolean" => false,

@@ -16,6 +16,9 @@ spl_autoload_register(function ($class) {
     require PROJECT_DIRECTORY. '/' .$class . '.php';
 });
 
+// chemin pris dans le répertoire racine du projet (config.php)
+//echo PROJECT_DIRECTORY;
+
 $exemple1 = new ExempleMapping([
     "exemple_id" => 1,
     "exemple_name" => "exemple1",

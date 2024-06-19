@@ -2,7 +2,7 @@
 
 // on va chercher le chemin de ExempleMapping
 use model\Mapping\ExempleMapping;
-
+use model\Mapping\PermissionMapping;
 
 // session
 session_start();
@@ -16,37 +16,12 @@ spl_autoload_register(function ($class) {
     require PROJECT_DIRECTORY. '/' .$class . '.php';
 });
 
-$exemple1 = new ExempleMapping([
-    "exemple_id" => 1,
-    "exemple_name" => "exemple1",
-    "exemple_description" => "description1",
-    "exemple_number" => 1,
-    "exemple_date" => new DateTime(),
-    "exemple_boolean" => true,
-    "exemple_float" => 1.1,
-    "je_suis_un_champ_inexistant" => "je suis un champ inexistant",
+$exemple1 = new PermissionMapping([
+    "permission_id" => 1,
+    "permission_name" => "exemple1",
+    "permission_description" => "description1"
+  
 ]);
 
-$exemple2 = new ExempleMapping([
-    "exemple_id" => 2,
-    "exemple_name" => "Un autre exemple",
-    "exemple_description" => "Voici une description d'un être aimé",
-    "exemple_number" => 83,
-    "exemple_date" => "2024-03-01 12:17:00",
-    "exemple_boolean" => false,
-    "exemple_float" => -82.3465,
-    "je_suis_un_champ_inexistant" => "je suis un champ inexistant",
-]);
 
-$exemple3 = new ExempleMapping([
-    "exemple_id" => 3,
-    "exemple_name" => "Encore un \"autre\" exemple",
-    "exemple_description" => "Voici une description d'un être aimé, <br>, ou non",
-    "exemple_number" => 21,
-    "exemple_date" => "Miam",
-    "exemple_boolean" => false,
-    "exemple_float" => -82.3465,
-    "je_suis_un_champ_inexistant" => "je suis un champ inexistant",
-]);
-
-var_dump($exemple1,$exemple2,$exemple3);
+var_dump($exemple1);

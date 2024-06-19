@@ -34,6 +34,7 @@ abstract class AbstractMapping
             }
         }
     }
-
+    // abstract public function Obligitoire() : string;
     
 }
+

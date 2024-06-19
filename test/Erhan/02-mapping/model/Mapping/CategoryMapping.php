@@ -25,51 +25,51 @@ class CategoryMapping extends AbstractMapping
         return $this->category_id;
     }
 
-    public function setcategoryId(?int $category_id): void
+    public function setCategoryId(?int $category_id): void
     {
         if($category_id > 0){
             $this->category_id = $category_id;
         }
     }
 
-    public function getcategoryName(): ?string
+    public function getCategoryName(): ?string
     {
         return $this->category_name;
     }
 
-    public function setcategoryName(?string $category_name): void
+    public function setCategoryName(?string $category_name): void
     {
         $name = htmlspecialchars(trim(strip_tags($category_name)));
         $this->category_name = $name;
     }
 
-    public function getcategorySlug(): ?string
+    public function getCategorySlug(): ?string
     {
         return $this->category_slug;
     }
 
-    public function setcategorySlug(?string $category_slug): void
+    public function setCategorySlug(?string $category_slug): void
     {
         $slug = htmlspecialchars(trim(strip_tags($category_slug)));
         $this->category_slug = $slug;
     }
 
-    public function getcategoryDescription(): ?string
+    public function getCategoryDescription(): ?string
     {
         return $this->category_description;
     }
 
-    public function setcategoryDescription(?string $category_description): void
+    public function setCategoryDescription(?string $category_description): void
     {
         $this->category_description = $category_description;
     }
 
-    public function getcategoryParent(): ?int
+    public function getCategoryParent(): ?int
     {
         return $this->category_parent;
     }
 
-    public function setcategoryParent(?int $category_parent): void
+    public function setCategoryParent(?int $category_parent): void
     {
         if($category_parent >= 0){
             $this->category_parent = $category_parent;

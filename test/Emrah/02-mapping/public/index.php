@@ -1,7 +1,7 @@
 <?php
 
 // on va chercher le chemin de ExempleMapping
-use model\Mapping\ExempleMapping;
+use model\Mapping\PermissionMapping;
 
 
 // session
@@ -16,7 +16,7 @@ spl_autoload_register(function ($class) {
     require PROJECT_DIRECTORY. '/' .$class . '.php';
 });
 
-$exemple1 = new ExempleMapping([
+$exemple1 = new PermissionMapping([
     "exemple_id" => 1,
     "exemple_name" => "exemple1",
     "exemple_description" => "description1",
@@ -27,7 +27,7 @@ $exemple1 = new ExempleMapping([
     "je_suis_un_champ_inexistant" => "je suis un champ inexistant",
 ]);
 
-$exemple2 = new ExempleMapping([
+$exemple2 = new PermissionMapping([
     "exemple_id" => 2,
     "exemple_name" => "Un autre exemple",
     "exemple_description" => "Voici une description d'un être aimé",
@@ -38,7 +38,7 @@ $exemple2 = new ExempleMapping([
     "je_suis_un_champ_inexistant" => "je suis un champ inexistant",
 ]);
 
-$exemple3 = new ExempleMapping([
+$exemple3 = new PermissionMapping([
     "exemple_id" => 3,
     "exemple_name" => "Encore un \"autre\" exemple",
     "exemple_description" => "Voici une description d'un être aimé, <br>, ou non",

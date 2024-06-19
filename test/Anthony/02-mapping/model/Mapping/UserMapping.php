@@ -39,12 +39,14 @@ class UserMapping extends AbstractMapping
 
     public function getUserLogin(): string
     {
+
         return $this->user_login;
     }
 
     public function setUserLogin(string $user_login): void
     {
-        $this->user_login = $user_login;
+        $texte = trim(strip_tags($user_login));
+        $this->user_login = $texte;
     }
 
     public function getUserPassword(): string
@@ -64,7 +66,8 @@ class UserMapping extends AbstractMapping
 
     public function setUserFullName(?string $user_full_name): void
     {
-        $this->user_full_name = $user_full_name;
+        $texte = trim(strip_tags($user_full_name));
+        $this->user_full_name = $texte;
     }
 
     public function getUserMail(): string
@@ -74,7 +77,8 @@ class UserMapping extends AbstractMapping
 
     public function setUserMail(string $user_mail): void
     {
-        $this->user_mail = $user_mail;
+        $cleanEmail = filter_var($user_mail, FILTER_VALIDATE_EMAIL);
+        $this->user_mail = $cleanEmail;
 
     }
 

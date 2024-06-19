@@ -18,8 +18,8 @@ spl_autoload_register(function ($class) {
 
 $exemple1 = new PermissionMapping([
     "permission_id" => 1,
-    "permission_name" => "exemple1",
-    "permission_description" => "description1",
+    "permission_name" => "emrah",
+    "permission_description" => "emrah",
     "exemple_number" => 1,
     "exemple_date" => new DateTime(),
     "exemple_boolean" => true,

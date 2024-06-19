@@ -38,7 +38,7 @@ class PermissionMapping extends AbstractMapping
         return $this->permission_name;
     }
 
-    public function setExempleName(?string $permission_name): void
+    public function setPermissionName(?string $permission_name): void
     {
         $this->permission_name = $permission_name;
     }
@@ -48,9 +48,9 @@ class PermissionMapping extends AbstractMapping
         return $this->permission_description;
     }
 
-    public function setExempleDescription(?string $exemple_description): void
+    public function setPermissionDescription(?string $permission_description): void
     {
-        $this->permission_description = $exemple_description;
+        $this->permission_description = $permission_description;
     }
 
 }

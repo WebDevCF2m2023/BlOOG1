@@ -28,7 +28,7 @@ class TagMapping extends AbstractMapping
         return $this->tag_slug;
     }
 
-    public function setTag(?string $tag_slug): void
+    public function setTagSlug(?string $tag_slug): void
     {
         $this->tag_slug = htmlspecialchars(trim(strip_tags($tag_slug)), ENT_QUOTES);
     }

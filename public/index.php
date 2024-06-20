@@ -73,5 +73,12 @@ $article = new \model\Mapping\ArticlesMapping([
     'user_user_id' => 1,
     ]);
 
+// test d'intégration de la classe TagMapping
+$tag = new \model\Mapping\TagMapping([
+    'tag_id' => 1,
+    'tag_slug' => 'admin',
+    ]);
 
-var_dump($user, $image, $permission, $category, $comment,$article);
+
+
+var_dump($user, $image, $permission, $category, $comment,$article,$tag);

@@ -54,13 +54,24 @@ $comment = new \model\Mapping\CommentMapping([
     'comment_id' => 1,
     'comment_text' => 'admin',
     'comment_parent' => 1,
-    'comment_date_create' => new DateTime(),
+    'comment_date_create' => "2021-09-01 00:00:00",
     'comment_date_update' => new DateTime(),
     'comment_date_publish' => new DateTime(),
     'comment_is_published' => 1,
     ]);
 
-// test
+// test d'intégration de la classe ArticlesMapping
+
+$article = new \model\Mapping\ArticlesMapping([
+    'article_id' => 1,
+    'article_title' => 'admin',
+    'article_slug' => 'admin',
+    'article_text' => 'admin <br> ho admin',
+    'article_date_create' => new DateTime(),
+    'article_date_update' => new DateTime(),
+    'article_date_publish' => new DateTime(),
+    'user_user_id' => 1,
+    ]);
 
 
-var_dump($user, $image, $permission, $category, $comment);
+var_dump($user, $image, $permission, $category, $comment,$article);

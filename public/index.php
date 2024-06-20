@@ -33,4 +33,11 @@ $image = new \model\Mapping\ImageMapping([
     'exemple_date' => new DateTime(),
     ]);
 
-var_dump($user, $image);
+// test d'intégration de la classe PermissionMapping
+$permission = new \model\Mapping\PermissionMapping([
+    'permission_id' => 1,
+    'permission_name' => 'admin',
+    'permission_description' => 'admin <br> ho admin',
+    ]);
+
+var_dump($user, $image, $permission);

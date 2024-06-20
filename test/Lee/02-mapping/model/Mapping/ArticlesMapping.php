@@ -41,6 +41,7 @@ class ArticlesMapping extends AbstractMapping
         $this->article_title = htmlspecialchars(trim(strip_tags($article_title)),
         ENT_QUOTES);
         if($article_title === "") throw new Exception("Merci d'inclure une Titre");
+        $this->article_title = htmlspecialchars(trim(strip_tags($article_title)), ENT_QUOTES);
     }
 
     public function getArticleSlug(): ?string
@@ -51,7 +52,7 @@ class ArticlesMapping extends AbstractMapping
     public function setArticleSlug(?string $article_slug): void
     {
         if($article_slug === "") throw new Exception("Merci d'inclure le Slug");
-        $this->article_slug = $article_slug;
+        $this->article_slug = htmlspecialchars(trim(strip_tags($article_slug)), ENT_QUOTES);
     }
 
     public function getArticleText(): ?string
@@ -62,7 +63,7 @@ class ArticlesMapping extends AbstractMapping
     public function setArticleText(?string $article_text): void
     {
         if($article_text === "") throw new Exception("Il faut le Text quand même");
-        $this->article_text = $article_text;
+        $this->article_text = htmlspecialchars(trim(strip_tags($article_text)), ENT_QUOTES);
     }
 
     public function getArticleDateCreate(): null|string|DateTime

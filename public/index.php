@@ -40,4 +40,14 @@ $permission = new \model\Mapping\PermissionMapping([
     'permission_description' => 'admin <br> ho admin',
     ]);
 
-var_dump($user, $image, $permission);
+// test d'intégration de la classe CategoryMapping
+$category = new \model\Mapping\CategoryMapping([
+    'category_id' => 1,
+    'category_name' => 'admin',
+    'category_slug' => 'admin',
+    'category_description' => 'admin <br> ho admin',
+    'category_parent' => 1,
+    ]);
+
+
+var_dump($user, $image, $permission, $category);

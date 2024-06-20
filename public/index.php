@@ -49,5 +49,16 @@ $category = new \model\Mapping\CategoryMapping([
     'category_parent' => 1,
     ]);
 
+// test d'intégration de la classe CommentMapping
+$comment = new \model\Mapping\CommentMapping([
+    'comment_id' => 1,
+    'comment_text' => 'admin',
+    'comment_parent' => 1,
+    'comment_date_create' => new DateTime(),
+    'comment_date_update' => new DateTime(),
+    'comment_date_publish' => new DateTime(),
+    'comment_is_published' => 1,
+    ]);
 
-var_dump($user, $image, $permission, $category);
+
+var_dump($user, $image, $permission, $category, $comment);

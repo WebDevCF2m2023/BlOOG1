@@ -39,20 +39,19 @@ class PermissionMapping extends AbstractMapping
 
     public function setPermissionName(?string $permission_name): void
     {
-        $this->permission_name = $permission_name;
+        // la protection se fait dans les setters
+        $this->permission_name = htmlspecialchars(strip_tags(trim($permission_name)),ENT_QUOTES);
     }
 
     public function getPermissionDescription(): ?string
     {
-        $permission = htmlspecialchars(strip_tags(trim($_POST['permission_description'])),ENT_QUOTES);
-        // Gimme two points if that's actually all it takes
 
         return $this->permission_description;
     }
 
     public function setPermissionDescription(?string $permission_description): void
     {
-        $this->permission_description = $permission_description;
+        $this->permission_description = htmlspecialchars(strip_tags(trim($permission_description)),ENT_QUOTES);
     }
 
 }

@@ -3,6 +3,7 @@
 namespace model\Trait;
 
 use DateTime;
+use Exception;
 trait TraitDateTime
 {
     protected function formatDateTime(null|string|DateTime $date, string $paramName)

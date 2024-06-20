@@ -60,5 +60,7 @@ $comment = new \model\Mapping\CommentMapping([
     'comment_is_published' => 1,
     ]);
 
+// test
+
 
 var_dump($user, $image, $permission, $category, $comment);

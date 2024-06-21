@@ -5,7 +5,6 @@ session_start();
 
 // on va utiliser notre connexion personnalisée (singleton)
 use model\OurPDO;
-use model\Mapping\CommentMapping;
 use model\Manager\CommentManager;
 
 // Appel de la config

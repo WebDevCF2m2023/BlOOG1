@@ -17,6 +17,7 @@ trait TraitDateTime
             try {
                 // on essaye de convertir la date en objet DateTime
                 $date = new DateTime($date);
+                // utilisation du nom de la propriété 
                 $this->$paramName = $date->format("Y-m-d H:i:s");
             } catch (Exception $e) {
                 // en cas d'échec, on met la date à null

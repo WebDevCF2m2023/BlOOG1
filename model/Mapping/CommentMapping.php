@@ -9,7 +9,9 @@ use model\Abstract\AbstractMapping;
 # notre trait de gestion du DateTime 
 use model\Trait\TraitDateTime;
 
-# objets se trouvant à la racine de l'espace de nom, il faut les appeler dans notre espace de nom model\Mapping pour pouvoir les utiliser 
+# objets se trouvant à la racine de l'espace de nom, 
+# il faut les appeler dans notre espace de nom model\Mapping 
+# pour pouvoir les utiliser 
 use DateTime;
 use Exception;
 
@@ -21,9 +23,9 @@ class CommentMapping extends AbstractMapping
     # utilisation du trait formatDateTime
     use TraitDateTime;
 
-    // Les propriétés mapping classe sont le nom des
-    // attributs de la table Comment (qui serait en
-    // base de données)
+    # Les propriétés mapping classe sont le nom des
+    # attributs de la table Comment (qui est en
+    # base de données)
 
     protected ?int $comment_id;
     protected ?string $comment_text;
@@ -52,7 +54,10 @@ class CommentMapping extends AbstractMapping
 
     public function setCommentText(?string $comment_text): void
     {
-        $this->comment_text = htmlspecialchars(trim(strip_tags($comment_text)), ENT_QUOTES);
+        $comment_text = htmlspecialchars(trim(strip_tags($comment_text)), ENT_QUOTES);
+        if(empty($comment_text)) throw new Exception("Texte invalide");
+        $this->comment_text = $comment_text;
+        
     }
 
     public function getCommentParent(): ?int
@@ -72,7 +77,7 @@ class CommentMapping extends AbstractMapping
 
     public function setCommentDateCreate(null|string|DateTime $comment_date_create): void
     {
-        // utilisation de la méthode formatDateTime
+        // utilisation de la méthode formatDateTime qui vient de TraitDateTime
         $this->formatDateTime($comment_date_create, "comment_date_create");
     }
 

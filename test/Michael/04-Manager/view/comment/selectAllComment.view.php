@@ -18,7 +18,7 @@
     else:
         foreach($selectComment as $item):
         ?>
-    <h4>ID : <?=$item->getCommentId()?> <a href="?view=<?=$item->getCommentId()?>">Voir ce commentaire via son id</a></h4>
+    <h4>ID : <?=$item->getCommentId()?> <a href="?view=<?=$item->getCommentId()?>">Voir ce commentaire via son id</a> <a href="?update=<?=$item->getCommentId()?>">Mettre à jour</a></h4>
     <p><?=$item->getCommentText()?></p>
     <p><?=$item->getCommentDateCreate()?></p><hr>
         <?php

@@ -51,7 +51,19 @@ if(empty($_GET)){
     }
     // view
     require "../view/comment/insertComment.view.php";
+}elseif (isset($_GET['update'])&&ctype_digit($_GET['update'])) {
+    $idComment = (int)$_GET['update'];
+    // select one comment
+    $selectOneComment = $commentManager->selectOneById($idComment);
+    // update comment
+    if (isset($_POST['comment_text'])) {
+        // update comment
+        $comment = new CommentMapping($_POST);
+        $comment->setCommentId($idComment);
+        echo $updateComment = $commentManager->update($comment);
+    }
+    // view
+    require "../view/comment/updateComment.view.php";
 }
-
 
 $dbConnect = null;

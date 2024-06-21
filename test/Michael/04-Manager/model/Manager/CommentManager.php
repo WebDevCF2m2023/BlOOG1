@@ -24,10 +24,10 @@ class CommentManager implements InterfaceManager{
         // requête SQL
         $sql = "SELECT * FROM `comment` -- WHERE `comment_id`=5
          ORDER BY `comment_date_publish` DESC";
-        // query car pas d'entrées utilisateur
+        // query car pas d'entrées d'utilisateur
         $select = $this->connect->query($sql);
 
-        // si on ne récupère rien on quitte avec un message d'erreur
+        // si on ne récupère rien, on quitte avec un message d'erreur
         if($select->rowCount()===0) return null;
 
         // on transforme nos résultats en tableau associatif
@@ -76,6 +76,61 @@ class CommentManager implements InterfaceManager{
     }
     public function update(object $object)
     {
+        // on récupère les valeurs de l'objet
+        $commentId = $object->getCommentId();
+        $commentText = $object->getCommentText();
+        $commentParent = $object->getCommentParent();
+        $commentDateCreate = $object->getCommentDateCreate();
+        $commentDateUpdate = $object->getCommentDateUpdate();
+        $commentDatePublish = $object->getCommentDatePublish();
+        $commentIsPublished = $object->getCommentIsPublished();
+
+        // requête préparée
+        $sql = "UPDATE `comment` SET `comment_text`=?, `comment_parent`=?,`comment_date_create`=?, `comment_date_update`=?, `comment_date_publish`=?, `comment_is_published`=? WHERE `comment_id`=?";
+        $prepare = $this->connect->prepare($sql);
+
+        try{
+            $prepare->bindValue(1,$commentText, OurPDO::PARAM_STR);
+            $prepare->bindValue(2,$commentParent, OurPDO::PARAM_INT);
+            $prepare->bindValue(3,$commentDateCreate, OurPDO::PARAM_STR);
+            $prepare->bindValue(4,$commentDateUpdate, OurPDO::PARAM_STR);
+            $prepare->bindValue(5,$commentDatePublish, OurPDO::PARAM_STR);
+            $prepare->bindValue(6,$commentIsPublished, OurPDO::PARAM_INT);
+            $prepare->bindValue(7,$commentId, OurPDO::PARAM_INT);
+
+            $prepare->execute();
+
+            $prepare->closeCursor();
+
+            return "Commentaire mis à jour";
+
+        }catch(Exception $e){
+            return $e->getMessage();
+        }
+        $commentDateUpdate = $object->getCommentDateUpdate();
+        $commentDatePublish = $object->getCommentDatePublish();
+        $commentIsPublished = 0;
+
+        // requête préparée
+        $sql = "UPDATE `comment` SET `comment_text`=?, `comment_parent`=?, `comment_date_update`=?, `comment_date_publish`=? WHERE `comment_id`=?";
+        $prepare = $this->connect->prepare($sql);
+
+        try{
+            $prepare->bindValue(1,$commentText, OurPDO::PARAM_STR);
+            $prepare->bindValue(2,$commentParent, OurPDO::PARAM_INT);
+            $prepare->bindValue(3,$commentDateUpdate, OurPDO::PARAM_STR);
+            $prepare->bindValue(4,$commentDatePublish, OurPDO::PARAM_STR);
+            $prepare->bindValue(5,$commentId, OurPDO::PARAM_INT);
+
+            $prepare->execute();
+
+            $prepare->closeCursor();
+
+            return "Commentaire mis à jour";
+
+        }catch(Exception $e){
+            return $e->getMessage();
+        }
         
     }
     public function insert(object $object)

@@ -54,7 +54,7 @@ class CommentMapping extends AbstractMapping
 
     public function setCommentText(?string $comment_text): void
     {
-        $comment_text = htmlspecialchars(trim(strip_tags($comment_text)), ENT_QUOTES);
+        $comment_text = trim(strip_tags($comment_text));
         if(empty($comment_text)) throw new Exception("Texte invalide");
         $this->comment_text = $comment_text;
         

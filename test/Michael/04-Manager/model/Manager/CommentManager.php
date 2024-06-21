@@ -2,6 +2,7 @@
 
 namespace model\Manager ;
 
+use Exception;
 use model\Interface\InterfaceManager;
 use model\Mapping\CommentMapping;
 use model\OurPDO;
@@ -38,12 +39,39 @@ class CommentManager implements InterfaceManager{
             // on remplit un nouveau tableau contenant les commentaires
             $arrayComment[] = new CommentMapping($value);
         }
-        
+
         return $arrayComment;
     }
 
-    public function selectOneById(int $id)
+    // récupération d'un commentaire via son id
+    public function selectOneById(int $id): null|string|CommentMapping
     {
+
+        // requête préparée
+        $sql = "SELECT * FROM `comment` WHERE `comment_id`= ?";
+        $prepare = $this->connect->prepare($sql);
+
+        try{
+            $prepare->bindValue(1,$id, OurPDO::PARAM_INT);
+            $prepare->execute();
+
+            // pas de résultat = null
+            if($prepare->rowCount()===0) return null;
+
+            // récupération des valeurs en tableau associatif
+            $result = $prepare->fetch(OurPDO::FETCH_ASSOC);
+
+            // création de l'instance CommentMapping
+            $result = new CommentMapping($result);
+
+            $prepare->closeCursor();
+            
+            return $result;
+
+
+        }catch(Exception $e){
+            return $e->getMessage();
+        }
         
     }
     public function update(object $object)

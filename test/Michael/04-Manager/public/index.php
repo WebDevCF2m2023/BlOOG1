@@ -32,6 +32,14 @@ if(empty($_GET)){
     $selectComment = $commentManager->selectAll();
     // view
     require "../view/selectAllComment.view.php";
+// detail view
+}elseif(isset($_GET['view'])&&ctype_digit($_GET['view'])){
+    $idComment = (int) $_GET['view'];
+    // select one comment
+    $selectOneComment = $commentManager->selectOneById($idComment);
+    // view
+    require "../view/selectOneComment.view.php";
 }
 
 
+$dbConnect = null;

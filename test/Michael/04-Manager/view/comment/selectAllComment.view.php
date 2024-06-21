@@ -9,7 +9,9 @@
     <h1>Exemple du CommentManager::selectAll()</h1>
     <div>
         <?php
-    if(is_null($selectComment)):
+        require 'menu.comment.view.php';
+
+        if(is_null($selectComment)):
         ?>
         <h3>Pas encore de commentaire !</h3>
         <?php

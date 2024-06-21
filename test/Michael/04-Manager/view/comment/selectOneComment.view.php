@@ -8,9 +8,11 @@
 <body>
     <h1>Exemple du CommentManager::selectOneComment()</h1>
     <div>
-    <a href="./">Accueil</a>
         <?php
-    if(is_null($selectOneComment)):
+
+        require 'menu.comment.view.php';
+
+        if(is_null($selectOneComment)):
         ?>
         <h3>Commentaire inexistant</h3>
         

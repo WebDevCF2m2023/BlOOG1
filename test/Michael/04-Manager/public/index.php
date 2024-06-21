@@ -6,6 +6,7 @@ session_start();
 // on va utiliser notre connexion personnalisée (singleton)
 use model\OurPDO;
 use model\Manager\CommentManager;
+use model\Mapping\CommentMapping;
 
 // Appel de la config
 require_once "../config.php";
@@ -30,14 +31,26 @@ if(empty($_GET)){
     // all comments
     $selectComment = $commentManager->selectAll();
     // view
-    require "../view/selectAllComment.view.php";
+    require "../view/comment/selectAllComment.view.php";
 // detail view
 }elseif(isset($_GET['view'])&&ctype_digit($_GET['view'])){
     $idComment = (int) $_GET['view'];
     // select one comment
     $selectOneComment = $commentManager->selectOneById($idComment);
     // view
-    require "../view/selectOneComment.view.php";
+    require "../view/comment/selectOneComment.view.php";
+// insert comment
+}elseif(isset($_GET['insert'])){
+
+// insert comment
+    if(isset($_POST['comment_text'])) {
+        // insert comment
+        $comment = new CommentMapping($_POST);
+        var_dump($comment);
+        echo $insertComment = $commentManager->insert($comment);
+    }
+    // view
+    require "../view/comment/insertComment.view.php";
 }
 
 

@@ -27,13 +27,13 @@ class CommentMapping extends AbstractMapping
     # attributs de la table Comment (qui est en
     # base de données)
 
-    protected ?int $comment_id;
-    protected ?string $comment_text;
-    protected ?int $comment_parent;
-    protected null|string|DateTime $comment_date_create;
-    protected null|string|DateTime $comment_date_update;
-    protected null|string|DateTime $comment_date_publish;
-    protected ?int $comment_is_published;
+    protected ?int $comment_id=null;
+    protected ?string $comment_text=null;
+    protected ?int $comment_parent=null;
+    protected null|string|DateTime $comment_date_create=null;
+    protected null|string|DateTime $comment_date_update=null;
+    protected null|string|DateTime $comment_date_publish=null;
+    protected ?int $comment_is_published=null;
 
     // Les getters et setters
 

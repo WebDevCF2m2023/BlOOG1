@@ -80,7 +80,35 @@ class CommentManager implements InterfaceManager{
     }
     public function insert(object $object)
     {
-        
+        // on récupère les valeurs de l'objet
+        $commentText = $object->getCommentText();
+        $commentParent = $object->getCommentParent();
+
+        $commentDateUpdate = $object->getCommentDateUpdate();
+        $commentDatePublish = $object->getCommentDatePublish();
+        $commentIsPublished = 0;
+
+        // requête préparée
+        $sql = "INSERT INTO `comment`(`comment_text`, `comment_parent`,  `comment_date_update`, `comment_date_publish`) 
+        VALUES (?,?,?,?)";
+        $prepare = $this->connect->prepare($sql);
+
+        try{
+            $prepare->bindValue(1,$commentText, OurPDO::PARAM_STR);
+            $prepare->bindValue(2,$commentParent, OurPDO::PARAM_INT);
+            $prepare->bindValue(3,$commentDateUpdate, OurPDO::PARAM_STR);
+            $prepare->bindValue(4,$commentDatePublish, OurPDO::PARAM_STR);
+
+
+            $prepare->execute();
+
+            $prepare->closeCursor();
+
+            return "Commentaire ajouté";
+
+        }catch(Exception $e){
+            return $e->getMessage();
+        }
     }
     public function delete(int $id)
     {

@@ -81,3 +81,28 @@ $tag = new \model\Mapping\TagMapping([
 
 
 var_dump($user, $image, $permission, $category, $comment,$article,$tag);
+
+// Essais sur OurPDO
+
+use model\OurPDO;
+
+$connectDB1 = OurPDO::getInstance(
+    DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME.";port=".DB_PORT.";charset=".DB_CHARSET,
+    DB_LOGIN,
+    DB_PWD
+);
+
+$connectDB2 = OurPDO::getInstance(
+    DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME.";port=".DB_PORT.";charset=".DB_CHARSET,
+    DB_LOGIN,
+    DB_PWD
+);
+
+$connectDB3 = new PDO(DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME.";port=".DB_PORT.";charset=".DB_CHARSET,
+DB_LOGIN,
+DB_PWD);
+
+$connectDB4 = new PDO(DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME.";port=".DB_PORT.";charset=".DB_CHARSET,
+DB_LOGIN,
+DB_PWD);
+var_dump($connectDB1, $connectDB2,$connectDB3,$connectDB4);

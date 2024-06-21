@@ -1,17 +1,27 @@
 <?php
 
+# notre espace de nom pour les mapping 
 namespace model\Mapping;
 
+# notre classe abstraite de mapping 
 use model\Abstract\AbstractMapping;
-use DateTime;
-use Exception;
+
+# notre trait de gestion du DateTime 
 use model\Trait\TraitDateTime;
 
+# objets se trouvant à la racine de l'espace de nom, il faut les appeler dans notre espace de nom model\Mapping pour pouvoir les utiliser 
+use DateTime;
+use Exception;
+
+
+# classe de mapping de la table comment,étendue de AbstractMapping 
 class CommentMapping extends AbstractMapping
 {
-    // utilisation du trait formatDateTime
+
+    # utilisation du trait formatDateTime
     use TraitDateTime;
-    // Les propriétés de la classe sont le nom des
+
+    // Les propriétés mapping classe sont le nom des
     // attributs de la table Comment (qui serait en
     // base de données)
 

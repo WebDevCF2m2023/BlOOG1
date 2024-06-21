@@ -107,30 +107,6 @@ class CommentManager implements InterfaceManager{
         }catch(Exception $e){
             return $e->getMessage();
         }
-        $commentDateUpdate = $object->getCommentDateUpdate();
-        $commentDatePublish = $object->getCommentDatePublish();
-        $commentIsPublished = 0;
-
-        // requête préparée
-        $sql = "UPDATE `comment` SET `comment_text`=?, `comment_parent`=?, `comment_date_update`=?, `comment_date_publish`=? WHERE `comment_id`=?";
-        $prepare = $this->connect->prepare($sql);
-
-        try{
-            $prepare->bindValue(1,$commentText, OurPDO::PARAM_STR);
-            $prepare->bindValue(2,$commentParent, OurPDO::PARAM_INT);
-            $prepare->bindValue(3,$commentDateUpdate, OurPDO::PARAM_STR);
-            $prepare->bindValue(4,$commentDatePublish, OurPDO::PARAM_STR);
-            $prepare->bindValue(5,$commentId, OurPDO::PARAM_INT);
-
-            $prepare->execute();
-
-            $prepare->closeCursor();
-
-            return "Commentaire mis à jour";
-
-        }catch(Exception $e){
-            return $e->getMessage();
-        }
         
     }
     public function insert(object $object)

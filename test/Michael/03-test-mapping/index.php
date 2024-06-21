@@ -1,5 +1,6 @@
 <?php
 
+use model\Mapping\ImageMapping;
 
 // Appel de la config
 require_once "../../../config.php";
@@ -23,7 +24,7 @@ $user = new \model\Mapping\UserMapping([
 ]);
 
 // test d'intégration de la classe ImageMapping
-$image = new \model\Mapping\ImageMapping([
+$image = new ImageMapping([
     'image_id' => 1,
     'image_url' => 'https://www.google.com',
     'image_description' => 'image de test',
@@ -50,7 +51,7 @@ $category = new \model\Mapping\CategoryMapping([
 // test d'intégration de la classe CommentMapping
 $comment = new \model\Mapping\CommentMapping([
     'comment_id' => 1,
-    'comment_text' => 'admin',
+    'comment_text' => '<br>coucou',
     'comment_parent' => 1,
     'comment_date_create' => "2021-09-01 00:00:00",
     'comment_date_update' => new DateTime(),
@@ -80,3 +81,28 @@ $tag = new \model\Mapping\TagMapping([
 
 
 var_dump($user, $image, $permission, $category, $comment,$article,$tag);
+
+// Essais sur OurPDO
+
+use model\OurPDO;
+
+$connectDB1 = OurPDO::getInstance(
+    DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME.";port=".DB_PORT.";charset=".DB_CHARSET,
+    DB_LOGIN,
+    DB_PWD
+);
+
+$connectDB2 = OurPDO::getInstance(
+    DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME.";port=".DB_PORT.";charset=".DB_CHARSET,
+    DB_LOGIN,
+    DB_PWD
+);
+
+$connectDB3 = new PDO(DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME.";port=".DB_PORT.";charset=".DB_CHARSET,
+DB_LOGIN,
+DB_PWD);
+
+$connectDB4 = new PDO(DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME.";port=".DB_PORT.";charset=".DB_CHARSET,
+DB_LOGIN,
+DB_PWD);
+var_dump($connectDB1, $connectDB2,$connectDB3,$connectDB4);

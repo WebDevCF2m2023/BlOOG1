@@ -21,7 +21,6 @@ namespace model;
 
 use PDO;
 use Exception;
-use PDOStatement;
 
 class OurPDO extends PDO
 {

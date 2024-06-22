@@ -22,7 +22,7 @@ class CommentManager implements InterfaceManager{
     public function selectAll(): ?array
     {
         // requête SQL
-        $sql = "SELECT * FROM `comment` -- WHERE `comment_id`=5
+        $sql = "SELECT * FROM `comment` -- WHERE `comment_id`=999
          ORDER BY `comment_date_create` DESC";
         // query car pas d'entrées d'utilisateur
         $select = $this->connect->query($sql);
@@ -32,6 +32,9 @@ class CommentManager implements InterfaceManager{
 
         // on transforme nos résultats en tableau associatif
         $array = $select->fetchAll(OurPDO::FETCH_ASSOC);
+
+        // on ferme le curseur
+        $select->closeCursor();
 
         // on va stocker les commentaires dans un tableau
         $arrayComment = [];
@@ -44,6 +47,7 @@ class CommentManager implements InterfaceManager{
             $arrayComment[] = new CommentMapping($value);
         }
 
+        // on retourne le tableau
         return $arrayComment;
     }
 
@@ -90,8 +94,8 @@ class CommentManager implements InterfaceManager{
         $prepare = $this->connect->prepare($sql);
 
         try{
-            $prepare->bindValue(1,$object->getCommentText(), OurPDO::PARAM_STR);
-            $prepare->bindValue(2,$object->getCommentDateUpdate(), OurPDO::PARAM_STR);
+            $prepare->bindValue(1,$object->getCommentText());
+            $prepare->bindValue(2,$object->getCommentDateUpdate());
             $prepare->bindValue(3,$object->getCommentId(), OurPDO::PARAM_INT);
 
             $prepare->execute();
@@ -116,7 +120,7 @@ class CommentManager implements InterfaceManager{
         $prepare = $this->connect->prepare($sql);
 
         try{
-            $prepare->bindValue(1,$object->getCommentText(), OurPDO::PARAM_STR);
+            $prepare->bindValue(1,$object->getCommentText());
 
             $prepare->execute();
 

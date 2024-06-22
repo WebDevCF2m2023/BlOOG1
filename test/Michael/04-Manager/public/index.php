@@ -28,14 +28,9 @@ DB_PWD);
 $commentManager = new CommentManager($dbConnect);
 
 
-// homepage
-if(empty($_GET)){
-    // all comments
-    $selectComment = $commentManager->selectAll();
-    // view
-    require "../view/comment/selectAllComment.view.php";
+
 // detail view
-}elseif(isset($_GET['view'])&&ctype_digit($_GET['view'])){
+if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
     $idComment = (int) $_GET['view'];
     // select one comment
     $selectOneComment = $commentManager->selectOneById($idComment);
@@ -57,6 +52,7 @@ if(empty($_GET)){
 
             if($insertComment===true) {
                 header("Location: ./");
+                exit();
             }else{
                 $error = $insertComment;
             }
@@ -72,17 +68,37 @@ if(empty($_GET)){
 // delete comment
 }elseif (isset($_GET['update'])&&ctype_digit($_GET['update'])) {
     $idComment = (int)$_GET['update'];
-    // select one comment
-    $selectOneComment = $commentManager->selectOneById($idComment);
+
     // update comment
     if (isset($_POST['comment_text'])) {
-        // update comment
-        $comment = new CommentMapping($_POST);
-        $comment->setCommentId($idComment);
-        echo $updateComment = $commentManager->update($comment);
+        try {
+            // create comment
+            $comment = new CommentMapping($_POST);
+            $comment->setCommentId($idComment);
+            // update comment
+            $updateComment = $commentManager->update($comment);
+            if($updateComment===true) {
+                header("Location: ./");
+                exit();
+            }else{
+                $error = $updateComment;
+            }
+        }catch (Exception $e) {
+            $error = $e->getMessage();
+        }
+
     }
+    // select one comment
+    $selectOneComment = $commentManager->selectOneById($idComment);
     // view
     require "../view/comment/updateComment.view.php";
+
+// homepage
+}else{
+    // select all comments
+    $selectAllComments = $commentManager->selectAll();
+    // view
+    require "../view/comment/selectAllComment.view.php";
 }
 
 $dbConnect = null;

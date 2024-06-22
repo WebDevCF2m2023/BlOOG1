@@ -11,12 +11,12 @@
         <?php
         require 'menu.comment.view.php';
 
-        if(is_null($selectComment)):
+        if(is_null($selectAllComments)):
         ?>
         <h3>Pas encore de commentaire !</h3>
         <?php
     else:
-        foreach($selectComment as $item):
+        foreach($selectAllComments as $item):
         ?>
     <h4>ID : <?=$item->getCommentId()?> <a href="?view=<?=$item->getCommentId()?>">Voir ce commentaire via son id</a> <a href="?update=<?=$item->getCommentId()?>">Mettre à jour</a></h4>
     <p><?=$item->getCommentText()?></p>
@@ -26,9 +26,6 @@
     endif;
         ?>
     </div>
-    
-    <?php
-var_dump($dbConnect,$commentManager,$selectComment);
-    ?>
+
 </body>
 </html>

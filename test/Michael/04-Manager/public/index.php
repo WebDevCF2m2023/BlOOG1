@@ -93,6 +93,18 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
     // view
     require "../view/comment/updateComment.view.php";
 
+// delete comment
+}elseif(isset($_GET['delete'])&&ctype_digit($_GET['delete'])){
+    $idComment = (int) $_GET['delete'];
+    // delete comment
+    $deleteComment = $commentManager->delete($idComment);
+    if($deleteComment===true) {
+        header("Location: ./");
+        exit();
+    }else{
+        $error = $deleteComment;
+    }
+
 // homepage
 }else{
     // select all comments

@@ -19,7 +19,7 @@
     else:
         foreach($selectAllComments as $item):
         ?>
-    <h4>ID : <?=$item->getCommentId()?> <a href="?view=<?=$item->getCommentId()?>">Voir ce commentaire via son id</a> <a href="?update=<?=$item->getCommentId()?>">Mettre à jour</a> <a href="?delete=<?=$item->getCommentId()?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');">Supprimer</a> </h4>
+    <h4>ID : <?=$item->getCommentId()?> <a href="?view=<?=$item->getCommentId()?>">Voir ce commentaire via son id</a> | <a href="?update=<?=$item->getCommentId()?>">Mettre à jour</a> | <a href="?delete=<?=$item->getCommentId()?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');">Supprimer</a> </h4>
     <p><?=$item->getCommentText()?></p>
     <p><?=$item->getCommentDateCreate()?></p><hr>
         <?php

@@ -16,7 +16,7 @@ use DateTime;
 use Exception;
 
 
-# classe de mapping de la table comment,étendue de AbstractMapping 
+# classe de mapping de la table comment, étendue de AbstractMapping
 class CommentMapping extends AbstractMapping
 {
 
@@ -24,16 +24,15 @@ class CommentMapping extends AbstractMapping
     use TraitDateTime;
 
     # Les propriétés mapping classe sont le nom des
-    # attributs de la table Comment (qui est en
-    # base de données)
+    # attributs de la table Comment (qui est en base de données)
 
-    protected ?int $comment_id;
-    protected ?string $comment_text;
-    protected ?int $comment_parent;
-    protected null|string|DateTime $comment_date_create;
-    protected null|string|DateTime $comment_date_update;
-    protected null|string|DateTime $comment_date_publish;
-    protected ?int $comment_is_published;
+    protected ?int $comment_id=null;
+    protected ?string $comment_text=null;
+    protected ?int $comment_parent=null;
+    protected null|string|DateTime $comment_date_create=null;
+    protected null|string|DateTime $comment_date_update=null;
+    protected null|string|DateTime $comment_date_publish=null;
+    protected ?int $comment_is_published=null;
 
     // Les getters et setters
 
@@ -54,7 +53,7 @@ class CommentMapping extends AbstractMapping
 
     public function setCommentText(?string $comment_text): void
     {
-        $comment_text = htmlspecialchars(trim(strip_tags($comment_text)), ENT_QUOTES);
+        $comment_text = trim(strip_tags($comment_text));
         if(empty($comment_text)) throw new Exception("Texte invalide");
         $this->comment_text = $comment_text;
         

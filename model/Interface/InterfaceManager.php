@@ -20,9 +20,9 @@ use Exception;
 interface InterfaceManager
 {
     public function __construct(OurPDO $pdo);
-    public function selectAll(): array;
-    public function selectOneById(int $id): object;
-    public function insert(object $object): void;
-    public function update(object $object): void;
-    public function delete(int $id): void;
+    public function selectAll();
+    public function selectOneById(int $id);
+    public function insert(object $object);
+    public function update(object $object);
+    public function delete(int $id);
 }

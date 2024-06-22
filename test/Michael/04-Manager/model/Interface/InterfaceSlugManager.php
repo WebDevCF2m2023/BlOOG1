@@ -19,7 +19,6 @@ interface InterfaceSlugManager
      * Cette méthode doit renvoyer un seul enregistrement correspondant au slug fourni.
      *
      * @param string $slug Le slug de l'enregistrement à récupérer.
-     * @return object L'enregistrement correspondant au slug fourni.
      */
-    public function selectOneBySlug(string $slug): object;
+    public function selectOneBySlug(string $slug);
 }

@@ -1,7 +1,4 @@
-<ul>
-    <li><a href="./">homepage</a></li>
-    <li><a href="?insert">insert</a></li>
-    <li><a href=""></a></li>
-    <li><a href=""></a></li>
-    <li><a href=""></a></li>
-</ul>
+<div class="menu">
+    <a href="./">Homepage</a> |
+    <a href="?insert">Insert</a>
+</div>

@@ -3,7 +3,7 @@
 // Espace de nom (isolation du code)
 namespace model\Abstract;
 
-// Classe abstrait qui ne peut être instanciée
+// Classe abstraite qui ne peut être instanciée.
 // Elle est la base de tous les mappings de tables
 abstract class AbstractMapping
 {

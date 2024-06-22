@@ -16,6 +16,7 @@
 
         <?php
         else:
+        if(isset($error)) echo "<h4>$error</h4>";
         ?>
     <h3>Modification d'un commentaire</h3>
     <form action="" method="post">

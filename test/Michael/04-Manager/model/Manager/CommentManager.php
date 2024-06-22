@@ -134,8 +134,24 @@ class CommentManager implements InterfaceManager{
     }
 
     // suppression d'un commentaire
-    public function delete(int $id)
+    public function delete(int $id): bool|string
     {
+        // requête préparée
+        $sql = "DELETE FROM `comment` WHERE `comment_id`=?";
+        $prepare = $this->connect->prepare($sql);
+
+        try{
+            $prepare->bindValue(1,$id, OurPDO::PARAM_INT);
+
+            $prepare->execute();
+
+            $prepare->closeCursor();
+
+            return true;
+
+        }catch(Exception $e){
+            return $e->getMessage();
+        }
         
     }
 

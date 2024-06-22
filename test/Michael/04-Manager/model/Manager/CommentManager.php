@@ -76,27 +76,17 @@ class CommentManager implements InterfaceManager{
     }
     public function update(object $object)
     {
-        // on récupère les valeurs de l'objet
-        $commentId = $object->getCommentId();
-        $commentText = $object->getCommentText();
-        $commentParent = $object->getCommentParent();
-        $commentDateCreate = $object->getCommentDateCreate();
-        $commentDateUpdate = $object->getCommentDateUpdate();
-        $commentDatePublish = $object->getCommentDatePublish();
-        $commentIsPublished = $object->getCommentIsPublished();
 
         // requête préparée
-        $sql = "UPDATE `comment` SET `comment_text`=?, `comment_parent`=?,`comment_date_create`=?, `comment_date_update`=?, `comment_date_publish`=?, `comment_is_published`=? WHERE `comment_id`=?";
+        $sql = "UPDATE `comment` SET `comment_text`=?, `comment_date_update`=? WHERE `comment_id`=?";
+        // mise à jour de la date de modification
+        $object->setCommentDateUpdate(date("Y-m-d H:i:s"));
         $prepare = $this->connect->prepare($sql);
 
         try{
-            $prepare->bindValue(1,$commentText, OurPDO::PARAM_STR);
-            $prepare->bindValue(2,$commentParent, OurPDO::PARAM_INT);
-            $prepare->bindValue(3,$commentDateCreate, OurPDO::PARAM_STR);
-            $prepare->bindValue(4,$commentDateUpdate, OurPDO::PARAM_STR);
-            $prepare->bindValue(5,$commentDatePublish, OurPDO::PARAM_STR);
-            $prepare->bindValue(6,$commentIsPublished, OurPDO::PARAM_INT);
-            $prepare->bindValue(7,$commentId, OurPDO::PARAM_INT);
+            $prepare->bindValue(1,$object->getCommentText(), OurPDO::PARAM_STR);
+            $prepare->bindValue(2,$object->getCommentDateUpdate(), OurPDO::PARAM_STR);
+            $prepare->bindValue(3,$object->getCommentId(), OurPDO::PARAM_INT);
 
             $prepare->execute();
 

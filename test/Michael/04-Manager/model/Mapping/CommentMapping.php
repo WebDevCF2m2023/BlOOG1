@@ -16,7 +16,7 @@ use DateTime;
 use Exception;
 
 
-# classe de mapping de la table comment,étendue de AbstractMapping 
+# classe de mapping de la table comment, étendue de AbstractMapping
 class CommentMapping extends AbstractMapping
 {
 
@@ -24,8 +24,7 @@ class CommentMapping extends AbstractMapping
     use TraitDateTime;
 
     # Les propriétés mapping classe sont le nom des
-    # attributs de la table Comment (qui est en
-    # base de données)
+    # attributs de la table Comment (qui est en base de données)
 
     protected ?int $comment_id=null;
     protected ?string $comment_text=null;

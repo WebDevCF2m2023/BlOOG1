@@ -23,7 +23,7 @@ class CommentManager implements InterfaceManager{
     {
         // requête SQL
         $sql = "SELECT * FROM `comment` -- WHERE `comment_id`=5
-         ORDER BY `comment_date_publish` DESC";
+         ORDER BY `comment_date_create` DESC";
         // query car pas d'entrées d'utilisateur
         $select = $this->connect->query($sql);
 
@@ -33,8 +33,12 @@ class CommentManager implements InterfaceManager{
         // on transforme nos résultats en tableau associatif
         $array = $select->fetchAll(OurPDO::FETCH_ASSOC);
 
-        // pour chaque valeur, on va créer une instance de classe
-        // liée à la table qu'on va manager
+        // on va stocker les commentaires dans un tableau
+        $arrayComment = [];
+
+        /* pour chaque valeur, on va créer une instance de classe
+        CommentMapping, liée à la table qu'on va manager
+        */
         foreach($array as $value){
             // on remplit un nouveau tableau contenant les commentaires
             $arrayComment[] = new CommentMapping($value);
@@ -74,7 +78,9 @@ class CommentManager implements InterfaceManager{
         }
         
     }
-    public function update(object $object)
+
+    // mise à jour d'un commentaire
+    public function update(object $object): bool|string
     {
 
         // requête préparée
@@ -92,45 +98,38 @@ class CommentManager implements InterfaceManager{
 
             $prepare->closeCursor();
 
-            return "Commentaire mis à jour";
+            return true;
 
         }catch(Exception $e){
             return $e->getMessage();
         }
         
     }
-    public function insert(object $object)
-    {
-        // on récupère les valeurs de l'objet
-        $commentText = $object->getCommentText();
-        $commentParent = $object->getCommentParent();
 
-        $commentDateUpdate = $object->getCommentDateUpdate();
-        $commentDatePublish = $object->getCommentDatePublish();
-        $commentIsPublished = 0;
+
+    // insertion d'un commentaire
+    public function insert(object $object): bool|string
+    {
 
         // requête préparée
-        $sql = "INSERT INTO `comment`(`comment_text`, `comment_parent`,  `comment_date_update`, `comment_date_publish`) 
-        VALUES (?,?,?,?)";
+        $sql = "INSERT INTO `comment`(`comment_text`)  VALUES (?)";
         $prepare = $this->connect->prepare($sql);
 
         try{
-            $prepare->bindValue(1,$commentText, OurPDO::PARAM_STR);
-            $prepare->bindValue(2,$commentParent, OurPDO::PARAM_INT);
-            $prepare->bindValue(3,$commentDateUpdate, OurPDO::PARAM_STR);
-            $prepare->bindValue(4,$commentDatePublish, OurPDO::PARAM_STR);
-
+            $prepare->bindValue(1,$object->getCommentText(), OurPDO::PARAM_STR);
 
             $prepare->execute();
 
             $prepare->closeCursor();
 
-            return "Commentaire ajouté";
+            return true;
 
         }catch(Exception $e){
             return $e->getMessage();
         }
     }
+
+    // suppression d'un commentaire
     public function delete(int $id)
     {
         

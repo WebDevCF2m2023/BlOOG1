@@ -10,10 +10,11 @@ class ImageMapping extends AbstractMapping
     // Les propriétés de la classe sont le nom des
     // attributs de la table Exemple (qui serait en
     // base de données)
-    protected ?int $image_id;
-    protected ?string $image_url;
-    protected ?string $image_description;
-    protected ?int $article_article_id ;
+    protected ?int $image_id=null;
+    protected ?string $image_url=null;
+    protected ?string $image_description=null;
+    protected ?string $image_type=null;
+    protected ?int $article_article_id=null;
 
 
     public function getImageId(): ?int
@@ -54,6 +55,16 @@ class ImageMapping extends AbstractMapping
     public function setArticleArticleId(?int $ArticleArticleId): void
     {
         $this->article_article_id = $ArticleArticleId;
+    }
+
+    public function getImageType(): ?string
+    {
+        return $this->image_type;
+    }
+
+    public function setImageType(?string $image_type): void
+    {
+        $this->image_type = $image_type;
     }
 
 

@@ -4,13 +4,17 @@ namespace model\Mapping;
 
 use model\Abstract\AbstractMapping;
 
+use model\Trait\TraitSlugify;
+
 class TagMapping extends AbstractMapping
 {
     // Les propriétés de la classe sont le nom des
     // attributs de la table Exemple (qui serait en
     // base de données)
-    protected ?int $tag_id;
-    protected ?string $tag_slug;
+    protected ?int $tag_id=null;
+    protected ?string $tag_slug=null;
+
+    use TraitSlugify;
     
     // Les getters et setters
     public function getTagId(): ?int
@@ -28,9 +32,10 @@ class TagMapping extends AbstractMapping
         return $this->tag_slug;
     }
 
-    public function setTagSlug(?string $tag_slug): void
+    public function setTagSlug(?string $tag_slug)
     {
-        $this->tag_slug = htmlspecialchars(trim(strip_tags($tag_slug)), ENT_QUOTES);
+        if(is_null($tag_slug)) return null;
+        $this->tag_slug = $this->slugify($tag_slug);
     }
 
    

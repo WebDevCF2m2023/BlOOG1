@@ -10,6 +10,10 @@ use model\Manager\CommentManager;
 // on va utiliser notre classe de mapping de commentaires
 use model\Mapping\CommentMapping;
 
+use model\Manager\CategoryManager;
+
+use model\Mapping\CategoryMapping;
+
 // Appel de la config
 require_once "../config.php";
 
@@ -26,7 +30,7 @@ DB_PWD);
 
 // create comment Manager
 $commentManager = new CommentManager($dbConnect);
-
+$categoryManager = new CategoryManager($dbConnect);
 
 
 // detail view

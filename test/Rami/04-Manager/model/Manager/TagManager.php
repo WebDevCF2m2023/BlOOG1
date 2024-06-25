@@ -4,11 +4,11 @@ namespace model\Manager ;
 
 use Exception;
 use model\Interface\InterfaceManager;
-use model\Mapping\CommentMapping;
+use model\Mapping\TagMapping;
 use model\Abstract\AbstractMapping;
 use model\OurPDO;
 
-class CommentManager implements InterfaceManager{
+class TagManager implements InterfaceManager{
 
     // On va stocker la connexion dans une propriété privée
     private ?OurPDO $connect = null;
@@ -23,8 +23,8 @@ class CommentManager implements InterfaceManager{
     public function selectAll(): ?array
     {
         // requête SQL
-        $sql = "SELECT * FROM `comment` -- WHERE `comment_id`=999
-         ORDER BY `comment_date_create` DESC";
+        $sql = "SELECT * FROM `tag`
+         ORDER BY `tag_id` DESC";
         // query car pas d'entrées d'utilisateur
         $select = $this->connect->query($sql);
 
@@ -38,26 +38,26 @@ class CommentManager implements InterfaceManager{
         $select->closeCursor();
 
         // on va stocker les commentaires dans un tableau
-        $arrayComment = [];
+        $arrayTag = [];
 
         /* pour chaque valeur, on va créer une instance de classe
         CommentMapping, liée à la table qu'on va manager
         */
         foreach($array as $value){
             // on remplit un nouveau tableau contenant les commentaires
-            $arrayComment[] = new CommentMapping($value);
+            $arrayTag[] = new TagMapping($value);
         }
 
         // on retourne le tableau
-        return $arrayComment;
+        return $arrayTag;
     }
 
-    // récupération d'un commentaire via son id
-    public function selectOneById(int $id): null|string|CommentMapping
+    // récupération d'un tag via son id
+    public function selectOneById(int $id): null|string|TagMapping
     {
 
         // requête préparée
-        $sql = "SELECT * FROM `comment` WHERE `comment_id`= ?";
+        $sql = "SELECT * FROM `tag` WHERE `tag_id`= ?";
         $prepare = $this->connect->prepare($sql);
 
         try{
@@ -71,7 +71,7 @@ class CommentManager implements InterfaceManager{
             $result = $prepare->fetch(OurPDO::FETCH_ASSOC);
 
             // création de l'instance CommentMapping
-            $result = new CommentMapping($result);
+            $result = new TagMapping($result);
 
             $prepare->closeCursor();
             
@@ -84,44 +84,17 @@ class CommentManager implements InterfaceManager{
         
     }
 
-    // mise à jour d'un commentaire
-    public function update(AbstractMapping $mapping): bool|string
-    {
 
-        // requête préparée
-        $sql = "UPDATE `comment` SET `comment_text`=?, `comment_date_update`=? WHERE `comment_id`=?";
-        // mise à jour de la date de modification
-        $mapping->setCommentDateUpdate(date("Y-m-d H:i:s"));
-        $prepare = $this->connect->prepare($sql);
-
-        try{
-            $prepare->bindValue(1,$mapping->getCommentText());
-            $prepare->bindValue(2,$mapping->getCommentDateUpdate());
-            $prepare->bindValue(3,$mapping->getCommentId(), OurPDO::PARAM_INT);
-
-            $prepare->execute();
-
-            $prepare->closeCursor();
-
-            return true;
-
-        }catch(Exception $e){
-            return $e->getMessage();
-        }
-        
-    }
-
-
-    // insertion d'un commentaire
+    // insertion d'un tag
     public function insert(AbstractMapping $mapping): bool|string
     {
 
         // requête préparée
-        $sql = "INSERT INTO `comment`(`comment_text`,`user_user_id`,`article_article_id`)  VALUES (?,?,?)";
+        $sql = "INSERT INTO `tag`(`tag_slug`,`tag_id`)  VALUES (?,?)";
         $prepare = $this->connect->prepare($sql);
 
         try{
-            $prepare->bindValue(1,$mapping->getCommentText());
+            $prepare->bindValue(1,$mapping->getTagSlug());
             $prepare->bindValue(2,1, OurPDO::PARAM_INT);
             $prepare->bindValue(3,1, OurPDO::PARAM_INT);
 
@@ -132,15 +105,15 @@ class CommentManager implements InterfaceManager{
             return true;
 
         }catch(Exception $e){
-            return $e->getMessage();
+            return $e->getTag();
         }
     }
 
-    // suppression d'un commentaire
+    // suppression d'un tag
     public function delete(int $id): bool|string
     {
         // requête préparée
-        $sql = "DELETE FROM `comment` WHERE `comment_id`=?";
+        $sql = "DELETE FROM `tag` WHERE `tag_id`=?";
         $prepare = $this->connect->prepare($sql);
 
         try{

@@ -6,9 +6,9 @@ session_start();
 // on va utiliser notre connexion personnalisée (singleton)
 use model\OurPDO;
 // on va utiliser notre manager de commentaires
-use model\Manager\CommentManager;
+use model\Manager\TagManager;
 // on va utiliser notre classe de mapping de commentaires
-use model\Mapping\CommentMapping;
+use model\Mapping\TagMapping;
 
 // Appel de la config
 require_once "../config.php";
@@ -25,7 +25,7 @@ DB_LOGIN,
 DB_PWD);
 
 // create comment Manager
-$commentManager = new CommentManager($dbConnect);
+$TagManager = new TagManager($dbConnect);
 
 
 
@@ -33,7 +33,7 @@ $commentManager = new CommentManager($dbConnect);
 if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
     $idComment = (int) $_GET['view'];
     // select one comment
-    $selectOneComment = $commentManager->selectOneById($idComment);
+    $selectOneComment = $TagManager->selectOneById($idComment);
     // view
     require "../view/comment/selectOneComment.view.php";
 

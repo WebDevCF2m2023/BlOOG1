@@ -59,6 +59,8 @@ $comment = new \model\Mapping\CommentMapping([
     'comment_date_update' => new DateTime(),
     'comment_date_publish' => new DateTime(),
     'comment_is_published' => 1,
+    'user_user_id' => 1,
+    'article_article_id' => 1,
 ]);
 
 // test d'intégration de la classe ArticlesMapping
@@ -80,9 +82,18 @@ $tag = new \model\Mapping\TagMapping([
     'tag_slug' => 'admin',
 ]);
 
+// test d'intégration de la classe FileMapping
+$file = new \model\Mapping\FileMapping([
+    'file_id' => 1,
+    'file_url' => 'mon.pdf',
+    'file_description' => 'un PDF de test',
+    'file_type' => 'pdf',
+    'article_article_id' => 1,
+]);
 
 
-var_dump($user, $image, $permission, $category, $comment,$article,$tag);
+
+var_dump($user, $image, $permission, $category, $comment,$article,$tag,$file);
 
 // Essais sur OurPDO
 

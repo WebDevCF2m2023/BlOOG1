@@ -33,6 +33,8 @@ class CommentMapping extends AbstractMapping
     protected null|string|DateTime $comment_date_update=null;
     protected null|string|DateTime $comment_date_publish=null;
     protected ?int $comment_is_published=null;
+    protected ?int $user_user_id=null;
+    protected ?int $article_article_id=null;
 
     // Les getters et setters
 
@@ -110,6 +112,28 @@ class CommentMapping extends AbstractMapping
     public function setCommentIsPublished(?int $comment_is_published): void
     {
         $this->comment_is_published = $comment_is_published;
+    }
+
+
+    public function getUserUserId(): ?int
+    {
+        return $this->user_user_id;
+    }
+
+    public function setUserUserId(?int $user_user_id): void
+    {
+        $this->user_user_id = $user_user_id;
+    }
+
+
+    public function getArticleArticleId(): ?int
+    {
+        return $this->article_article_id;
+    }
+
+    public function setArticleArticleId(?int $article_article_id): void
+    {
+        $this->article_article_id = $article_article_id;
     }
 
 

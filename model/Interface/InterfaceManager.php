@@ -9,6 +9,9 @@ namespace model\Interface;
 // donc dans le namespace global pour Exception, ou dans le namespace model pour OurPDO)
 use model\OurPDO;
 use Exception;
+// importation de la classe parenté de
+// tous les mappings (polymorphisme)
+use model\Abstract\AbstractMapping;
 
 /**
  * Interface InterfaceManager
@@ -22,7 +25,7 @@ interface InterfaceManager
     public function __construct(OurPDO $pdo);
     public function selectAll();
     public function selectOneById(int $id);
-    public function insert(object $object);
-    public function update(object $object);
+    public function insert(AbstractMapping $mapping);
+    public function update(AbstractMapping $mapping);
     public function delete(int $id);
 }

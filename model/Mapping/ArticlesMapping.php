@@ -4,6 +4,7 @@ namespace model\Mapping;
 
 use model\Abstract\AbstractMapping;
 use model\Trait\TraitDateTime;
+use model\Trait\TraitSlugify;
 use DateTime;
 use Exception;
 
@@ -11,15 +12,16 @@ class ArticlesMapping extends AbstractMapping
 {
 
     use TraitDateTime;
+    use TraitSlugify;
 
-    protected ?int $article_id;
-    protected ?string $article_title;
-    protected ?string $article_slug;
-    protected ?string $article_text;
-    protected null|string|DateTime $article_date_create;
-    protected null|string|DateTime $article_date_update;
-    protected null|string|DateTime $article_date_publish;
-    protected ?int $user_user_id;
+    protected ?int $article_id=null;
+    protected ?string $article_title=null;
+    protected ?string $article_slug=null;
+    protected ?string $article_text=null;
+    protected null|string|DateTime $article_date_create=null;
+    protected null|string|DateTime $article_date_update=null;
+    protected null|string|DateTime $article_date_publish=null;
+    protected ?int $user_user_id=null;
 
 
     public function getArticleId(): ?int
@@ -38,13 +40,16 @@ class ArticlesMapping extends AbstractMapping
         return $this->article_title;
     }
 
-    public function setArticleTitle(?string $article_title): void
+    public function setArticleTitle(?string $article_title)
     {
 
-        $this->article_title = htmlspecialchars(trim(strip_tags($article_title)),
-            ENT_QUOTES);
+        // on vérifie que le titre n'est pas null
+        if ($article_title === null) return null;
+        // on vérifie que le titre n'est pas vide
         if ($article_title === "") throw new Exception("Merci d'inclure une Titre");
-        $this->article_title = htmlspecialchars(trim(strip_tags($article_title)), ENT_QUOTES);
+        // on remplit et on protège le titre
+        $this->article_title = trim(strip_tags($article_title));
+
     }
 
     public function getArticleSlug(): ?string
@@ -54,8 +59,9 @@ class ArticlesMapping extends AbstractMapping
 
     public function setArticleSlug(?string $article_slug): void
     {
-        $article_slug = htmlspecialchars(trim(strip_tags($article_slug)), ENT_QUOTES);
-        if ($article_slug === "") throw new Exception("Merci d'inclure le Slug");
+        // utilisation de la méthode slugify du trait TraitSlug
+        $article_slug = $this->slugify($article_slug);
+        if ($article_slug === "n-a") throw new Exception("Merci d'inclure le Slug");
         $this->article_slug = $article_slug;
     }
 
@@ -66,8 +72,8 @@ class ArticlesMapping extends AbstractMapping
 
     public function setArticleText(?string $article_text): void
     {
-        $article_text = htmlspecialchars(trim(strip_tags($article_text)), ENT_QUOTES);
-        if ($article_text === "") throw new Exception("Il faut le Text quand même");
+        $article_text = trim($article_text);
+        if ($article_text === "") throw new Exception("Il faut le texte de l'article");
         $this->article_text = $article_text;
 
     }

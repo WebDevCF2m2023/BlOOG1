@@ -2,6 +2,7 @@
 
 use model\Mapping\ImageMapping;
 
+
 // Appel de la config
 require_once "../../../config.php";
 

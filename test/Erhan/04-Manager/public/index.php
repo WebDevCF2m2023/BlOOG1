@@ -6,9 +6,9 @@ session_start();
 // on va utiliser notre connexion personnalisée (singleton)
 use model\OurPDO;
 // on va utiliser notre manager de commentaires
-use model\Manager\CommentManager;
+use model\Manager\PermissionManager;
 // on va utiliser notre classe de mapping de commentaires
-use model\Mapping\CommentMapping;
+use model\Mapping\PermissionMapping;
 
 // Appel de la config
 require_once "../config.php";
@@ -25,15 +25,15 @@ DB_LOGIN,
 DB_PWD);
 
 // create comment Manager
-$commentManager = new CommentManager($dbConnect);
+$permissionManager = new PermissionManager($dbConnect);
 
 
 
 // detail view
 if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
-    $idComment = (int) $_GET['view'];
+    $idPermission = (int) $_GET['view'];
     // select one comment
-    $selectOneComment = $commentManager->selectOneById($idComment);
+    $selectOnePermission = $permissionManager->selectOneById($idPermission);
     // view
     require "../view/comment/selectOneComment.view.php";
 
@@ -41,74 +41,73 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
 }elseif(isset($_GET['insert'])){
 
 // real insert comment
-    if(isset($_POST['comment_text'])) {
+    if(isset($_POST['permission_name'])) {
         try{
             // create comment
-            $comment = new CommentMapping($_POST);
-            // set date
-            $comment->setCommentDatePublish(new DateTime());
+            $permission = new PermissionMapping($_POST);
+            
             // insert comment
-            $insertComment = $commentManager->insert($comment);
+            $insertPermission = $permissionManager->insert($permission);
 
-            if($insertComment===true) {
+            if($insertPermission===true) {
                 header("Location: ./");
                 exit();
             }else{
-                $error = $insertComment;
+                $error = $insertPermission;
             }
         }catch(Exception $e){
             $error = $e->getMessage();
         }
-        //var_dump($comment);
+        
 
     }
     // view
     require "../view/comment/insertComment.view.php";
 
-// delete comment
+// delete permission
 }elseif (isset($_GET['update'])&&ctype_digit($_GET['update'])) {
-    $idComment = (int)$_GET['update'];
+    $idPermission = (int)$_GET['update'];
 
-    // update comment
+    // update permission
     if (isset($_POST['comment_text'])) {
         try {
-            // create comment
-            $comment = new CommentMapping($_POST);
-            $comment->setCommentId($idComment);
-            // update comment
-            $updateComment = $commentManager->update($comment);
-            if($updateComment===true) {
+            // create permission
+            $permission = new PermissionMapping($_POST);
+            $permission->setPermissionId($idPermission);
+            // update permission
+            $updatePermission = $permissionManager->update($permission);
+            if($updatePermission===true) {
                 header("Location: ./");
                 exit();
             }else{
-                $error = $updateComment;
+                $error = $updatePermission;
             }
         }catch (Exception $e) {
             $error = $e->getMessage();
         }
 
     }
-    // select one comment
-    $selectOneComment = $commentManager->selectOneById($idComment);
+    // select one permission
+    $selectOnePermission = $permissionManager->selectOneById($idPermission);
     // view
     require "../view/comment/updateComment.view.php";
 
-// delete comment
+// delete permission
 }elseif(isset($_GET['delete'])&&ctype_digit($_GET['delete'])){
-    $idComment = (int) $_GET['delete'];
-    // delete comment
-    $deleteComment = $commentManager->delete($idComment);
-    if($deleteComment===true) {
+    $idPermission = (int) $_GET['delete'];
+    // delete permission
+    $deletePermission = $permissionManager->delete($idPermission);
+    if($deletePermission===true) {
         header("Location: ./");
         exit();
     }else{
-        $error = $deleteComment;
+        $error = $deletePermission;
     }
 
 // homepage
 }else{
-    // select all comments
-    $selectAllComments = $commentManager->selectAll();
+    // select all permission
+    $selectAllPermissions = $permissionManager->selectAll();
     // view
     require "../view/comment/selectAllComment.view.php";
 }

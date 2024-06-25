@@ -29,6 +29,7 @@ $image = new ImageMapping([
     'image_id' => 1,
     'image_url' => 'https://www.google.com',
     'image_description' => 'image de test',
+    'image_type' => 'jpg',
     'article_article_id' => 1,
     'exemple_date' => new DateTime(),
 ]);

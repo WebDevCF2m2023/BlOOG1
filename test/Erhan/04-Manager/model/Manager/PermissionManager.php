@@ -121,7 +121,7 @@ class PermissionManager implements InterfaceManager{
 
         try{
             $prepare->bindValue(1,$mapping->getPermissionName());
-            $prepare->bindValue(2,1);
+            $prepare->bindValue(2,$mapping->getPermissionDescription());
 
             $prepare->execute();
 

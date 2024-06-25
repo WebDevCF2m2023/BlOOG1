@@ -13,6 +13,7 @@
         
         ?>
         <div class="flex justify-center">
+            
             <p class="text-3xl mb-16">Exemple du ArticleManager::selectAll&lpar;&rpar;</p><p>&lpar;en utilisant Tailwind&rpar;</p></p>
         </div>
         <div class="flex justify-center w-auto">

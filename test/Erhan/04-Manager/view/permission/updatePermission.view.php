@@ -17,7 +17,7 @@
     else:
     if(isset($error)) echo "<h4>$error</h4>";
     ?>
-    <h3>Update Permission</h3>
+    
     <form method="POST" >
         <div class="container border-end border-bottom border-primary rounded-5 p-4">
         <div class="row mb-4">

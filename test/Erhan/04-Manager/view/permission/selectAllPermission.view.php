@@ -34,7 +34,7 @@ else:
                 <th scope="col">Id</th>
                 <th scope="col">Nom</th>
                 <th scope="col">Description</th>
-                <th scope="col">View</th>
+                <th scope="col">Détail</th>
                 <th scope="col">Modifier</th>
                 <th scope="col">Supprimer</th>
                 </tr>
@@ -43,13 +43,11 @@ else:
             <?php
     foreach($selectAllPermissions as $item):
     ?>
-
-            
             <tr>
                 <td><?=$item->getPermissionId()?></td>
                 <td><?=$item->getPermissionName()?></td>
                 <td><?=$item->getPermissionDescription()?></td>
-                <td><a href="?view=<?=$item->getPermissionId()?>"><i class="bi bi-bookmark-plus"></i></a></td>
+                <td><a href="?view=<?=$item->getPermissionId()?>"><i class="bi bi-eye-fill"></i></a></td>
                 <td><a href="?update=<?=$item->getPermissionId()?>"><i class="bi bi-bookmark-plus"></i></a></td>
                 <td><a href="?delete=<?=$item->getPermissionId()?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');"><i class="bi bi-dash-circle text-danger"></i></a></td>
             </tr>
@@ -57,9 +55,7 @@ else:
     endforeach;?>
         </tbody>
     </table>
-
-    <?php
-    
+    <?php    
     endif;
     ?>
     </div>

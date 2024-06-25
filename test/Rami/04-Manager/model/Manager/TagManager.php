@@ -105,7 +105,7 @@ class TagManager implements InterfaceManager{
             return true;
 
         }catch(Exception $e){
-            return $e->getTag();
+            return $e->getMessage();
         }
     }
 

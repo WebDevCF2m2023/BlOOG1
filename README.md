@@ -15,5 +15,24 @@ Blog en PHP 8 - MVC OO - Travail du Groupe 1
 
 https://trello.com/b/Ek39OVjJ/bloog1
 
+### Permissions
+- administrateur
+- modérateur
+- Auteur
+- Abonné
 
-Avec utilisation du moteur de Template Twig
+### Utilisateurs
+- Administrateur :
+    - login : admin
+    - mot de passe : admin
+- Modérateur :
+    - login : modo
+    - mot de passe : modo
+- Auteur :
+    - login : hugove
+    - mot de passe : hugove
+- Abonné :
+    - login : abonne1
+    - mot de passe : abonne1
+    - login : abonne2
+    - mot de passe : abonne2

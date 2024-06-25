@@ -9,18 +9,13 @@ class PermissionMapping extends AbstractMapping
     // Les propriétés de la classe sont le nom des
     // attributs de la table Exemple (qui serait en
     // base de données)
-    protected ?int $permission_id;
-    protected ?string $permission_name;
-    protected ?string $permission_description;
+    protected ?int $permission_id=null;
+    protected ?string $permission_name=null;
+    protected ?string $permission_description=null;
     
 
     // Les getters et setters
-    // Les getters permettent de récupérer la valeur
-    // d'un attribut de la classe
 
-    // Les setters permettent de modifier la valeur
-    // d'un attribut de la classe, en utilisant l'hydratation
-    // venant de la classe AbstractMapping
     public function getPermissionId(): ?int
     {
         return $this->permission_id;

@@ -5,6 +5,7 @@ namespace model\Manager ;
 use Exception;
 use model\Interface\InterfaceManager;
 use model\Mapping\CommentMapping;
+use model\Abstract\AbstractMapping;
 use model\OurPDO;
 
 class CommentManager implements InterfaceManager{
@@ -84,19 +85,19 @@ class CommentManager implements InterfaceManager{
     }
 
     // mise à jour d'un commentaire
-    public function update(object $object): bool|string
+    public function update(AbstractMapping $mapping): bool|string
     {
 
         // requête préparée
         $sql = "UPDATE `comment` SET `comment_text`=?, `comment_date_update`=? WHERE `comment_id`=?";
         // mise à jour de la date de modification
-        $object->setCommentDateUpdate(date("Y-m-d H:i:s"));
+        $mapping->setCommentDateUpdate(date("Y-m-d H:i:s"));
         $prepare = $this->connect->prepare($sql);
 
         try{
-            $prepare->bindValue(1,$object->getCommentText());
-            $prepare->bindValue(2,$object->getCommentDateUpdate());
-            $prepare->bindValue(3,$object->getCommentId(), OurPDO::PARAM_INT);
+            $prepare->bindValue(1,$mapping->getCommentText());
+            $prepare->bindValue(2,$mapping->getCommentDateUpdate());
+            $prepare->bindValue(3,$mapping->getCommentId(), OurPDO::PARAM_INT);
 
             $prepare->execute();
 
@@ -112,7 +113,7 @@ class CommentManager implements InterfaceManager{
 
 
     // insertion d'un commentaire
-    public function insert(object $object): bool|string
+    public function insert(AbstractMapping $mapping): bool|string
     {
 
         // requête préparée
@@ -120,7 +121,7 @@ class CommentManager implements InterfaceManager{
         $prepare = $this->connect->prepare($sql);
 
         try{
-            $prepare->bindValue(1,$object->getCommentText());
+            $prepare->bindValue(1,$mapping->getCommentText());
 
             $prepare->execute();
 

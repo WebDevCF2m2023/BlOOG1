@@ -35,7 +35,7 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
     // select one permission
     $selectOnePermission = $permissionManager->selectOneById($idPermission);
     // view
-    require "../view/comment/selectOnePermission.view.php";
+    require "../view/permission/selectOnePermission.view.php";
 
 // insert permission page
 }elseif(isset($_GET['insert'])){
@@ -62,14 +62,15 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
 
     }
     // view
-    require "../view/comment/insertPermission.view.php";
+    require "../view/permission/insertPermission.view.php";
 
 // update permission
 }elseif (isset($_GET['update'])&&ctype_digit($_GET['update'])) {
     $idPermission = (int)$_GET['update'];
 
     // update permission
-    if (isset($_POST['permission_name'], $_POST['permission_description'])) {
+    if (isset($_POST['permission_name'], 
+              $_POST['permission_description'])) {
         try {
             // create permission
             $permission = new PermissionMapping($_POST);
@@ -90,7 +91,7 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
     // select one permission
     $selectOnePermission = $permissionManager->selectOneById($idPermission);
     // view
-    require "../view/comment/updatePermission.view.php";
+    require "../view/permission/updatePermission.view.php";
 
 // delete permission
 }elseif(isset($_GET['delete'])&&ctype_digit($_GET['delete'])){
@@ -109,7 +110,7 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
     // select all permission
     $selectAllPermissions = $permissionManager->selectAll();
     // view
-    require "../view/comment/selectAllPermission.view.php";
+    require "../view/permission/selectAllPermission.view.php";
 }
 
 $dbConnect = null;

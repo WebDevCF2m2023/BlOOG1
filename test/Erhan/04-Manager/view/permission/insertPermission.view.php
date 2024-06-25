@@ -11,7 +11,7 @@
         require 'menu.comment.view.php';
         if(isset($error)) echo "<h4>$error</h4>";
     ?>
-    <h3 class="messages ">Ajouter un Permission</h3>
+    <!--<h3 class="messages ">Ajouter un Permission</h3>-->
     <form method="POST" >
         <div class="container border-start border-end border-success rounded-5 p-3">
         <div class="row mb-4 mt-5">
@@ -20,6 +20,8 @@
                     <input type="text" class="form-control" name="permission_name" placeholder="Permission Nom" required/>
                 </div>
             </div>
+        </div>
+        <div class="row mb-4 mt-5">
             <div class="col">
                 <div data-mdb-input-init class="form-outline">
                     <input type="text" name="permission_description"  class="form-control" placeholder="Permission Description"  required/>

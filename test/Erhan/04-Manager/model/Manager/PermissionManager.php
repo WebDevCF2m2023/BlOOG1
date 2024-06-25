@@ -37,11 +37,11 @@ class PermissionManager implements InterfaceManager{
         // on ferme le curseur
         $select->closeCursor();
 
-        // on va stocker les commentaires dans un tableau
+        // on va stocker les permissions dans un tableau
         $arrayPermission = [];
 
         /* pour chaque valeur, on va créer une instance de classe
-        CommentMapping, liée à la table qu'on va manager
+        PermissionMapping, liée à la table qu'on va manager
         */
         foreach($array as $value){
             // on remplit un nouveau tableau contenant les commentaires
@@ -52,7 +52,7 @@ class PermissionManager implements InterfaceManager{
         return $arrayPermission;
     }
 
-    // récupération d'un commentaire via son id
+    // récupération d'un permission via son id
     public function selectOneById(int $id): null|string|PermissionMapping
     {
 
@@ -70,7 +70,7 @@ class PermissionManager implements InterfaceManager{
             // récupération des valeurs en tableau associatif
             $result = $prepare->fetch(OurPDO::FETCH_ASSOC);
 
-            // création de l'instance CommentMapping
+            // création de l'instance PermissionMapping
             $result = new PermissionMapping($result);
 
             $prepare->closeCursor();
@@ -84,13 +84,13 @@ class PermissionManager implements InterfaceManager{
         
     }
 
-    // mise à jour d'un commentaire
+    // mise à jour d'un permission
     public function update(AbstractMapping $mapping): bool|string
     {
 
         // requête préparée
         $sql = "UPDATE `permission` SET `permission_name`=?, `permission_description`=? WHERE `permission_id`=?";
-        // mise à jour de la date de modification
+        
         $prepare = $this->connect->prepare($sql);
 
         try{
@@ -111,7 +111,7 @@ class PermissionManager implements InterfaceManager{
     }
 
 
-    // insertion d'un commentaire
+    // insertion d'un permission
     public function insert(AbstractMapping $mapping): bool|string
     {
 
@@ -135,7 +135,7 @@ class PermissionManager implements InterfaceManager{
         }
     }
 
-    // suppression d'un commentaire
+    // suppression d'un permission
     public function delete(int $id): bool|string
     {
         // requête préparée

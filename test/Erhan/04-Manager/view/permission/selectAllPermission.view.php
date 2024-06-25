@@ -27,7 +27,7 @@
     <?php
 else:
     ?>
-
+<div class="container">
     <table class="table table-striped">
             <thead>
                 <tr>
@@ -46,20 +46,23 @@ else:
 
             
             <tr>
-                <th scope="row"><?=$item->getPermissionId()?></th>
+                <td><?=$item->getPermissionId()?></td>
                 <td><?=$item->getPermissionName()?></td>
                 <td><?=$item->getPermissionDescription()?></td>
                 <td><a href="?view=<?=$item->getPermissionId()?>"><i class="bi bi-bookmark-plus"></i></a></td>
                 <td><a href="?update=<?=$item->getPermissionId()?>"><i class="bi bi-bookmark-plus"></i></a></td>
                 <td><a href="?delete=<?=$item->getPermissionId()?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');"><i class="bi bi-dash-circle text-danger"></i></a></td>
             </tr>
+            <?php
+    endforeach;?>
         </tbody>
     </table>
 
     <?php
-    endforeach;
+    
     endif;
     ?>
+    </div>
     
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

@@ -116,13 +116,12 @@ class PermissionManager implements InterfaceManager{
     {
 
         // requête préparée
-        $sql = "INSERT INTO `permission`(`permission_name`,`permission_id`,`permission_description`)  VALUES (?,?,?)";
+        $sql = "INSERT INTO `permission`(`permission_name`,`permission_description`)  VALUES (?,?)";
         $prepare = $this->connect->prepare($sql);
 
         try{
             $prepare->bindValue(1,$mapping->getPermissionName());
-            $prepare->bindValue(2,1, OurPDO::PARAM_INT);
-            $prepare->bindValue(3,1);
+            $prepare->bindValue(2,1);
 
             $prepare->execute();
 

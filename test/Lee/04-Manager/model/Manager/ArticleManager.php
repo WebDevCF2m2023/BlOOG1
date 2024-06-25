@@ -3,16 +3,16 @@
 namespace model\Manager ;
 
 use Exception;
+use model\Abstract\AbstractMapping;
 use model\Interface\InterfaceManager;
 use model\Mapping\ArticleMapping;
-use model\Abstract\AbstractMapping;
-use trait\TraitRunQuery;
+use model\trait\TraitRunQuery;
 use model\OurPDO;
-use model\Trait\TraitRunQuery as TraitTraitRunQuery;
+
 
 class ArticleManager implements InterfaceManager{
 
-    use TraitTraitRunQuery;
+    use TraitRunQuery;
     private ?OurPDO $connect = null;
 
     public function __construct(OurPDO $db){
@@ -27,7 +27,8 @@ class ArticleManager implements InterfaceManager{
          ORDER BY `article_date_create` DESC";
         
         $array = $this->runQuery($sql);
-        if (!is_array($array)) throw new Exception("")
+
+        if (!is_array($array)) throw new Exception("Articles introuvable suite d'une erreur");
         $arrayArticles = [];
 
 
@@ -72,6 +73,15 @@ class ArticleManager implements InterfaceManager{
         
     }
 
+    public function insert(AbstractMapping $mapping) {
+
+    }
+    public function update(AbstractMapping $mapping) {
+
+    }
+
+
+/*
     // mise à jour d'un commentaire
     public function update(AbstractMapping $mapping): bool|string
     {
@@ -123,7 +133,7 @@ class ArticleManager implements InterfaceManager{
             return $e->getMessage();
         }
     }
-
+*/
     // suppression d'un commentaire
     public function delete(int $id): bool|string
     {
@@ -147,3 +157,4 @@ class ArticleManager implements InterfaceManager{
     }
 
 }
+

@@ -7,8 +7,13 @@ session_start();
 use model\OurPDO;
 // on va utiliser notre manager de commentaires
 use model\Manager\CommentManager;
+
+use model\Manager\ImageManager;
+
 // on va utiliser notre classe de mapping de commentaires
 use model\Mapping\CommentMapping;
+
+use model\Manager\ImageMapping;
 
 // Appel de la config
 require_once "../config.php";
@@ -26,6 +31,8 @@ DB_PWD);
 
 // create comment Manager
 $commentManager = new CommentManager($dbConnect);
+
+$imageManager = new ImageManager($dbConnect);
 
 
 

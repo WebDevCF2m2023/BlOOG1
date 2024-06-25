@@ -117,11 +117,13 @@ class CommentManager implements InterfaceManager{
     {
 
         // requête préparée
-        $sql = "INSERT INTO `comment`(`comment_text`)  VALUES (?)";
+        $sql = "INSERT INTO `comment`(`comment_text`,`user_user_id`,`article_article_id`)  VALUES (?,?,?)";
         $prepare = $this->connect->prepare($sql);
 
         try{
             $prepare->bindValue(1,$mapping->getCommentText());
+            $prepare->bindValue(2,1, OurPDO::PARAM_INT);
+            $prepare->bindValue(3,1, OurPDO::PARAM_INT);
 
             $prepare->execute();
 

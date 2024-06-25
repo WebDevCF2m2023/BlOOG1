@@ -3,16 +3,18 @@
 namespace model\Mapping;
 
 use model\Abstract\AbstractMapping;
+use model\Trait\TraitSlugify;
 
 class CategoryMapping extends AbstractMapping
 {
     
-    protected ?int $category_id;
-    protected ?string $category_name;
-    protected ?string $category_slug;
-    protected ?string $category_description;
-    protected ?int $category_parent;
+    protected ?int $category_id=null;
+    protected ?string $category_name=null;
+    protected ?string $category_slug=null;
+    protected ?string $category_description=null;
+    protected ?int $category_parent=null;
 
+    use TraitSlugify;
 
     public function getCategoryId(): ?int
     {
@@ -33,7 +35,7 @@ class CategoryMapping extends AbstractMapping
 
     public function setCategoryName(?string $category_name): void
     {
-        $name = htmlspecialchars(trim(strip_tags($category_name)),ENT_QUOTES);
+        $name = trim(strip_tags($category_name));
         $this->category_name = $name;
     }
 
@@ -44,7 +46,7 @@ class CategoryMapping extends AbstractMapping
 
     public function setCategorySlug(?string $category_slug): void
     {
-        $slug = htmlspecialchars(trim(strip_tags($category_slug)),ENT_QUOTES);
+        $slug = $this->slugify($category_slug);
         $this->category_slug = $slug;
     }
 
@@ -55,7 +57,7 @@ class CategoryMapping extends AbstractMapping
 
     public function setCategoryDescription(?string $category_description): void
     {
-        $this->category_description = htmlspecialchars(trim(strip_tags($category_description)), ENT_QUOTES);
+        $this->category_description = trim(strip_tags($category_description));
     }
 
     public function getCategoryParent(): ?int

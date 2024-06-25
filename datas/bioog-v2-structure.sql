@@ -144,8 +144,24 @@ CREATE TABLE IF NOT EXISTS `bioog`.`comment` (
   `comment_date_update` TIMESTAMP NULL,
   `comment_date_publish` TIMESTAMP NULL,
   `comment_is_published` TINYINT UNSIGNED NOT NULL DEFAULT 0,
-  PRIMARY KEY (`comment_id`))
+  `user_user_id` INT UNSIGNED NOT NULL,
+  `article_article_id` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`comment_id`),
+  CONSTRAINT `fk_comment_user1`
+    FOREIGN KEY (`user_user_id`)
+    REFERENCES `bioog`.`user` (`user_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_comment_article1`
+    FOREIGN KEY (`article_article_id`)
+    REFERENCES `bioog`.`article` (`article_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+CREATE INDEX `fk_comment_user1_idx` ON `bioog`.`comment` (`user_user_id` ASC) VISIBLE;
+
+CREATE INDEX `fk_comment_article1_idx` ON `bioog`.`comment` (`article_article_id` ASC) VISIBLE;
 
 
 -- -----------------------------------------------------
@@ -234,58 +250,6 @@ CREATE TABLE IF NOT EXISTS `bioog`.`file` (
 ENGINE = InnoDB;
 
 CREATE INDEX `fk_file_article1_idx` ON `bioog`.`file` (`article_article_id` ASC) VISIBLE;
-
-
--- -----------------------------------------------------
--- Table `bioog`.`comment_has_user`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `bioog`.`comment_has_user` ;
-
-CREATE TABLE IF NOT EXISTS `bioog`.`comment_has_user` (
-  `comment_comment_id` INT UNSIGNED NOT NULL,
-  `user_user_id` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`comment_comment_id`, `user_user_id`),
-  CONSTRAINT `fk_comment_has_user_comment1`
-    FOREIGN KEY (`comment_comment_id`)
-    REFERENCES `bioog`.`comment` (`comment_id`)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_comment_has_user_user1`
-    FOREIGN KEY (`user_user_id`)
-    REFERENCES `bioog`.`user` (`user_id`)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-CREATE INDEX `fk_comment_has_user_user1_idx` ON `bioog`.`comment_has_user` (`user_user_id` ASC) VISIBLE;
-
-CREATE INDEX `fk_comment_has_user_comment1_idx` ON `bioog`.`comment_has_user` (`comment_comment_id` ASC) VISIBLE;
-
-
--- -----------------------------------------------------
--- Table `bioog`.`comment_has_article`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `bioog`.`comment_has_article` ;
-
-CREATE TABLE IF NOT EXISTS `bioog`.`comment_has_article` (
-  `comment_comment_id` INT UNSIGNED NOT NULL,
-  `article_article_id` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`comment_comment_id`, `article_article_id`),
-  CONSTRAINT `fk_comment_has_article_comment1`
-    FOREIGN KEY (`comment_comment_id`)
-    REFERENCES `bioog`.`comment` (`comment_id`)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_comment_has_article_article1`
-    FOREIGN KEY (`article_article_id`)
-    REFERENCES `bioog`.`article` (`article_id`)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-CREATE INDEX `fk_comment_has_article_article1_idx` ON `bioog`.`comment_has_article` (`article_article_id` ASC) VISIBLE;
-
-CREATE INDEX `fk_comment_has_article_comment1_idx` ON `bioog`.`comment_has_article` (`comment_comment_id` ASC) VISIBLE;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

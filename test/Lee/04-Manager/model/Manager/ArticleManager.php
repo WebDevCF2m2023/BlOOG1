@@ -20,26 +20,27 @@ class ArticleManager implements InterfaceManager{
     }
 
 
-    public function selectAll(): ?array
+    public function selectAll(): ?array  // sauf les noms des tables, ceci est souvent similaire - faut que remplacer article_ par comment_ donc sans doute possible de mettre ailleurs
     {
-
         $sql = "SELECT * FROM `article`
          ORDER BY `article_date_create` DESC";
         
-        $array = $this->runQuery($sql);
+        $array = $this->runQuery($sql); // utilisant mon Trait pour réduire le répetition du code
 
-        if (!is_array($array)) throw new Exception("Articles introuvable suite d'une erreur");
+        if (!is_array($array)) throw new Exception("Articles introuvable suite d'une erreur"); // au cas où de problème
         $arrayArticles = [];
-
-
         foreach($array as $value){
-            // on remplit un nouveau tableau contenant les commentaires
             $arrayArticles[] = new ArticleMapping($value);
         }
-
-        // on retourne le tableau
         return $arrayArticles;
     }
+
+/* 
+*
+*   Tout le reste ici est pour satisfait le Interface pendant que je crée les autres fonctions
+*
+*/
+
 
     // récupération d'un commentaire via son id
     public function selectOneById(int $id): null|string|ArticleMapping

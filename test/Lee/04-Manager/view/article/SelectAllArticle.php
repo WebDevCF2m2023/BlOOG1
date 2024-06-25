@@ -7,28 +7,16 @@
     <link rel="stylesheet" href="css/style.css">
     <title>Exemple du ArticleManager::selectAll()</title>
 </head>
-<body>
-    <h1>Exemple du ArticleManager::selectAll()</h1>
-    <div>
+    <body>
         <?php
         require 'menu.article.view.php';
-
-        if(is_null($selectAllArticles)):
+        
         ?>
-        <h3>Pas encore de commentaire !</h3>
-        <?php
-    else:
-        foreach($selectAllArticles as $arts):
-        ?>
-        <?php /*
-    <h4>ID : <?=$item->getCommentId()?> <a href="?view=<?=$item->getCommentId()?>">Voir ce commentaire via son id</a> | <a href="?update=<?=$item->getCommentId()?>">Mettre à jour</a> | <a href="?delete=<?=$item->getCommentId()?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');">Supprimer</a> </h4>
-    <p><?=$item->getCommentText()?></p>
-    <p><?=$item->getCommentDateCreate()?></p><hr>
-     */  ?>
-        <?php
-        endforeach;
-    endif;
-        ?>
-    </div>
-
-</body>
+        <div class="flex justify-center">
+            <p class="text-3xl">Exemple du ArticleManager::selectAll&lpar;&rpar;</p><p>&lpar;en utilisant Tailwind&rpar;</p></p>
+        </div>
+        <div class="flex justify-center w-auto">
+            <?php include ("inc/allArticlesTable.inc.php") ?>
+            </div>
+    </body>
+</html>

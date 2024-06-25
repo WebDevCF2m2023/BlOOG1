@@ -112,5 +112,5 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
     // view
     require "../view/comment/selectAllComment.view.php";
 }
-
+//var_dump($selectAllComments);
 $dbConnect = null;

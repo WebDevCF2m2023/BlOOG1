@@ -53,6 +53,23 @@ class UserManager implements InterfaceManager
         // on retourne le tableau
         return $arrayUser;
     }
+    
+    public function selectAllWithPermission(){
+        $query = $this->connect->query ("SELECT user.user_id, user.user_full_name, permission_permission_id, permission.permission_name
+                FROM user
+                LEFT JOIN permission
+                ON permission_permission_id = permission.permission_id");
+
+            // si aucun article n'est trouvé, on retourne null
+        if($query->rowCount()==0) return null;
+        // on récupère les articles sous forme de tableau associatif
+        $tabMapping = $query->fetchAll();
+         // on ferme le curseur
+         $query->closeCursor();
+         // on crée le tableau où on va instancier les objets
+        $tabObject = [];
+       
+    }
 
     // récupération d'un user via son id
     public function selectOneById(int $id): null|string|UserMapping

@@ -90,13 +90,13 @@ class TagManager implements InterfaceManager{
     {
 
         // requête préparée
-        $sql = "INSERT INTO `tag`(`tag_slug`,`tag_id`)  VALUES (?,?)";
+        $sql = "INSERT INTO `tag`(`tag_slug`)  VALUES (?)";
         $prepare = $this->connect->prepare($sql);
 
         try{
-            $prepare->bindValue(1,$mapping->getTagSlug());
-            $prepare->bindValue(2,1, OurPDO::PARAM_INT);
-            $prepare->bindValue(3,1, OurPDO::PARAM_INT);
+         $prepare->bindValue(1,$mapping->getTagSlug());
+           // $prepare->bindValue(2,1, OurPDO::PARAM_INT);
+            //$prepare->bindValue(3,1, OurPDO::PARAM_INT);
 
             $prepare->execute();
 
@@ -130,5 +130,30 @@ class TagManager implements InterfaceManager{
         }
         
     }
+    public function update(AbstractMapping $mapping): bool|string
+    {
+
+        // requête préparée
+        $sql = "UPDATE `tag` SET `tag_slug`=? WHERE `tag_id`=?";
+        // mise à jour de la date de modification
+        
+        $prepare = $this->connect->prepare($sql);
+
+        try{
+            $prepare->bindValue(1,$mapping->getTagSlug());
+            $prepare->bindValue(2,$mapping->getTagId(), OurPDO::PARAM_INT);
+
+            $prepare->execute();
+
+            $prepare->closeCursor();
+
+            return true;
+
+        }catch(Exception $e){
+            return $e->getMessage();
+        }
+        
+    }
+    
 
 }

@@ -5,9 +5,9 @@ session_start();
 
 // on va utiliser notre connexion personnalisée (singleton)
 use model\OurPDO;
-// on va utiliser notre manager de commentaires
+// on va utiliser notre manager de tag
 use model\Manager\TagManager;
-// on va utiliser notre classe de mapping de commentaires
+// on va utiliser notre classe de mapping de tag
 use model\Mapping\TagMapping;
 
 // Appel de la config
@@ -24,93 +24,99 @@ $dbConnect = OurPDO::getInstance( DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME.";
 DB_LOGIN,
 DB_PWD);
 
-// create comment Manager
+// create tag Manager
 $TagManager = new TagManager($dbConnect);
+//var_dump($TagManager);
 
 
 
 // detail view
 if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
-    $idComment = (int) $_GET['view'];
-    // select one comment
-    $selectOneComment = $TagManager->selectOneById($idComment);
+    $idTag = (int) $_GET['view'];
+    // select one tag
+    $selectOneTag = $TagManager->selectOneById($idTag);
     // view
-    require "../view/comment/selectOneComment.view.php";
+    require "../view/tag/selectOneTag.view.php";
 
-// insert comment page
+// insert tag page
 }elseif(isset($_GET['insert'])){
 
-// real insert comment
-    if(isset($_POST['comment_text'])) {
+// real insert tag
+    if(isset($_POST['tag_slug'])) {
         try{
-            // create comment
-            $comment = new CommentMapping($_POST);
+            // create tag
+            $tag = new TagMapping($_POST);
             // set date
-            $comment->setCommentDatePublish(new DateTime());
-            // insert comment
-            $insertComment = $commentManager->insert($comment);
+           // $tag->setTagDatePublish(new DateTime()); Aucun Date pour tag disponible dans la base de données
+            // insert tag
+            $insertTag = $TagManager->insert($tag);
 
-            if($insertComment===true) {
+            if($insertTag===true) {
                 header("Location: ./");
                 exit();
             }else{
-                $error = $insertComment;
+                $error = $insertTag;
             }
         }catch(Exception $e){
             $error = $e->getMessage();
         }
-        //var_dump($comment);
+        //var_dump($tag);
 
     }
     // view
-    require "../view/comment/insertComment.view.php";
+    require "../view/tag/insertTag.php";
 
-// delete comment
+// delete tag
 }elseif (isset($_GET['update'])&&ctype_digit($_GET['update'])) {
-    $idComment = (int)$_GET['update'];
+    $idTag = (int)$_GET['update'];
 
-    // update comment
-    if (isset($_POST['comment_text'])) {
+    // update tag
+    if (isset($_POST['tag_slug'])) {
+
+        $cleanSlug = $_POST['tag_slug'];
         try {
             // create comment
-            $comment = new CommentMapping($_POST);
-            $comment->setCommentId($idComment);
-            // update comment
-            $updateComment = $commentManager->update($comment);
-            if($updateComment===true) {
+            $tag = new TagMapping($_POST);
+            $tag->setTagId($idTag);
+            $tag->setTagSlug($cleanSlug);
+            // update tag
+
+            $updateTag = $TagManager->update($tag);
+            if($updateTag===true) {
                 header("Location: ./");
                 exit();
             }else{
-                $error = $updateComment;
+                $error = $updateTag;
             }
         }catch (Exception $e) {
             $error = $e->getMessage();
         }
 
     }
-    // select one comment
-    $selectOneComment = $commentManager->selectOneById($idComment);
+    // select one tag
+    $selectOneTag = $TagManager->selectOneById($idTag);
     // view
-    require "../view/comment/updateComment.view.php";
+    require "../view/tag/updateTag.view.php";
 
-// delete comment
+// delete TAG
 }elseif(isset($_GET['delete'])&&ctype_digit($_GET['delete'])){
-    $idComment = (int) $_GET['delete'];
-    // delete comment
-    $deleteComment = $commentManager->delete($idComment);
-    if($deleteComment===true) {
+    $idTag = (int) $_GET['delete'];
+    // delete TAG
+    $deleteTag = $TagManager->delete($idTag);
+    
+    if($deleteTag===true) {
         header("Location: ./");
         exit();
     }else{
-        $error = $deleteComment;
+        $error = $deleteTag;
     }
 
 // homepage
 }else{
-    // select all comments
-    $selectAllComments = $commentManager->selectAll();
+    // select all tags
+    $selectAllTag = $TagManager->selectAll();
     // view
-    require "../view/comment/selectAllComment.view.php";
+    require "../view/tag/selectAllTag.view.php";
 }
 
 $dbConnect = null;

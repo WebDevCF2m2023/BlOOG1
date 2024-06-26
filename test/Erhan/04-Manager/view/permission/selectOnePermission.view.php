@@ -29,7 +29,7 @@
     else:
         ?>
         <div class="container">
-        <table class="table table-striped">
+        <table class="table table-striped table-hover table-bordered">
             <thead>
                 <tr>
                 <th scope="col">Id</th>

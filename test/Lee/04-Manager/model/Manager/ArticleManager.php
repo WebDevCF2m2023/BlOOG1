@@ -135,19 +135,16 @@ class ArticleManager implements InterfaceManager{
         }
     }
 */
-    // suppression d'un commentaire
+    // SUPPRESSION D'UN ARTICLE
     public function delete(int $id): bool|string
     {
-        // requête préparée
-        $sql = "DELETE FROM `comment` WHERE `comment_id`=?";
-        $prepare = $this->connect->prepare($sql);
+        $sql     = "DELETE FROM `article` WHERE `article_id`=?";
+        $delStmt = $this->connect->prepare($sql);
 
         try{
-            $prepare->bindValue(1,$id, OurPDO::PARAM_INT);
-
-            $prepare->execute();
-
-            $prepare->closeCursor();
+            $delStmt->bindValue(1,$id, OurPDO::PARAM_INT);
+            $delStmt->execute();
+            $delStmt->closeCursor();
 
             return true;
 

@@ -42,32 +42,23 @@ class ArticleManager implements InterfaceManager{
 */
 
 
-    // récupération d'un commentaire via son id
+    // RECUEPRATION D'UN ARTICLE VIA ID 
     public function selectOneById(int $id): null|string|ArticleMapping
     {
 
-        // requête préparée
-        $sql = "SELECT * FROM `comment` WHERE `comment_id`= ?";
-        $prepare = $this->connect->prepare($sql);
+        $sql     = "SELECT * 
+                    FROM `article` 
+                    WHERE `article_id`= ?";
+        $getStmt = $this->connect->prepare($sql);
+        $getStmt->bindValue(1,$id, OurPDO::PARAM_INT);
 
         try{
-            $prepare->bindValue(1,$id, OurPDO::PARAM_INT);
-            $prepare->execute();
-
-            // pas de résultat = null
-            if($prepare->rowCount()===0) return null;
-
-            // récupération des valeurs en tableau associatif
-            $result = $prepare->fetch(OurPDO::FETCH_ASSOC);
-
-            // création de l'instance ArticleMapping
-            $result = new ArticleMapping($result);
-
-            $prepare->closeCursor();
-            
+            $getStmt->execute();
+            if($getStmt->rowCount()===0) return null;
+                $result = $getStmt->fetch(OurPDO::FETCH_ASSOC);
+                $result = new ArticleMapping($result);
+                $getStmt->closeCursor();
             return $result;
-
-
         }catch(Exception $e){
             return $e->getMessage();
         }
@@ -138,7 +129,8 @@ class ArticleManager implements InterfaceManager{
     // SUPPRESSION D'UN ARTICLE
     public function delete(int $id): bool|string
     {
-        $sql     = "DELETE FROM `article` WHERE `article_id`=?";
+        $sql     = "DELETE FROM `article` 
+                    WHERE `article_id`=?";
         $delStmt = $this->connect->prepare($sql);
 
         try{

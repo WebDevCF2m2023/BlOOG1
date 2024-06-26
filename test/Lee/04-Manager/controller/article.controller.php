@@ -26,7 +26,11 @@ if(isset($_GET['action'])
         ){
             $artId = $_GET["id"];
             $selectOneArticle = $articleManager->selectOneById($artId);
+            $title = "ArticleManager::selectOneArticle()";
+            require ("../view/article/selectOneArticle.view.php");
+            die();
         }
 
+$title = "ArticleManager::selectAll()";
 $selectAllArticles = $articleManager->selectAll();
 require ('../view/article/SelectAllArticle.php');

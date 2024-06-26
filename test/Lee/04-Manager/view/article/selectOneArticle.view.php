@@ -3,32 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemple du CommentManager::selectOneComment()</title>
+    <link rel="stylesheet" href="css/style.css">
+    <title><?=$title?></title>
 </head>
 <body>
-    <h1>Exemple du CommentManager::selectOneComment()</h1>
+    <h1>Exemple du ArticleManager::selectOneArticle()</h1>
     <div>
         <?php
 
-        require 'menu.comment.view.php';
+        require 'menu.Article.view.php';
 
-        if(is_null($selectOneComment)):
+        if(!is_object($selectOneArticle)) {
         ?>
-        <h3>Commentaire inexistant</h3>
+        <h3>Article inexistant</h3>
         
         <?php
-    else:
-        ?>
-    <h4>ID : <?=$selectOneComment->getCommentId()?> <a href="?view=<?=$selectOneComment->getCommentId()?>">Voir ce commentaire via son id</a></h4>
-    <p><?=$selectOneComment->getCommentText()?></p>
-    <p><?=$selectOneComment->getCommentDateCreate()?></p><hr>
-        <?php
-    endif;
+    }else{
+        include ("inc/oneArticleForm.inc.php");
+    }
         ?>
     </div>
-    
-    <?php
-var_dump($dbConnect,$commentManager,$selectOneComment);
-    ?>
+
 </body>
 </html>

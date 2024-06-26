@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/style.css">
-    <title>Exemple du ArticleManager::selectAll()</title>
+    <title><?=$title?></title>
 </head>
     <body>
         <?php require 'menu.article.view.php'; ?>

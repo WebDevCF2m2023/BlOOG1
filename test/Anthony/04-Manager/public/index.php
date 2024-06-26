@@ -5,10 +5,10 @@ session_start();
 
 // on va utiliser notre connexion personnalisée (singleton)
 use model\OurPDO;
-// on va utiliser notre manager de commentaires
-use model\Manager\CommentManager;
-// on va utiliser notre classe de mapping de commentaires
-use model\Mapping\CommentMapping;
+// on va utiliser notre manager de user
+use model\Manager\UserManager;
+// on va utiliser notre classe de mapping de user
+use model\Mapping\UserMapping;
 
 // Appel de la config
 require_once "../config.php";
@@ -16,101 +16,117 @@ require_once "../config.php";
 // our autoload
 spl_autoload_register(function ($class) {
     $class = str_replace('\\', '/', $class);
-    require PROJECT_DIRECTORY.'/' .$class . '.php';
+    require PROJECT_DIRECTORY . '/' . $class . '.php';
 });
 
 // connect database
-$dbConnect = OurPDO::getInstance( DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME.";port=".DB_PORT.";charset=".DB_CHARSET,
-DB_LOGIN,
-DB_PWD);
+$dbConnect = OurPDO::getInstance(
+    DB_TYPE . ":host=" . DB_HOST . ";dbname=" . DB_NAME . ";port=" . DB_PORT . ";charset=" . DB_CHARSET,
+    DB_LOGIN,
+    DB_PWD
+);
 
-// create comment Manager
-$commentManager = new CommentManager($dbConnect);
+// create user Manager
+$userManager = new UserManager($dbConnect);
 
 
 
 // detail view
-if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
-    $idComment = (int) $_GET['view'];
+if (isset($_GET['view']) && ctype_digit($_GET['view'])) {
+    $idUser = (int) $_GET['view'];
     // select one comment
-    $selectOneComment = $commentManager->selectOneById($idComment);
+    $selectOneUser = $userManager->selectOneById($idUser);
     // view
-    require "../view/comment/selectOneComment.view.php";
+    require "../view/user/selectOneUser.view.php";
 
-// insert comment page
-}elseif(isset($_GET['insert'])){
+    // insert user page
+} elseif (isset($_GET['insert'])) {
 
-// real insert comment
-    if(isset($_POST['comment_text'])) {
-        try{
-            // create comment
-            $comment = new CommentMapping($_POST);
-            // set date
-            $comment->setCommentDatePublish(new DateTime());
-            // insert comment
-            $insertComment = $commentManager->insert($comment);
-
-            if($insertComment===true) {
-                header("Location: ./");
-                exit();
-            }else{
-                $error = $insertComment;
-            }
-        }catch(Exception $e){
-            $error = $e->getMessage();
-        }
-        //var_dump($comment);
-
-    }
-    // view
-    require "../view/comment/insertComment.view.php";
-
-// delete comment
-}elseif (isset($_GET['update'])&&ctype_digit($_GET['update'])) {
-    $idComment = (int)$_GET['update'];
-
-    // update comment
-    if (isset($_POST['comment_text'])) {
+    // real insert comment
+    if (isset(
+        $_POST['user_login'],
+        $_POST['user_password'],
+        $_POST['user_full_name'],
+        $_POST['user_mail'],
+        $_POST['user_status'],
+        $_POST['user_secret_key'],
+        $_POST['permission_permission_id']
+    )) {
         try {
-            // create comment
-            $comment = new CommentMapping($_POST);
-            $comment->setCommentId($idComment);
-            // update comment
-            $updateComment = $commentManager->update($comment);
-            if($updateComment===true) {
+            // create user
+            $user = new UserMapping($_POST);
+
+            // insert user
+            $insertUser = $userManager->insert($user);
+
+            if ($insertUser === true) {
                 header("Location: ./");
                 exit();
-            }else{
-                $error = $updateComment;
+            } else {
+                $error = $insertUser;
             }
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             $error = $e->getMessage();
         }
-
+        var_dump($user);
     }
-    // select one comment
-    $selectOneComment = $commentManager->selectOneById($idComment);
     // view
-    require "../view/comment/updateComment.view.php";
+    require "../view/user/insertUser.view.php";
 
-// delete comment
-}elseif(isset($_GET['delete'])&&ctype_digit($_GET['delete'])){
-    $idComment = (int) $_GET['delete'];
-    // delete comment
-    $deleteComment = $commentManager->delete($idComment);
-    if($deleteComment===true) {
+    // delete user
+} elseif (isset($_GET['update']) && ctype_digit($_GET['update'])) {
+    $idUser = (int)$_GET['update'];
+
+    // update user
+    if (isset(
+
+        $_POST['user_login'],
+        $_POST['user_password'],
+        $_POST['user_full_name'],
+        $_POST['user_mail'],
+        $_POST['user_status'],
+        $_POST['user_secret_key'],
+        $_POST['permission_permission_id']
+    )) {
+        try {
+            // create user
+            $user = new UserMapping($_POST);
+            $user->setUserId($idUser);
+            // update user
+            $updateUser = $userManager->update($user);
+            if ($updateUser === true) {
+                header("Location: ./");
+                exit();
+            } else {
+                $error = $updateUser;
+            }
+        } catch (Exception $e) {
+            $error = $e->getMessage();
+        }
+    }
+    // select one user
+    $selectOneUser = $userManager->selectOneById($idUser);
+    // view
+    require "../view/user/updateUser.view.php";
+
+    // delete user
+} elseif (isset($_GET['delete']) && ctype_digit($_GET['delete'])) {
+    $idUser = (int) $_GET['delete'];
+    // delete user
+    $deleteUser = $userManager->delete($idUser);
+    if ($deleteUser === true) {
         header("Location: ./");
         exit();
-    }else{
-        $error = $deleteComment;
+    } else {
+        $error = $deleteUser;
     }
 
-// homepage
-}else{
-    // select all comments
-    $selectAllComments = $commentManager->selectAll();
+    // homepage
+} else {
+    // select all users
+    $selectAllUser = $userManager->selectAll();
     // view
-    require "../view/comment/selectAllComment.view.php";
+    require "../view/user/selectAllUser.view.php";
 }
-//var_dump($selectAllComments);
+
 $dbConnect = null;

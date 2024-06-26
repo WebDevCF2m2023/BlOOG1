@@ -5,6 +5,8 @@ namespace model\Mapping;
 use model\Abstract\AbstractMapping;
 use model\Trait\TraitDateTime;
 use model\Trait\TraitSlugify;
+use model\Mapping\UserMapping;
+use model\Mapping\CategoryMapping;
 use DateTime;
 use Exception;
 

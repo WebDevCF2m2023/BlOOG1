@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemple du CommentManager::update()</title>
+    <title>Exemple du ImageManager::update()</title>
 </head>
 <body>
-    <h1>Exemple du CommentManager::update()</h1>
+    <h1>Exemple du ImageManager::update()</h1>
     <div>
         <?php
-        require 'menu.comment.view.php';
-        if(is_null($selectOneComment)):
+        require 'menu.image.view.php';
+        if(is_null($selectOneImage)):
             ?>
-            <h3>Commentaire inexistant</h3>
+            <h3>Image inexistante</h3>
 
         <?php
         else:
         if(isset($error)) echo "<h4>$error</h4>";
         ?>
-    <h3>Modification d'un commentaire</h3>
+    <h3>Modification d'une image</h3>
     <form action="" method="post">
-        <label for="comment_text">Commentaire</label>
-        <textarea name="comment_text" id="comment_text" cols="30" rows="10"><?=$selectOneComment->getCommentText()?></textarea>
+        <label for="image_url">Image</label>
+        <textarea name="image_description" id="image_description" cols="30" rows="10"><?=$selectOneImage->getImageDescription()?></textarea>
         <input type="submit" value="Envoyer">
     </form>
         <?php

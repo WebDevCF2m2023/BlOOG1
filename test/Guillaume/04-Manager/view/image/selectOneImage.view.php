@@ -3,32 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemple du CommentManager::selectOneComment()</title>
+    <title>Exemple du ImageManager::selectOneImage()</title>
 </head>
 <body>
-    <h1>Exemple du CommentManager::selectOneComment()</h1>
+    <h1>Exemple du ImageManager::selectOneImage()</h1>
     <div>
         <?php
 
-        require 'menu.comment.view.php';
+        require 'menu.image.view.php';
 
-        if(is_null($selectOneComment)):
+        if(is_null($selectOneImage)):
         ?>
-        <h3>Commentaire inexistant</h3>
+        <h3>Image inexistante</h3>
         
         <?php
     else:
         ?>
-    <h4>ID : <?=$selectOneComment->getCommentId()?> <a href="?view=<?=$selectOneComment->getCommentId()?>">Voir ce commentaire via son id</a></h4>
-    <p><?=$selectOneComment->getCommentText()?></p>
-    <p><?=$selectOneComment->getCommentDateCreate()?></p><hr>
+    <h4>ID : <?=$selectOneComment->getImageId()?> <a href="?view=<?=$selectOneComment->getImageId()?>">Voir cette image via son id</a></h4>
+    <p><?=$selectOneImage->getImageUrlName()?></p>
+    <p><?=$selectOneImage->getImageDateCreate()?></p><hr>
         <?php
     endif;
         ?>
     </div>
     
     <?php
-var_dump($dbConnect,$commentManager,$selectOneComment);
+var_dump($dbConnect,$imageManager,$selectOneImage);
     ?>
 </body>
 </html>

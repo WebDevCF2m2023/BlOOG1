@@ -63,3 +63,4 @@ $tag2 = new TagMapping([
 ]);
 
 var_dump($image1,$image2,$image3,$tag1,$tag2);
+ 

@@ -91,6 +91,32 @@ class ArticleManager implements InterfaceManager{
 
     public function update(AbstractMapping $mapping) {
 
+        $sql = "UPDATE `article` 
+                SET `article_title`=?,
+                    `article_slug`=?,
+                    `article_text`=?, 
+                    `article_date_update`=? 
+                WHERE `article_id`=?";
+        // mise à jour de la date de modification
+        $mapping->setArticleDateUpdate(date("Y-m-d H:i:s"));
+        $prepare = $this->connect->prepare($sql);
+
+        try{
+            $prepare->bindValue(1,$mapping->getArticleTitle());
+            $prepare->bindValue(2,$mapping->getArticleSlug());
+            $prepare->bindValue(3,$mapping->getArticleText());
+            $prepare->bindValue(4,$mapping->getArticleDateUpdate());
+            $prepare->bindValue(5,$mapping->getArticleId(), OurPDO::PARAM_INT);
+
+            $prepare->execute();
+
+            $prepare->closeCursor();
+
+            return true;
+
+        }catch(Exception $e){
+            return $e->getMessage();
+        }
     }
 
 

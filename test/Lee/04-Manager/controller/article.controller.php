@@ -28,9 +28,51 @@ if(isset($_POST['artTitle'], $_POST["artText"])) {
     }catch(Exception $e){
         $error = $e->getMessage();
     }
-    //var_dump($comment);
 
 }
+
+if(isset($_POST['artTitleUpdate'], 
+         $_POST["artTextUpdate"]
+        ) && ctype_digit($_POST["artId"])) {
+    $artId    = $_POST["artId"];
+    $artTitle = htmlspecialchars(trim(strip_tags($_POST["artTitleUpdate"])), ENT_QUOTES);
+    $artText  = htmlspecialchars(trim(strip_tags($_POST["artTextUpdate"])), ENT_QUOTES);
+ 
+       try{
+   
+           $article = new ArticleMapping($_POST);
+           $article->setArticleId($artId);
+           $article->setArticleTitle($artTitle);
+           $article->setArticleSlug($artTitle);
+           $article->setArticleText($artText);
+           $article->setArticleDateUpdate(new DateTime());
+           $updateArticle = $articleManager->update($article);
+   
+           if($updateArticle===true) {
+               header("Location: ?article");
+               exit();
+           }else{
+               $error = $updateArticle;
+           }
+       }catch(Exception $e){
+           $error = $e->getMessage();
+       }
+    }
+if(isset($_POST["artTextUpdate"],
+         $_POST["artIdUpdate"]
+         ) &&
+         ctype_digit($_POST["artIdUpdate"])
+         ) {
+            $artTitle = htmlspecialchars(trim(strip_tags($_POST["artTitle"])), ENT_QUOTES);
+            $artText  = htmlspecialchars(trim(strip_tags($_POST["artText"])), ENT_QUOTES);
+           
+            $article = new ArticleMapping($_POST);
+            $article->setArticleTitle($artTitle);
+            $article->setArticleSlug($artTitle);
+            $article->setArticleText($artText);
+            $article->setArticleDatePublish(new DateTime());
+            $insertArticle = $articleManager->insert($article);
+         }
 
 if(isset($_GET['action']) 
 && ($_GET['action'] == "delete")

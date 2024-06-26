@@ -14,32 +14,42 @@
     <form class=" w-full p-4 rounded shadow-md" action="" method="POST">
       <h2 class="text-xl mb-4 tracking-wider font-lighter text-gray-900 dark:text-gray-200">Changer un Article</h2>
 
-
+<?php var_dump($selectOneArticle) ?>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-
+      <div class="mb-4">
+          <input
+        type="text"
+        id="artId"
+        name="artId"
+        class="hidden w-full px-3 py-2 dark:bg-gray-900 rounded-sm border dark:border-none border-gray-300 focus:outline-none border-solid focus:border-dashed"
+        placeholder="id*"
+        value="<?=$selectOneArticle->getArticleId()?>"
+        required
+      />
+        </div>
         <div class="mb-4">
           <input
         type="text"
-        id="artIdUpdate"
-        name="artIdUpdate"
+        id="artTitleUpdate"
+        name="artTitleUpdate"
         class="w-full px-3 py-2 dark:bg-gray-900 rounded-sm border dark:border-none border-gray-300 focus:outline-none border-solid focus:border-dashed"
         placeholder="id*"
-        value="<?=$selectOneArticle->getArticleId()?>"
+        value="<?=$selectOneArticle->getArticleTitle()?>"
         required
       />
         </div>
 
       </div>
       <div class="mb-4 col-span-1 md:col-span-3">
-          <textarea
+          <input
         id="artTextUpdate"
         name="artTextUpdate"
         class="w-full px-3 py-2 dark:bg-gray-900 rounded-sm border dark:border-none border-gray-300 focus:outline-none border-solid focus:border-dashed resize-none"
         value="<?=$selectOneArticle->getArticleText()?>"
-        rows="5"
+        
 
         required
-      ></textarea>
+      >
         </div>
       <div class="flex justify-end">
         <button

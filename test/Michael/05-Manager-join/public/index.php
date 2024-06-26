@@ -3,6 +3,8 @@
 // session
 session_start();
 
+use model\OurPDO;
+
 // Appel de la config
 require_once "../config.php";
 
@@ -12,4 +14,10 @@ spl_autoload_register(function ($class) {
     require PROJECT_DIRECTORY.'/' .$class . '.php';
 });
 
-echo "<h1>En construction</h1>";
+// connect database
+$dbConnect = OurPDO::getInstance( DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME.";port=".DB_PORT.";charset=".DB_CHARSET,
+    DB_LOGIN,
+    DB_PWD);
+
+// create routerController into the controller folder
+require_once PROJECT_DIRECTORY."/controller/routerController.php";

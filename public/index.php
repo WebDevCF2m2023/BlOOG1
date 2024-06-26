@@ -13,4 +13,3 @@ spl_autoload_register(function ($class) {
 });
 
 echo "<h1>En construction</h1>";
-

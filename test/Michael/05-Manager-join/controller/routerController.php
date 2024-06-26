@@ -1,7 +1,7 @@
 <?php
 // si nous sommes connectés
 if (isset($_SESSION['MySession'])) {
-    $router = $_SESSION['permission'];
+    $router = $_SESSION['permission_name'];
     switch ($router) {
         case 'Administrateur':
             // si nous sommes Administrateur

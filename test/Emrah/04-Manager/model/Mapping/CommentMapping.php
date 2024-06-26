@@ -45,7 +45,7 @@ class CommentMapping extends AbstractMapping
     {
         $this->comment_id = $comment_id;
     }
-
+    
     public function getCommentText(): ?string
     {
         return $this->comment_text;

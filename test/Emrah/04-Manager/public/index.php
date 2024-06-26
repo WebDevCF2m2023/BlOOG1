@@ -6,9 +6,9 @@ session_start();
 // on va utiliser notre connexion personnalisée (singleton)
 use model\OurPDO;
 // on va utiliser notre manager de commentaires
-use model\Manager\CommentManager;
+use model\Manager\FileManager;
 // on va utiliser notre classe de mapping de commentaires
-use model\Mapping\CommentMapping;
+use model\Mapping\FileMapping;
 
 // Appel de la config
 require_once "../config.php";
@@ -25,36 +25,36 @@ DB_LOGIN,
 DB_PWD);
 
 // create comment Manager
-$commentManager = new CommentManager($dbConnect);
+$fileManager = new FileManager($dbConnect);
 
 
 
 // detail view
 if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
-    $idComment = (int) $_GET['view'];
+    $id = (int) $_GET['view'];
     // select one comment
-    $selectOneComment = $commentManager->selectOneById($idComment);
+    $selectOneFile = $fileManager->selectOneById($id);
     // view
-    require "../view/comment/selectOneComment.view.php";
+    require "../view/file/selectOneFile.view.php";
 
 // insert comment page
 }elseif(isset($_GET['insert'])){
 
 // real insert comment
-    if(isset($_POST['comment_text'])) {
+    if(isset($_POST['file_text'])) {
         try{
             // create comment
-            $comment = new CommentMapping($_POST);
-            // set date
-            $comment->setCommentDatePublish(new DateTime());
-            // insert comment
-            $insertComment = $commentManager->insert($comment);
+            $file = new FileMapping($_POST);
+            $file->setFileUrl($_POST["file_text"]);
+     
+         
+            $insertFile = $fileManager->insert($file);
 
-            if($insertComment===true) {
+            if($insertFile===true) {
                 header("Location: ./");
                 exit();
             }else{
-                $error = $insertComment;
+                $error = $insertFile;
             }
         }catch(Exception $e){
             $error = $e->getMessage();
@@ -63,25 +63,25 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
 
     }
     // view
-    require "../view/comment/insertComment.view.php";
+    require "../view/file/insertFile.view.php";
 
 // delete comment
 }elseif (isset($_GET['update'])&&ctype_digit($_GET['update'])) {
-    $idComment = (int)$_GET['update'];
+    $id = (int)$_GET['update'];
 
     // update comment
-    if (isset($_POST['comment_text'])) {
+    if (isset($_POST['file_url'])) {
         try {
             // create comment
-            $comment = new CommentMapping($_POST);
-            $comment->setCommentId($idComment);
+            $file = new FileMapping($_POST);
+            $file->setFileId($id);
             // update comment
-            $updateComment = $commentManager->update($comment);
-            if($updateComment===true) {
+            $updateFile = $fileManager->update($file);
+            if($updateFile===true) {
                 header("Location: ./");
                 exit();
             }else{
-                $error = $updateComment;
+                $error = $updateFile;
             }
         }catch (Exception $e) {
             $error = $e->getMessage();
@@ -89,28 +89,28 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
 
     }
     // select one comment
-    $selectOneComment = $commentManager->selectOneById($idComment);
+    $selectOneFile = $fileManager->selectOneById($id);
     // view
-    require "../view/comment/updateComment.view.php";
+    require "../view/file/updateFile.view.php";
 
 // delete comment
 }elseif(isset($_GET['delete'])&&ctype_digit($_GET['delete'])){
-    $idComment = (int) $_GET['delete'];
+    $idFile = (int) $_GET['delete'];
     // delete comment
-    $deleteComment = $commentManager->delete($idComment);
-    if($deleteComment===true) {
+    $deleteFile = $fileManager->delete($idFile);
+    if($deleteFile===true) {
         header("Location: ./");
         exit();
     }else{
-        $error = $deleteComment;
+        $error = $deleteFile;
     }
 
 // homepage
 }else{
     // select all comments
-    $selectAllComments = $commentManager->selectAll();
+    $selectAllFiles = $fileManager->selectAll();
     // view
-    require "../view/comment/selectAllComment.view.php";
+    require "../view/file/selectAllFile.view.php";
 }
 
 $dbConnect = null;

@@ -12,7 +12,7 @@ class FileMapping extends AbstractMapping
     protected ?string $file_url=null;
     protected ?string $file_description=null;
     protected ?string $file_type=null;
-    protected ?int $article_article_id=null;
+    protected ?int $file_file_id=null;
 
 
     public function getFileId(): ?int
@@ -62,16 +62,15 @@ class FileMapping extends AbstractMapping
         $this->file_type = $file_type;
     }
 
-    public function getArticleArticleId(): ?int
+    public function getFileFileId(): ?int
     {
-        return $this->article_article_id;
+        return $this->file_file_id;
     }
 
-    public function setArticleArticleId(?int $article_article_id): void
+    public function setFileFileId(?int $file_file_id): void
     {
-        $this->article_article_id = $article_article_id;
+        $this->file_file_id = $file_file_id;
     }
-
 
 
 

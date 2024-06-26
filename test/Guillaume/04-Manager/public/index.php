@@ -7,12 +7,12 @@ session_start();
 use model\OurPDO;
 // on va utiliser notre manager de commentaires
 use model\Manager\CommentManager;
-
+// on va utiliser notre manager des images
 use model\Manager\ImageManager;
 
 // on va utiliser notre classe de mapping de commentaires
 use model\Mapping\CommentMapping;
-
+// on va utiliser notre classe de mapping des images
 use model\Manager\ImageMapping;
 
 // Appel de la config
@@ -32,6 +32,7 @@ DB_PWD);
 // create comment Manager
 $commentManager = new CommentManager($dbConnect);
 
+// create image Manager
 $imageManager = new ImageManager($dbConnect);
 
 
@@ -114,10 +115,94 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
 
 // homepage
 }else{
-    // select all comments
-    $selectAllComments = $commentManager->selectAll();
+    // select all images
+    $selectAllImages = $imageManager->selectAll();
     // view
-    require "../view/comment/selectAllComment.view.php";
+    require "../view/image/selectAllImages.view.php";
+}
+
+// detail view
+if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
+    $idImage = (int) $_GET['view'];
+    // select one image
+    $selectOneImage = $imageManager->selectOneById($idImage);
+    // view
+    require "../view/image/selectOneImage.view.php";
+
+// insert image page
+}elseif(isset($_GET['insert'])){
+
+// real insert image
+    if(isset($_POST['image_url'])) {
+        try{
+            // create image
+            $image = new ImageMapping($_POST);
+            // set date
+            $image->setImageDescription($_POST);
+            // insert image
+            $insertImage = $imageManager->insert($image);
+
+            if($insertImage===true) {
+                header("Location: ./");
+                exit();
+            }else{
+                $error = $insertImage;
+            }
+        }catch(Exception $e){
+            $error = $e->getMessage();
+        }
+        //var_dump($image);
+
+    }
+    // view
+    require "../view/image/insertImage.view.php";
+
+// delete image
+}elseif (isset($_GET['update'])&&ctype_digit($_GET['update'])) {
+    $idImage = (int)$_GET['update'];
+
+    // update image
+    if (isset($_POST['image_url'])) {
+        try {
+            // create image
+            $image = new ImageMapping($_POST);
+            $image->setImageUrl($idImage);
+            // update image
+            $updateImage = $imageManager->update($image);
+            if($updateImage===true) {
+                header("Location: ./");
+                exit();
+            }else{
+                $error = $updateImage;
+            }
+        }catch (Exception $e) {
+            $error = $e->getMessage();
+        }
+
+    }
+    // select one image
+    $selectOneImage = $imageManager->selectOneById($idImage);
+    // view
+    require "../view/comment/updateImage.view.php";
+
+// delete image
+}elseif(isset($_GET['delete'])&&ctype_digit($_GET['delete'])){
+    $idImage = (int) $_GET['delete'];
+    // delete image
+    $deleteImage = $imageManager->delete($idImage);
+    if($deleteImage===true) {
+        header("Location: ./");
+        exit();
+    }else{
+        $error = $deleteImage;
+    }
+
+// homepage
+}else{
+    // select all images
+    $selectAllImages = $imageManager->selectAll();
+    // view
+    require "../view/image/selectAllImages.view.php";
 }
 
 $dbConnect = null;

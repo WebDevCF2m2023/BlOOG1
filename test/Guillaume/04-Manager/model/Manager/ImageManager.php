@@ -45,7 +45,7 @@ class ImageManager implements InterfaceManager{
         ImageMapping, liée à la table qu'on va manager
         */
         foreach($array as $value){
-            // on remplit un nouveau tableau contenant les commentaires
+            // on remplit un nouveau tableau contenant les images
             $arrayImage[] = new ImageMapping($value);
         }
 
@@ -92,13 +92,13 @@ class ImageManager implements InterfaceManager{
         // requête préparée
         $sql = "UPDATE `image` SET `image_url`=?, `image_description`=?, `image_type`=? WHERE `image_id`=?";
         // mise à jour de la date de modification
-        $mapping->setCommentDateUpdate(date("Y-m-d H:i:s"));
+        $mapping->setImageDateUpdate(date("Y-m-d H:i:s"));
         $prepare = $this->connect->prepare($sql);
 
         try{
-            $prepare->bindValue(1,$mapping->getCommentText());
-            $prepare->bindValue(2,$mapping->getCommentDateUpdate());
-            $prepare->bindValue(3,$mapping->getCommentId(), OurPDO::PARAM_INT);
+            $prepare->bindValue(1,$mapping->getImageUrlName());
+            $prepare->bindValue(2,$mapping->getImageDateUpdate());
+            $prepare->bindValue(3,$mapping->getImageId(), OurPDO::PARAM_INT);
 
             $prepare->execute();
 
@@ -113,7 +113,7 @@ class ImageManager implements InterfaceManager{
     }
 
 
-    // insertion d'un commentaire
+    // insertion d'une image
     public function insert(AbstractMapping $mapping): bool|string
     {
 
@@ -122,7 +122,7 @@ class ImageManager implements InterfaceManager{
         $prepare = $this->connect->prepare($sql);
 
         try{
-            $prepare->bindValue(1,$mapping->getCommentText());
+            $prepare->bindValue(1,$mapping->getImageUrlName());
             $prepare->bindValue(2,1, OurPDO::PARAM_INT);
             $prepare->bindValue(3,1, OurPDO::PARAM_INT);
 

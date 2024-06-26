@@ -27,7 +27,7 @@ class ArticleManager implements InterfaceManager{
          ORDER BY `article_date_create` DESC";
         
         $array = $this->runQuery($sql);
-        if (!is_array($array)) throw new Exception("")
+        if (!is_array($array)) throw new Exception("");
         $arrayArticles = [];
 
 

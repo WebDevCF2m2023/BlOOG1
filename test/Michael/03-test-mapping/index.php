@@ -65,7 +65,7 @@ $comment = new \model\Mapping\CommentMapping([
 
 // test d'intégration de la classe ArticlesMapping
 
-$article = new \model\Mapping\ArticlesMapping([
+$article = new \model\Mapping\ArticleMapping([
     'article_id' => 1,
     'article_title' => 'admin',
     'article_slug' => 'admin',

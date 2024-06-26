@@ -19,9 +19,9 @@
     else:
         foreach($selectAllCategories as $item):
         ?>
-    <h4>ID : <?=$item->getCategoryId()?> <a href="?view=<?=$item->getCategoryId()?>">Voir ce commentaire via son id</a> | <a href="?update=<?=$item->getCategoryId()?>">Mettre à jour</a> | <a href="?delete=<?=$item->getCategoryId()?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');">Supprimer</a> </h4>
-    <p><?=$item->getCategoryText()?></p>
-    <p><?=$item->getCategoryDateCreate()?></p><hr>
+    <h4>ID : <?=$item->getCategoryId()?> <a href="?view=<?=$item->getCategoryId()?>">Voir ce commentaire via son id</a> | <a href="?update=<?=$item->getCategoryId()?>">Mettre à jour</a> | <a href="?delete=<?=$item->getCategoryId()?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette category ?');">Supprimer</a> </h4>
+    <p><?=$item->getCategoryName()?></p>
+    <p><?=$item->getCategoryDescription()?></p><hr>
         <?php
         endforeach;
     endif;

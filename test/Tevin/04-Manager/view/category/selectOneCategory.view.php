@@ -19,9 +19,9 @@
         <?php
     else:
         ?>
-    <h4>ID : <?=$selectOneComment->getCategoryId()?> <a href="?view=<?=$selectOneComment->getCategoryId()?>">Voir ce commentaire via son id</a></h4>
-    <p><?=$selectOneComment->getCategoryText()?></p>
-    <p><?=$selectOneComment->getCategoryDateCreate()?></p><hr>
+    <h4>ID : <?=$selectOneCategory->getCategoryId()?> <a href="?view=<?=$selectOneCategory->getCategoryId()?>">Voir cette categorie via son id</a></h4>
+    <p><?=$selectOneCategory->getCategoryName()?></p>
+    <p><?=$selectOneCategory->getCategoryDescription()?></p><hr>
         <?php
     endif;
         ?>

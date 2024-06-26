@@ -20,8 +20,8 @@
         ?>
     <h3>Modification d'une categorie</h3>
     <form action="" method="post">
-        <label for="category_text">Categorie</label>
-        <textarea name="category_text" id="category_text" cols="30" rows="10"><?=$selectOneCategory->getCategoryText()?></textarea>
+        <label for="category_name">Categorie</label>
+        <textarea name="category_name" id="category_name" cols="30" rows="10"><?=$selectOneCategory->getCategoryName()?></textarea>
         <input type="submit" value="Envoyer">
     </form>
         <?php

@@ -14,9 +14,13 @@
         ?>
     <h3>Insertion d'une categorie</h3>
     <form action="" method="post">
-        <label for="category_text">Commentaire</label>
-        <textarea name="category_text" id="category_text" cols="30" rows="10"></textarea>
-        <input type="submit" value="Envoyer">
+        <label for="category_name">Nom de la categorie</label>
+        <input name="category_name" id="category_name">
+
+    
+        <label for="category_description">Description de la catégorie</label>
+        <input name="category_description" id="category_description">
+        <button type="submit" value="Envoyer">Envoyer</button>
     </form>
 
     </div>

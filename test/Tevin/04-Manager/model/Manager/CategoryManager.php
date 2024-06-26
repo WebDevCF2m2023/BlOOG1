@@ -23,8 +23,8 @@ class CategoryManager implements InterfaceManager{
     public function selectAll(): ?array
     {
         // requête SQL
-        $sql = "SELECT * FROM `comment` -- WHERE `comment_id`=999
-         ORDER BY `comment_date_create` DESC";
+        $sql = "SELECT * FROM `category` -- WHERE `comment_id`=999
+         ORDER BY `category_slug` DESC";
         // query car pas d'entrées d'utilisateur
         $select = $this->connect->query($sql);
 
@@ -92,15 +92,16 @@ class CategoryManager implements InterfaceManager{
     {
 
         // requête préparée
-        $sql = "UPDATE `category` SET `category_text`=?, `category_date_update`=? WHERE `category_id`=?";
+        $sql = "UPDATE `category` SET `category_name`=?,`category_slug`=?,`category_description`=? WHERE `category_id` =?";
         // mise à jour de la date de modification
-        $mapping->setCategoryDateUpdate(date("Y-m-d H:i:s"));
+
         $prepare = $this->connect->prepare($sql);
 
         try{
-            $prepare->bindValue(1,$mapping->getCategoryText());
-            $prepare->bindValue(2,$mapping->getCategoryDateUpdate());
-            $prepare->bindValue(3,$mapping->getCategoryId(), OurPDO::PARAM_INT);
+            $prepare->bindValue(1,$mapping->getCategoryName());
+            $prepare->bindValue(2,$mapping->getCategorySlug());
+            $prepare->bindValue(3,$mapping->getCategoryDescription());
+            $prepare->bindValue(4,$mapping->getCategoryId(), OurPDO::PARAM_INT);
 
             $prepare->execute();
 
@@ -120,13 +121,14 @@ class CategoryManager implements InterfaceManager{
     {
 
         // requête préparée
-        $sql = "INSERT INTO `category`(`category_text`,`user_user_id`,`article_article_id`)  VALUES (?,?,?)";
+        $sql = "INSERT INTO `category`(`category_name`, `category_slug`, `category_description`) VALUES (?,?,?);";
         $prepare = $this->connect->prepare($sql);
 
         try{
-            $prepare->bindValue(1,$mapping->getCategoryText());
-            $prepare->bindValue(2,1, OurPDO::PARAM_INT);
-            $prepare->bindValue(3,1, OurPDO::PARAM_INT);
+            $prepare->bindValue(1,$mapping->getCategoryName());
+            $prepare->bindValue(2,$mapping->getCategorySlug());
+            $prepare->bindValue(3,$mapping->getCategoryDescription());
+
 
             $prepare->execute();
 

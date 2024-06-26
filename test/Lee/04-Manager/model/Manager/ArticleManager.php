@@ -3,16 +3,16 @@
 namespace model\Manager ;
 
 use Exception;
+use model\Abstract\AbstractMapping;
 use model\Interface\InterfaceManager;
 use model\Mapping\ArticleMapping;
-use model\Abstract\AbstractMapping;
-use trait\TraitRunQuery;
+use model\trait\TraitRunQuery;
 use model\OurPDO;
-use model\Trait\TraitRunQuery as TraitTraitRunQuery;
+
 
 class ArticleManager implements InterfaceManager{
 
-    use TraitTraitRunQuery;
+    use TraitRunQuery;
     private ?OurPDO $connect = null;
 
     public function __construct(OurPDO $db){
@@ -20,58 +20,59 @@ class ArticleManager implements InterfaceManager{
     }
 
 
-    public function selectAll(): ?array
+    public function selectAll(): ?array  // sauf les noms des tables, ceci est souvent similaire - faut que remplacer article_ par comment_ donc sans doute possible de mettre ailleurs
     {
-
         $sql = "SELECT * FROM `article`
          ORDER BY `article_date_create` DESC";
         
         $array = $this->runQuery($sql);
         if (!is_array($array)) throw new Exception("");
         $arrayArticles = [];
-
-
         foreach($array as $value){
-            // on remplit un nouveau tableau contenant les commentaires
             $arrayArticles[] = new ArticleMapping($value);
         }
-
-        // on retourne le tableau
         return $arrayArticles;
     }
 
-    // récupération d'un commentaire via son id
+/* 
+*
+*   Tout le reste ici est pour satisfait le Interface pendant que je crée les autres fonctions
+*
+*/
+
+
+    // RECUEPRATION D'UN ARTICLE VIA ID 
     public function selectOneById(int $id): null|string|ArticleMapping
     {
 
-        // requête préparée
-        $sql = "SELECT * FROM `comment` WHERE `comment_id`= ?";
-        $prepare = $this->connect->prepare($sql);
+        $sql     = "SELECT * 
+                    FROM `article` 
+                    WHERE `article_id`= ?";
+        $getStmt = $this->connect->prepare($sql);
+        $getStmt->bindValue(1,$id, OurPDO::PARAM_INT);
 
         try{
-            $prepare->bindValue(1,$id, OurPDO::PARAM_INT);
-            $prepare->execute();
-
-            // pas de résultat = null
-            if($prepare->rowCount()===0) return null;
-
-            // récupération des valeurs en tableau associatif
-            $result = $prepare->fetch(OurPDO::FETCH_ASSOC);
-
-            // création de l'instance ArticleMapping
-            $result = new ArticleMapping($result);
-
-            $prepare->closeCursor();
-            
+            $getStmt->execute();
+            if($getStmt->rowCount()===0) return null;
+                $result = $getStmt->fetch(OurPDO::FETCH_ASSOC);
+                $result = new ArticleMapping($result);
+                $getStmt->closeCursor();
             return $result;
-
-
         }catch(Exception $e){
             return $e->getMessage();
         }
         
     }
 
+    public function insert(AbstractMapping $mapping) {
+
+    }
+    public function update(AbstractMapping $mapping) {
+
+    }
+
+
+/*
     // mise à jour d'un commentaire
     public function update(AbstractMapping $mapping): bool|string
     {
@@ -123,20 +124,18 @@ class ArticleManager implements InterfaceManager{
             return $e->getMessage();
         }
     }
-
-    // suppression d'un commentaire
+*/
+    // SUPPRESSION D'UN ARTICLE
     public function delete(int $id): bool|string
     {
-        // requête préparée
-        $sql = "DELETE FROM `comment` WHERE `comment_id`=?";
-        $prepare = $this->connect->prepare($sql);
+        $sql     = "DELETE FROM `article` 
+                    WHERE `article_id`=?";
+        $delStmt = $this->connect->prepare($sql);
 
         try{
-            $prepare->bindValue(1,$id, OurPDO::PARAM_INT);
-
-            $prepare->execute();
-
-            $prepare->closeCursor();
+            $delStmt->bindValue(1,$id, OurPDO::PARAM_INT);
+            $delStmt->execute();
+            $delStmt->closeCursor();
 
             return true;
 
@@ -147,3 +146,4 @@ class ArticleManager implements InterfaceManager{
     }
 
 }
+

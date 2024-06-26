@@ -6,13 +6,14 @@ use Exception;
 use model\Interface\InterfaceManager;
 use model\Mapping\CommentMapping;
 use model\Abstract\AbstractMapping;
+use model\trait\TraitRunQuery;
 use model\OurPDO;
 
 class CommentManager implements InterfaceManager{
 
     // On va stocker la connexion dans une propriété privée
     private ?OurPDO $connect = null;
-
+    use TraitRunQuery;
     // on va passer notre connexion OurPDO
     // à notre manager lors de son instanciation
     public function __construct(OurPDO $db){
@@ -23,23 +24,13 @@ class CommentManager implements InterfaceManager{
     public function selectAll(): ?array
     {
         // requête SQL
-        $sql = "SELECT * FROM `comment` -- WHERE `comment_id`=999
+        $sql = "SELECT * FROM `comment` 
          ORDER BY `comment_date_create` DESC";
-        // query car pas d'entrées d'utilisateur
-        $select = $this->connect->query($sql);
+             $array = $this->runQuery($sql);
 
-        // si on ne récupère rien, on quitte avec un message d'erreur
-        if($select->rowCount()===0) return null;
-
-        // on transforme nos résultats en tableau associatif
-        $array = $select->fetchAll(OurPDO::FETCH_ASSOC);
-
-        // on ferme le curseur
-        $select->closeCursor();
-
-        // on va stocker les commentaires dans un tableau
-        $arrayComment = [];
-
+             if (!is_array($array)) throw new Exception("Articles introuvable suite d'une erreur");
+             $arrayComment = [];
+     
         /* pour chaque valeur, on va créer une instance de classe
         CommentMapping, liée à la table qu'on va manager
         */

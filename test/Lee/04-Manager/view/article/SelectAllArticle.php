@@ -1,33 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemple du CommentManager::selectAll()</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/style.css">
+    <title><?=$title?></title>
 </head>
-<body>
-    <h1>Exemple du CommentManager::selectAll()</h1>
-    <div>
-        <?php
-        require 'menu.comment.view.php';
-
-        if(is_null($selectAllComments)):
-        ?>
-        <h3>Pas encore de commentaire !</h3>
-        <?php
-    else:
-        foreach($selectAllComments as $item):
-        ?>
-        <?php /*
-    <h4>ID : <?=$item->getCommentId()?> <a href="?view=<?=$item->getCommentId()?>">Voir ce commentaire via son id</a> | <a href="?update=<?=$item->getCommentId()?>">Mettre à jour</a> | <a href="?delete=<?=$item->getCommentId()?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');">Supprimer</a> </h4>
-    <p><?=$item->getCommentText()?></p>
-    <p><?=$item->getCommentDateCreate()?></p><hr>
-     */  ?>
-        <?php
-        endforeach;
-    endif;
-        ?>
-    </div>
-
-</body>
+    <body>
+        <?php require 'menu.article.view.php'; ?>
+        <div class="flex justify-center">
+            <p class="text-3xl mb-16">Exemple du ArticleManager::selectAll&lpar;&rpar;</p><p>&lpar;en utilisant Tailwind&rpar;</p></p>
+        </div>
+        <div class="flex justify-center w-4/6 m-auto">
+            <?php include ("inc/allArticlesTable.inc.php") ?>
+            </div>
+    </body>
+</html>

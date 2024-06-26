@@ -64,9 +64,31 @@ class ArticleManager implements InterfaceManager{
         
     }
 
-    public function insert(AbstractMapping $mapping) {
+    public function insert(AbstractMapping $mapping): bool|string {
+ 
+    
+            // requête préparée
+            $sql = "INSERT INTO `article`(`article_title`, `article_slug`, `article_text`,`user_user_id`)  VALUES (?,?,?,?)";
+            $addStmt = $this->connect->prepare($sql);
 
-    }
+            try{
+                $addStmt->bindValue(1,$mapping->getArticleTitle());
+                $addStmt->bindValue(2,$mapping->getArticleSlug());
+                $addStmt->bindValue(3,$mapping->getArticleText());
+                $addStmt->bindValue(4,1, OurPDO::PARAM_INT);
+
+    
+                $addStmt->execute();
+    
+                $addStmt->closeCursor();
+    
+                return true;
+    
+            }catch(Exception $e){
+                return $e->getMessage();
+            }
+        }
+
     public function update(AbstractMapping $mapping) {
 
     }
@@ -100,31 +122,10 @@ class ArticleManager implements InterfaceManager{
         
     }
 
-
-    // insertion d'un commentaire
-    public function insert(AbstractMapping $mapping): bool|string
-    {
-
-        // requête préparée
-        $sql = "INSERT INTO `comment`(`comment_text`,`user_user_id`,`article_article_id`)  VALUES (?,?,?)";
-        $prepare = $this->connect->prepare($sql);
-
-        try{
-            $prepare->bindValue(1,$mapping->getCommentText());
-            $prepare->bindValue(2,1, OurPDO::PARAM_INT);
-            $prepare->bindValue(3,1, OurPDO::PARAM_INT);
-
-            $prepare->execute();
-
-            $prepare->closeCursor();
-
-            return true;
-
-        }catch(Exception $e){
-            return $e->getMessage();
-        }
-    }
 */
+
+
+
     // SUPPRESSION D'UN ARTICLE
     public function delete(int $id): bool|string
     {

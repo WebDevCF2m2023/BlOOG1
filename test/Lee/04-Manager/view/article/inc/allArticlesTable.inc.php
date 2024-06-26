@@ -82,6 +82,8 @@ $trash = `<svg xmlns="http://www.w3.org/2000/svg"
                     if (strlen($fullArt) > 125){
                     $snipArt = substr($fullArt, 0, 125);
                          echo($snipArt . "\n");
+                        }else {
+                            echo $fullArt;
                         }
                     ?>
                      

@@ -1,0 +1,47 @@
+/*
+Menu horizontal
+ */
+.menu {
+    display: block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+}
+
+
+.bodyClassic {
+    background: hsla(197, 14%, 57%, 1);
+    background: linear-gradient(-90deg, hsla(197, 14%, 57%, 1) 0%, hsla(192, 17%, 94%, 1) 100%);
+    background: -moz-linear-gradient(-90deg, hsla(197, 14%, 57%, 1) 0%, hsla(192, 17%, 94%, 1) 100%);
+    background: -webkit-linear-gradient(-90deg, hsla(197, 14%, 57%, 1) 0%, hsla(192, 17%, 94%, 1) 100%);
+    background-repeat: repeat-x;
+    height: 300vh;
+}
+
+.bodyGreen {
+    background: hsla(157, 14%, 57%, 1);
+    background: linear-gradient(-90deg, hsla(157, 14%, 57%, 1) 0%, hsla(152, 17%, 94%, 1) 100%);
+    background: -moz-linear-gradient(-90deg, hsla(157, 14%, 57%, 1) 0%, hsla(152, 17%, 94%, 1) 100%);
+    background: -webkit-linear-gradient(-90deg, hsla(157, 14%, 57%, 1) 0%, hsla(152, 17%, 94%, 1) 100%);
+    background-repeat: repeat-x;
+    height: 300vh;
+}
+
+.bodyBlue {
+    background: hsla(217, 14%, 57%, 1);
+    background: linear-gradient(-90deg, hsla(217, 14%, 57%, 1) 0%, hsla(212, 17%, 94%, 1) 100%);
+    background: -moz-linear-gradient(-90deg, hsla(217, 14%, 57%, 1) 0%, hsla(212, 17%, 94%, 1) 100%);
+    background: -webkit-linear-gradient(-90deg, hsla(217, 14%, 57%, 1) 0%, hsla(212, 17%, 94%, 1) 100%);
+    background-repeat: repeat-x;
+    height: 300vh;
+}
+
+body, .bodyRed {
+    background: hsla(22, 14%, 57%, 1);
+    background: linear-gradient(-90deg, hsla(22, 14%, 57%, 1) 0%, hsla(17, 17%, 94%, 1) 100%);
+    background: -moz-linear-gradient(-90deg, hsla(22, 14%, 57%, 1) 0%, hsla(17, 17%, 94%, 1) 100%);
+    background: -webkit-linear-gradient(-90deg, hsla(22, 14%, 57%, 1) 0%, hsla(17, 17%, 94%, 1) 100%);
+    background-repeat: repeat-x;
+    height: 300vh;
+}

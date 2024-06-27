@@ -14,37 +14,21 @@ class PermissionMapping extends AbstractMapping
     protected ?string $permission_description=null;
 
        
-
-       protected ?UserMapping $user=null;
+       protected ?array $users=null;
 
        
-       protected ?array $permissions=null;
-   
        // getters et setters pour le user
-       public function getUser(): ?UserMapping
+       public function getUser(): ?array
        {
-           return $this->user;
+           return $this->users;
        }
    
-       public function setUser(?UserMapping $user): void
+       public function setUser(?array $users): void
        {
-           $this->user = $user;
+           $this->users = $users;
        }
 
 
-       // getters et setters pour les categories
-    public function getPermissions(): ?array
-    {
-        return $this->permissions;
-    }
-
-    public function setCategories(?array $permissions): void
-    {
-        $this->permissions = $permissions;
-    }
-
-
-    
     
 
     // Les getters et setters

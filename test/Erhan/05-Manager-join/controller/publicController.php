@@ -1,36 +1,39 @@
 <?php
 
-use model\Mapping\ArticleMapping;
-use model\Manager\UserManager;
 
-// Instanciation de la classe ArticleManager
-$userManager = new UserManager($dbConnect);
+use model\Manager\PermissionManager;
 
-// Appel de la méthode selectAll
-$users = $userManager->selectAll();
-// Appel de la méthode selectAllArticleHomepage
-$usersHomepage = $userManager->selectAllUserHomepage();
+$permissionManager = new PermissionManager($dbConnect);
 
-echo "<h1>Instance de ArticleManager</h1>";
-var_dump($userManager);
-echo "<h2>ArticleManager::selectAll()</h2>";
+$users = $permissionManager->selectAll();
+
+$usersHomepage = $permissionManager->selectAllPermissionWithUsers();
+
+echo "<h1>Instance de PermissionManager</h1>";
+//var_dump($permissionManager);
+echo "<h2>PermissionManager::selectAll()</h2>";
 var_dump($users);
-echo "<h2>ArticleManager::selectAllArticleHomepage()</h2>";
+echo "<h2>PermissionManager::selectAllArticleHomepage()</h2>";
 var_dump($usersHomepage);
-foreach ($usersHomepage as $permission) {
-    echo "<h4>User</h4>";
-    echo "<p>Article User ID: " . $permission->getUser()->getUserId() . "</p>";
-    echo "<p>Article User Login: " . $permission->getUser()->getUserLogin() . "</p>";
-    echo "<p>Article User Full Name: " . $permission->getUser()->getUserFullName() . "</p>";
-    if ($permission->getPermissions() !== null):
-        echo "<h4>Categories</h4>";
-        foreach ($permission->getPermissions() as $category):
-            echo "<p>Article Category ID: " . $category->getPermissionId() . "</p>";
-            echo "<p>Article Category Name: " . $category->getPermissionName() . "</p>";
-            echo "<p>Article Category Slug: " . $category->getPermissionDescription() . "</p>";
 
-        endforeach;
-    endif;
+foreach ($usersHomepage as $permission) {
+    echo "<h3>".$permission->getPermissionName()."</h3>";
+    if($permission->getUser()!==null){
+        foreach($permission->getUser() as $user){
+            echo $user->getUserFullName();
+        }
+    }
+}
+
+/*
+foreach ($usersHomepage as $permission) {
+    if($permission->getUser()->getUserId()===null) continue;
+    echo "<h4>User</h4>";
+    echo "<p>Permission User ID: " . $permission->getUser()->getUserId() . "</p>";
+    echo "<p>Permission User Login: " . $permission->getUser()->getUserLogin() . "</p>";
+    echo "<p>Permission User Full Name: " . $permission->getUser()->getUserFullName() . "</p>";
+    
 
 
     }
+    */

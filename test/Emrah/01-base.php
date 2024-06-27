@@ -1,5 +1,7 @@
 <?php
 
+require_once '../../config.php';
+
 use model\Abstract\AbstractMapping;
 
 // Autoload classes
@@ -8,10 +10,17 @@ spl_autoload_register(function ($class) {
     require '../../' .$class . '.php';
 });
 
+// chemin inexistant
+// $lala = new nimport\quoi();
+
+// on ne peut pas instancier une classe abstraite
+//new AbstractMapping([]);
+
 class TestAbstractMapping extends AbstractMapping
 {
     protected ?string $article_title;
     protected ?string $article_date_update;
+
 
     public function __construct(array $tab)
     {
@@ -28,14 +37,15 @@ class TestAbstractMapping extends AbstractMapping
         $this->article_date_update = $value;
     }
 
+
     protected function hydrate(array $assoc): void
     {
         // tant qu'on a des éléments dans le tableau
         foreach ($assoc as $clef => $valeur) {
-            // on explose la clef où on trouve des _
+            // on fait exploser la clef où on trouve des _
             $tab = explode("_",$clef);
-            // on mets en majuscule le nom de chaque clef du tableau 
-            // array_map est un raccouci pour appliquer une fonction 
+            // on met en majuscule le nom de chaque clef du tableau
+            // array_map est un raccourci pour appliquer une fonction
             // à chaque élément d'un tableau (+ rapide que foreach)
             $majuscule = array_map('ucfirst',$tab);
             // on remet le tout ensemble (on implose quoi)
@@ -58,9 +68,18 @@ $test = new TestAbstractMapping([
     'test_coucou' => 'youpie',
     'article_title'=>"un titre",
     'article_date_update'=>"2024-03-17 21:45",
+    'lala_ca_va'=>'lulu',
 ]);
 
 var_dump($test);
 
+use model\OurPDO;
 
+$pdo = OurPDO::getInstance(DB_TYPE . ':host=' . DB_HOST . ';dbname=' . DB_NAME.';charset='.DB_CHARSET.";port=".DB_PORT, DB_LOGIN, DB_PWD);
+
+$pdo2 = OurPDO::getInstance(DB_TYPE . ':host=' . DB_HOST . ';dbname=' . DB_NAME.';charset='.DB_CHARSET.";port=".DB_PORT, DB_LOGIN, DB_PWD);
+
+
+
+var_dump($pdo,$pdo2);
 

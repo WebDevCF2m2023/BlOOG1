@@ -160,7 +160,7 @@ class PermissionManager implements InterfaceManager{
         
     }
 
-    public function selectAllPermissionWithUsers(): ?array
+    public function selectAllWithUsers(): ?array
     {
         // on récupère tous les articles avec jointures
         $query = $this->connect->query("        
@@ -205,9 +205,9 @@ class PermissionManager implements InterfaceManager{
 
                     $users[]=$user;
                 }
-            // on instancie l'article
+            
             $permission = new PermissionMapping($mapping);
-            // on ajoute user à l'article
+            // on ajoute user à la permission
             $permission->setUser($users);
             
             $tabObject[] = $permission;

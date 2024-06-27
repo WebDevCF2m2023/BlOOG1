@@ -7,12 +7,12 @@ $permissionManager = new PermissionManager($dbConnect);
 
 $users = $permissionManager->selectAll();
 
-$usersHomepage = $permissionManager->selectAllPermissionWithUsers();
+$usersHomepage = $permissionManager->selectAllWithUsers();
 
 echo "<h1>Instance de PermissionManager</h1>";
 //var_dump($permissionManager);
 echo "<h2>PermissionManager::selectAll()</h2>";
-var_dump($users);
+//var_dump($users);
 echo "<h2>PermissionManager::selectAllArticleHomepage()</h2>";
 var_dump($usersHomepage);
 

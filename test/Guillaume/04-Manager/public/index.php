@@ -9,11 +9,10 @@ use model\OurPDO;
 use model\Manager\CommentManager;
 // on va utiliser notre manager des images
 use model\Manager\ImageManager;
-
 // on va utiliser notre classe de mapping de commentaires
 use model\Mapping\CommentMapping;
 // on va utiliser notre classe de mapping des images
-use model\Manager\ImageMapping;
+use model\Mapping\ImageMapping;
 
 // Appel de la config
 require_once "../config.php";
@@ -36,7 +35,7 @@ $commentManager = new CommentManager($dbConnect);
 $imageManager = new ImageManager($dbConnect);
 
 
-
+/*
 // detail view
 if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
     $idComment = (int) $_GET['view'];
@@ -120,7 +119,7 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
     // view
     require "../view/image/selectAllImages.view.php";
 }
-
+*/
 // detail view
 if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
     $idImage = (int) $_GET['view'];
@@ -134,14 +133,25 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
 
 // real insert image
     if(isset($_POST['image_url'])) {
+        $urlImage = $_POST['image_url'];
         try{
+            $typeImage = $_POST['image_type'];
+            $descriptionImage = $_POST['image_description'];
+            $urlImage = $_POST['image_url'];
+            $testUrl = filter_var($urlImage, FILTER_VALIDATE_URL); 
+            if (!$testUrl) {
+                die('URL invalid');
+            }else {
+                $cleanUrl = filter_var($urlImage, FILTER_SANITIZE_URL); 
             // create image
             $image = new ImageMapping($_POST);
-            // set date
-            $image->setImageDescription($_POST);
+            $image->setImageId($idImage);
+            $image->setImageUrl($cleanUrl);
+            $image->setImageDescription($descriptionImage);
+            $image->setImageType($typeImage);
             // insert image
             $insertImage = $imageManager->insert($image);
-
+            }   
             if($insertImage===true) {
                 header("Location: ./");
                 exit();
@@ -164,11 +174,23 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
     // update image
     if (isset($_POST['image_url'])) {
         try {
+            $typeImage = $_POST['image_type'];
+            $descriptionImage = $_POST['image_description'];
+            $urlImage = $_POST['image_url'];
+            $testUrl = filter_var($urlImage, FILTER_VALIDATE_URL); 
+            if (!$testUrl) {
+                die('URL invalid');
+            }else {
+                $cleanUrl = filter_var($urlImage, FILTER_SANITIZE_URL); 
             // create image
             $image = new ImageMapping($_POST);
-            $image->setImageUrl($idImage);
+            $image->setImageId($idImage);
+            $image->setImageUrl($cleanUrl);
+            $image->setImageDescription($descriptionImage);
+            $image->setImageType($typeImage);
             // update image
             $updateImage = $imageManager->update($image);
+        }
             if($updateImage===true) {
                 header("Location: ./");
                 exit();
@@ -178,12 +200,11 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
         }catch (Exception $e) {
             $error = $e->getMessage();
         }
-
     }
     // select one image
     $selectOneImage = $imageManager->selectOneById($idImage);
     // view
-    require "../view/comment/updateImage.view.php";
+    require "../view/image/updateImage.view.php";
 
 // delete image
 }elseif(isset($_GET['delete'])&&ctype_digit($_GET['delete'])){

@@ -16,6 +16,8 @@
     <form action="" method="post">
         <label for="image_url">Image</label>
         <textarea name="image_url" id="image_url" cols="30" rows="10"></textarea>
+        <textarea name="image_description" id="image_description" cols="30" rows="10"></textarea>
+        <textarea name="image_type" id="image_type" cols="30" rows="10"></textarea>
         <input type="submit" value="Envoyer">
     </form>
 

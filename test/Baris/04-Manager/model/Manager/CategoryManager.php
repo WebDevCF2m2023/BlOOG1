@@ -91,7 +91,6 @@ class CategoryManager implements InterfaceManager{
 
         // requête préparée
         $sql = "UPDATE `category` SET `category_name`= ?,`category_slug`= ?,`category_description`= ? WHERE `category_id` = ?";
-        $sql = "UPDATE `category` SET `category_description`= ? WHERE `category_id` = ?";
         // mise à jour de la date de modification
        
         $prepare = $this->connect->prepare($sql);

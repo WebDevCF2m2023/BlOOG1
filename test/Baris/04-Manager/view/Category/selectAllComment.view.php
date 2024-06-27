@@ -19,7 +19,7 @@
     else:
         foreach($selectAllCategoryManager as $item):
         ?>
-    <h4>ID : <?=$item->getCategoryId()?> <a href="?view=<?=$item->getcategoryId()?>">Voir ce commentaire via son id</a> | <a href="?update=<?=$item->getCategoryId()?>">Mettre à jour</a> | <a href="?delete=<?=$item->getCategoryId()?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');">Supprimer</a> </h4>
+    <h4>ID : <?=$item->getCategoryId()?> <a href="?view=<?=$item->getcategoryId()?>">voire cette catégorie </a> | <a href="?update=<?=$item->getCategoryId()?>">Mettre à jour</a> | <a href="?delete=<?=$item->getCategoryId()?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');">Supprimer</a> </h4>
     <p><?=$item->getCategorySlug ()?></p>
     <p><?=$item->getCategoryDescription()?></p><hr>
         <?php

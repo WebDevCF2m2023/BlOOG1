@@ -74,6 +74,8 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
             // create comment
             $category = new CategoryMapping($_POST);
             $category->setcategoryId($idComment);
+            $category->setcategoryName($_POST['category_name']);
+            $category->setcategorySlug($_POST['category_name']);
             $category->setCategoryDescription($_POST['category_description']);
             // update comment
             $updatecategory = $CategoryManager->update($category);

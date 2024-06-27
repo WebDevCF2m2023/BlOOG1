@@ -21,9 +21,6 @@
         ?>
     <h3>Modification d'une category</h3>
     <form action="" method="post">
-    <label for="category_slug">Lien</label>
-    <input type="text" name="category_slug" id="category_slug" value="<?= htmlspecialchars($selectOneCategory->getCategorySlug()) ?>">
-    
     <label for="category_name">Nom</label>
     <input type="text" name="category_name" id="category_name" value="<?= htmlspecialchars($selectOneCategory->getCategoryName()) ?>">
     

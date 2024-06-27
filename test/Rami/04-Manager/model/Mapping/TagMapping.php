@@ -14,6 +14,15 @@ class TagMapping extends AbstractMapping
     protected ?int $tag_id=null;
     protected ?string $tag_slug=null;
 
+    // liens avec les articles (de 0 à n articles)
+    protected ?array $articles = null;
+
+    public function getArticles(): ?array
+    {
+        return $this->articles;
+    }
+    
+
     use TraitSlugify;
     
     // Les getters et setters

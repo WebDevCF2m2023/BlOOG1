@@ -52,6 +52,17 @@ class TagManager implements InterfaceManager{
         return $arrayTag;
     }
 
+    public function selectAllTagWithArticles()?array
+        // requête SQL
+        $sql = "SELECT t.*,
+        
+         FROM `tag` t
+        -- LEFT JOIN ``
+        -- LEFT JOIN 
+         ORDER BY t.`tag_id` DESC";
+
+    }
+
     // récupération d'un tag via son id
     public function selectOneById(int $id): null|string|TagMapping
     {

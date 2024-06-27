@@ -69,18 +69,19 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
     $idComment = (int)$_GET['update'];
 
     // update comment
-    if(isset($_POST['category_name'],$_POST['category_slug '],$_POST['category_description'],$_POST['category_parent'])) {
+    if(isset($_POST['category_description'])) {
         try {
             // create comment
             $category = new CategoryMapping($_POST);
             $category->setcategoryId($idComment);
+            $category->setCategoryDescription($_POST['category_description']);
             // update comment
             $updatecategory = $CategoryManager->update($category);
-            if($updateComment===true) {
+            if($updatecategory===true) {
                 header("Location: ./");
                 exit();
             }else{
-                $error = $updatecategory;
+                die($updatecategory);
             }
         }catch (Exception $e) {
             $error = $e->getMessage();

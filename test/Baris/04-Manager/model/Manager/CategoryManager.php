@@ -90,15 +90,19 @@ class CategoryManager implements InterfaceManager{
     {
 
         // requête préparée
-        $sql = "UPDATE `comment` SET `comment_text`=?, `comment_date_update`=? WHERE `comment_id`=?";
+        $sql = "UPDATE `category` SET `category_name`= ?,`category_slug`= ?,`category_description`= ? WHERE `category_id` = ?";
+        $sql = "UPDATE `category` SET `category_description`= ? WHERE `category_id` = ?";
         // mise à jour de la date de modification
        
         $prepare = $this->connect->prepare($sql);
 
         try{
-            $prepare->bindValue(1,$mapping->getCommentText());
-            $prepare->bindValue(2,$mapping->getCommentDateUpdate());
-            $prepare->bindValue(3,$mapping->getCommentId(), OurPDO::PARAM_INT);
+            $prepare->bindValue(1,$mapping->getCategoryName());
+            $prepare->bindValue(2,$mapping->getCategorySlug());
+            $prepare->bindValue(3,$mapping->getCategoryDescription());
+            $prepare->bindValue(4,$mapping->getCategoryId());
+       
+
 
             $prepare->execute();
 

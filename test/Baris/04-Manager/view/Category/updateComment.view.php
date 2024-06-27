@@ -21,10 +21,18 @@
         ?>
     <h3>Modification d'une category</h3>
     <form action="" method="post">
-        <label for="category_name">Commentaire</label>
-        <textarea name="category_description" id="category_description" cols="30" rows="10"><?=$selectOneCategory->getCategoryDescription()?></textarea>
-        <input type="submit" value="Envoyer">
-    </form>
+    <label for="category_slug">Lien</label>
+    <input type="text" name="category_slug" id="category_slug" value="<?= htmlspecialchars($selectOneCategory->getCategorySlug()) ?>">
+    
+    <label for="category_name">Nom</label>
+    <input type="text" name="category_name" id="category_name" value="<?= htmlspecialchars($selectOneCategory->getCategoryName()) ?>">
+    
+    <label for="category_description">Description</label>
+    <textarea name="category_description" id="category_description" cols="30" rows="10"><?= htmlspecialchars($selectOneCategory->getCategoryDescription()) ?></textarea>
+    
+    <input type="submit" value="Mettre à jour">
+</form>
+
         <?php
         endif;
         ?>

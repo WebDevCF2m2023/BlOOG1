@@ -52,7 +52,8 @@ class TagManager implements InterfaceManager{
         return $arrayTag;
     }
 
-    public function selectAllTagWithArticles()?array
+    public function selectOneByIdWithArticles(int $id): ?array
+    {
         // requête SQL
         $sql = "SELECT t.*,
         
@@ -60,6 +61,8 @@ class TagManager implements InterfaceManager{
         -- LEFT JOIN ``
         -- LEFT JOIN 
          ORDER BY t.`tag_id` DESC";
+
+         return [];
 
     }
 

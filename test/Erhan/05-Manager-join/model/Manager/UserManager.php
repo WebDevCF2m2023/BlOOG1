@@ -7,7 +7,7 @@ use model\OurPDO;
 
 use model\Interface\InterfaceManager;
 
-use model\Mapping\CategoryMapping;
+use model\Mapping\PermissionMapping;
 
 
 class UserManager implements InterfaceManager
@@ -46,7 +46,7 @@ class UserManager implements InterfaceManager
     {
         // on récupère tous les articles avec jointures
         $query = $this->db->query("        
-            SELECT u.`user_id`, u.`user_full_name`, u.`user_login`, p.`permission_id`, p.`permission_name` FROM `user` u JOIN `permission` p ON u.`permission_permission_id` = p.`permission_id`;        
+            SELECT u.`user_id`, u.`user_full_name`, u.`user_login`, p.`permission_id`, p.`permission_description`, p.`permission_name` FROM `user` u JOIN `permission` p ON u.`permission_permission_id` = p.`permission_id`;        
 ");
         // si aucun article n'est trouvé, on retourne null
         if($query->rowCount()==0) return null;
@@ -60,38 +60,19 @@ class UserManager implements InterfaceManager
         foreach($tabMapping as $mapping){
             // si on a un user on l'instancie
             $user = $mapping['user_login'] !== null ? new UserMapping($mapping) : null;
-            // si on a des catégories
-            if($mapping['category_id'] !== null){
-                // on crée un tableau de catégories
-                $tabCategories = [];
-                // on récupère les catégories
-                $tabCategoryIds = explode(",", $mapping['category_id']);
-                $tabCategoryNames = explode("|||", $mapping['category_name']);
-                $tabCategorySlugs = explode("|||", $mapping['category_slug']);
-                // on boucle sur les catégories
-                for($i=0; $i<count($tabCategoryIds); $i++){
-                    // on instancie la catégorie
-                    $category = new CategoryMapping([
-                        'category_id' => $tabCategoryIds[$i],
-                        'category_name' => $tabCategoryNames[$i],
-                        'category_slug' => $tabCategorySlugs[$i]
-                    ]);
-                    // on ajoute la catégorie au tableau
-                    $tabCategories[] = $category;
-                }
-            }else{
-                $tabCategories = null;
-            }
+            
+            
+           
             // on instancie l'article
-            $article = new ArticleMapping($mapping);
+            $permission = new PermissionMapping($mapping);
             // on ajoute user à l'article
-            $article->setUser($user);
-            // on ajoute les catégories à l'article
-            $article->setCategories($tabCategories);
-            $tabObject[] = $article;
+            $permission->setUser($user);
+            
+            $tabObject[] = $permission;
         }
         return $tabObject;
     }
+
 
 
     public function selectOneById(int $id): object

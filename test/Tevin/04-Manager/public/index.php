@@ -37,7 +37,7 @@ $categoryManager = new CategoryManager($dbConnect);
 if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
     $idCategory = (int) $_GET['view'];
     // select one comment
-    $selectOneCategory = $categoryManager->selectOneById($idComment);
+    $selectOneCategory = $categoryManager->selectOneById($idCategory);
     // view
     require "../view/category/selectOneCategory.view.php";
 
@@ -45,13 +45,13 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
 }elseif(isset($_GET['insert'])){
 
 // real insert comment
-    if(isset($_POST['category_name'], $_POST['category_description'])) {
+    if(isset($_POST['category_name'], $_POST['category_slug'], $_POST['category_description'])) {
         try{
             // create comment
             $category = new CategoryMapping($_POST);
             // insert comment
             $category->setCategoryName($_POST['category_name']);
-            $category->setCategorySlug($_POST['category_name']);
+            $category->setCategorySlug($_POST['category_slug']);
             $category->setCategoryDescription($_POST['category_description']);
             $insertCategory = $categoryManager->insert($category);
 
@@ -75,13 +75,13 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
     $idCategory = (int)$_GET['update'];
 
     // update comment
-    if (isset($_POST['category_name'], $_POST['category_description'])) {
+    if (isset($_POST['category_name'], $_POST['category_slug'])) {
         try {
             // create comment
             $category = new CategoryMapping($_POST);
             $category->setCategoryId($idCategory);
             // update comment
-            $updateCategory = $categorytManager->update($category);
+            $updateCategory = $categoryManager->update($category);
             if($updateCategory===true) {
                 header("Location: ./");
                 exit();

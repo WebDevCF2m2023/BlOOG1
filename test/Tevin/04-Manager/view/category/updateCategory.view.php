@@ -22,6 +22,8 @@
     <form action="" method="post">
         <label for="category_name">Categorie</label>
         <textarea name="category_name" id="category_name" cols="30" rows="10"><?=$selectOneCategory->getCategoryName()?></textarea>
+        <textarea name="category_slug" id="category_slug" cols="30" rows="10"><?=$selectOneCategory->getCategorySlug()?></textarea>
+        <textarea name="category_description" id="category_description" cols="30" rows="10"><?=$selectOneCategory->getCategoryDescription()?></textarea>
         <input type="submit" value="Envoyer">
     </form>
         <?php

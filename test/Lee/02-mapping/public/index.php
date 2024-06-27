@@ -4,7 +4,7 @@ session_start();
 
 // on va chercher le chemin de ExempleMapping
 
-use model\Mapping\ArticlesMapping;
+use model\Mapping\ArticleMapping;
 use model\Mapping\ExempleMapping;
 
 
@@ -53,7 +53,7 @@ $exemple3 = new ExempleMapping([
     "je_suis_un_champ_inexistant" => "je suis un champ inexistant",
 ]);
 
-$article1 = new ArticlesMapping([
+$article1 = new ArticleMapping([
     "article_id" => 1,
     "article_title" => "article1",
     "article_slug" => "slug1",

@@ -36,6 +36,12 @@ foreach ($articlesHomepage as $article) {
 
         endforeach;
     endif;
+    if ($article->getTags() !== null):
+        echo "<h4>Tags</h4>";
+        foreach ($article->getTags()as $tag):
+            echo "<p>Article Tag Slug: " . $tag->getTagSlug() . "</p>";
+        endforeach;
+    endif;
 
 
     }

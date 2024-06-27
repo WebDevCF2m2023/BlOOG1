@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 25 juin 2024 à 11:51
+-- Généré le : jeu. 27 juin 2024 à 11:58
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.2.3
 
@@ -28,9 +28,9 @@ USE `bioog`;
 DROP TABLE IF EXISTS `article`;
 CREATE TABLE IF NOT EXISTS `article` (
                                          `article_id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-                                         `article_title` varchar(160) NOT NULL,
-                                         `article_slug` varchar(162) NOT NULL,
-                                         `article_text` text NOT NULL,
+                                         `article_title` varchar(160) COLLATE utf8mb4_general_ci NOT NULL,
+                                         `article_slug` varchar(162) COLLATE utf8mb4_general_ci NOT NULL,
+                                         `article_text` text COLLATE utf8mb4_general_ci NOT NULL,
                                          `article_date_create` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
                                          `article_date_update` timestamp NULL DEFAULT NULL,
                                          `article_date_publish` timestamp NULL DEFAULT NULL,
@@ -70,7 +70,10 @@ CREATE TABLE IF NOT EXISTS `article_has_category` (
 
 INSERT INTO `article_has_category` (`article_article_id`, `category_category_id`) VALUES
                                                                                       (1, 1),
-                                                                                      (2, 2);
+                                                                                      (1, 2),
+                                                                                      (2, 2),
+                                                                                      (1, 3),
+                                                                                      (1, 4);
 
 -- --------------------------------------------------------
 
@@ -81,9 +84,9 @@ INSERT INTO `article_has_category` (`article_article_id`, `category_category_id`
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE IF NOT EXISTS `category` (
                                           `category_id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-                                          `category_name` varchar(100) NOT NULL,
-                                          `category_slug` varchar(102) NOT NULL,
-                                          `category_description` varchar(300) DEFAULT NULL,
+                                          `category_name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+                                          `category_slug` varchar(102) COLLATE utf8mb4_general_ci NOT NULL,
+                                          `category_description` varchar(300) COLLATE utf8mb4_general_ci DEFAULT NULL,
                                           `category_parent` int UNSIGNED DEFAULT '0',
                                           PRIMARY KEY (`category_id`),
                                           UNIQUE KEY `category_slug_UNIQUE` (`category_slug`)
@@ -108,7 +111,7 @@ INSERT INTO `category` (`category_id`, `category_name`, `category_slug`, `catego
 DROP TABLE IF EXISTS `comment`;
 CREATE TABLE IF NOT EXISTS `comment` (
                                          `comment_id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-                                         `comment_text` varchar(500) NOT NULL,
+                                         `comment_text` varchar(500) COLLATE utf8mb4_general_ci NOT NULL,
                                          `comment_parent` int UNSIGNED DEFAULT '0',
                                          `comment_date_create` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
                                          `comment_date_update` timestamp NULL DEFAULT NULL,
@@ -138,9 +141,9 @@ INSERT INTO `comment` (`comment_id`, `comment_text`, `comment_parent`, `comment_
 DROP TABLE IF EXISTS `file`;
 CREATE TABLE IF NOT EXISTS `file` (
                                       `file_id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-                                      `file_url` varchar(120) NOT NULL,
-                                      `file_description` varchar(200) DEFAULT NULL,
-                                      `file_type` varchar(12) NOT NULL,
+                                      `file_url` varchar(120) COLLATE utf8mb4_general_ci NOT NULL,
+                                      `file_description` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL,
+                                      `file_type` varchar(12) COLLATE utf8mb4_general_ci NOT NULL,
                                       `article_article_id` int UNSIGNED DEFAULT NULL,
                                       PRIMARY KEY (`file_id`),
                                       KEY `fk_file_article1_idx` (`article_article_id`)
@@ -162,9 +165,9 @@ INSERT INTO `file` (`file_id`, `file_url`, `file_description`, `file_type`, `art
 DROP TABLE IF EXISTS `image`;
 CREATE TABLE IF NOT EXISTS `image` (
                                        `image_id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-                                       `image_url` varchar(120) NOT NULL,
-                                       `image_description` varchar(180) DEFAULT NULL,
-                                       `image_type` varchar(12) NOT NULL,
+                                       `image_url` varchar(120) COLLATE utf8mb4_general_ci NOT NULL,
+                                       `image_description` varchar(180) COLLATE utf8mb4_general_ci DEFAULT NULL,
+                                       `image_type` varchar(12) COLLATE utf8mb4_general_ci NOT NULL,
                                        `article_article_id` int UNSIGNED DEFAULT NULL,
                                        PRIMARY KEY (`image_id`),
                                        KEY `fk_image_article1_idx` (`article_article_id`)
@@ -186,8 +189,8 @@ INSERT INTO `image` (`image_id`, `image_url`, `image_description`, `image_type`,
 DROP TABLE IF EXISTS `permission`;
 CREATE TABLE IF NOT EXISTS `permission` (
                                             `permission_id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-                                            `permission_name` varchar(45) NOT NULL,
-                                            `permission_description` varchar(300) DEFAULT NULL,
+                                            `permission_name` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+                                            `permission_description` varchar(300) COLLATE utf8mb4_general_ci DEFAULT NULL,
                                             PRIMARY KEY (`permission_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -210,10 +213,10 @@ INSERT INTO `permission` (`permission_id`, `permission_name`, `permission_descri
 DROP TABLE IF EXISTS `tag`;
 CREATE TABLE IF NOT EXISTS `tag` (
                                      `tag_id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-                                     `tag_slug` varchar(65) NOT NULL,
+                                     `tag_slug` varchar(65) COLLATE utf8mb4_general_ci NOT NULL,
                                      PRIMARY KEY (`tag_id`),
                                      UNIQUE KEY `tag_slug_UNIQUE` (`tag_slug`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `tag`
@@ -221,6 +224,8 @@ CREATE TABLE IF NOT EXISTS `tag` (
 
 INSERT INTO `tag` (`tag_id`, `tag_slug`) VALUES
                                              (2, 'hebergement'),
+                                             (4, 'informatique'),
+                                             (3, 'internet'),
                                              (1, 'vps');
 
 -- --------------------------------------------------------
@@ -244,8 +249,12 @@ CREATE TABLE IF NOT EXISTS `tag_has_article` (
 
 INSERT INTO `tag_has_article` (`tag_tag_id`, `article_article_id`) VALUES
                                                                        (2, 1),
+                                                                       (3, 1),
+                                                                       (4, 1),
                                                                        (1, 2),
-                                                                       (2, 2);
+                                                                       (2, 2),
+                                                                       (3, 2),
+                                                                       (4, 2);
 
 -- --------------------------------------------------------
 
@@ -258,10 +267,10 @@ CREATE TABLE IF NOT EXISTS `user` (
                                       `user_id` int UNSIGNED NOT NULL AUTO_INCREMENT,
                                       `user_login` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT 'case sensitive',
                                       `user_password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT 'case sensitive',
-                                      `user_full_name` varchar(160) DEFAULT NULL,
-                                      `user_mail` varchar(180) NOT NULL,
+                                      `user_full_name` varchar(160) COLLATE utf8mb4_general_ci DEFAULT NULL,
+                                      `user_mail` varchar(180) COLLATE utf8mb4_general_ci NOT NULL,
                                       `user_status` tinyint UNSIGNED NOT NULL DEFAULT '0' COMMENT '0 pas actif\n1 actif\n2 banni',
-                                      `user_secret_key` varchar(80) NOT NULL,
+                                      `user_secret_key` varchar(80) COLLATE utf8mb4_general_ci NOT NULL,
                                       `permission_permission_id` int UNSIGNED DEFAULT NULL,
                                       PRIMARY KEY (`user_id`),
                                       UNIQUE KEY `user_login_UNIQUE` (`user_login`),

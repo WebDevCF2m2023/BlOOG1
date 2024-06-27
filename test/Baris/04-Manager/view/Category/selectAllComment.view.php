@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>Exemple du CommentManager::selectAll()</h1>
+    <h1>Exemple du CategoryManager::selectAll()</h1>
     <div>
         <?php
         require 'menu.comment.view.php';

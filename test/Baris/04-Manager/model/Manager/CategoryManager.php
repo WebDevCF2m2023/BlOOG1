@@ -7,8 +7,9 @@ use model\Interface\InterfaceManager;
 use model\Mapping\CommentMapping;
 use model\Abstract\AbstractMapping;
 use model\OurPDO;
+use model\Mapping\CategoryMapping;
 
-class CommentManager implements InterfaceManager{
+class CategoryManager implements InterfaceManager{
 
     // On va stocker la connexion dans une propriété privée
     private ?OurPDO $connect = null;
@@ -23,8 +24,8 @@ class CommentManager implements InterfaceManager{
     public function selectAll(): ?array
     {
         // requête SQL
-        $sql = "SELECT * FROM `comment` -- WHERE `comment_id`=999
-         ORDER BY `comment_date_create` DESC";
+        $sql = "SELECT * FROM `category` -- WHERE `comment_id`=999
+         ";
         // query car pas d'entrées d'utilisateur
         $select = $this->connect->query($sql);
 
@@ -45,7 +46,7 @@ class CommentManager implements InterfaceManager{
         */
         foreach($array as $value){
             // on remplit un nouveau tableau contenant les commentaires
-            $arrayComment[] = new CommentMapping($value);
+            $arrayComment[] = new CategoryMapping($value);
         }
 
         // on retourne le tableau
@@ -53,11 +54,11 @@ class CommentManager implements InterfaceManager{
     }
 
     // récupération d'un commentaire via son id
-    public function selectOneById(int $id): null|string|CommentMapping
+    public function selectOneById(int $id): null|string|CategoryMapping
     {
 
         // requête préparée
-        $sql = "SELECT * FROM `comment` WHERE `comment_id`= ?";
+        $sql = "SELECT * FROM `category` WHERE `category_id`= ?";
         $prepare = $this->connect->prepare($sql);
 
         try{
@@ -71,7 +72,7 @@ class CommentManager implements InterfaceManager{
             $result = $prepare->fetch(OurPDO::FETCH_ASSOC);
 
             // création de l'instance CommentMapping
-            $result = new CommentMapping($result);
+            $result = new CategoryMapping($result);
 
             $prepare->closeCursor();
             
@@ -91,7 +92,7 @@ class CommentManager implements InterfaceManager{
         // requête préparée
         $sql = "UPDATE `comment` SET `comment_text`=?, `comment_date_update`=? WHERE `comment_id`=?";
         // mise à jour de la date de modification
-        $mapping->setCommentDateUpdate(date("Y-m-d H:i:s"));
+       
         $prepare = $this->connect->prepare($sql);
 
         try{
@@ -117,13 +118,13 @@ class CommentManager implements InterfaceManager{
     {
 
         // requête préparée
-        $sql = "INSERT INTO `comment`(`comment_text`,`user_user_id`,`article_article_id`)  VALUES (?,?,?)";
+        $sql = "INSERT INTO `category`(`category_name`,`category_description`,`category_slug`)  VALUES (?,?,?)";
         $prepare = $this->connect->prepare($sql);
 
         try{
-            $prepare->bindValue(1,$mapping->getCommentText());
-            $prepare->bindValue(2,1, OurPDO::PARAM_INT);
-            $prepare->bindValue(3,1, OurPDO::PARAM_INT);
+            $prepare->bindValue(1,$mapping->getCategoryName());
+            $prepare->bindValue(2,$mapping->getCategoryDescription());
+            $prepare->bindValue(3,$mapping->getCategorySlug());
 
             $prepare->execute();
 
@@ -140,7 +141,7 @@ class CommentManager implements InterfaceManager{
     public function delete(int $id): bool|string
     {
         // requête préparée
-        $sql = "DELETE FROM `comment` WHERE `comment_id`=?";
+        $sql = "DELETE FROM `category` WHERE `category_id`=?";
         $prepare = $this->connect->prepare($sql);
 
         try{

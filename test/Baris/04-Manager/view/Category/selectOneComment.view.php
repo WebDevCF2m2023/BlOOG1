@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemple du CommentManager::selectOneComment()</title>
+    <title>Exemple du CategoryManager::selectOneCategoryt()</title>
 </head>
 <body>
-    <h1>Exemple du CommentManager::selectOneComment()</h1>
+    <h1>Exemple du CategoryManager::selectOneCategoryt()</h1>
     <div>
         <?php
 

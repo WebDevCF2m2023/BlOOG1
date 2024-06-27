@@ -6,9 +6,9 @@ session_start();
 // on va utiliser notre connexion personnalisée (singleton)
 use model\OurPDO;
 // on va utiliser notre manager de commentaires
-use model\Manager\CommentManager;
+use model\Manager\CategoryManager;
 // on va utiliser notre classe de mapping de commentaires
-use model\Mapping\CommentMapping;
+use model\Mapping\CategoryMapping;
 
 // Appel de la config
 require_once "../config.php";
@@ -25,92 +25,96 @@ DB_LOGIN,
 DB_PWD);
 
 // create comment Manager
-$commentManager = new CommentManager($dbConnect);
+$CategoryManager = new CategoryManager($dbConnect);
 
 
 
 // detail view
 if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
-    $idComment = (int) $_GET['view'];
+    $id = (int) $_GET['view'];
     // select one comment
-    $selectOneComment = $commentManager->selectOneById($idComment);
+    $selectOneCategory = $CategoryManager->selectOneById($id);
     // view
-    require "../view/comment/selectOneComment.view.php";
+    require "../view/category/selectOneComment.view.php";
 
 // insert comment page
 }elseif(isset($_GET['insert'])){
 
 // real insert comment
-    if(isset($_POST['comment_text'])) {
+    if(isset($_POST['category_name'],$_POST['category_slug'],$_POST['category_description'])) {
         try{
             // create comment
-            $comment = new CommentMapping($_POST);
+            $category= new CategoryMapping($_POST);
             // set date
-            $comment->setCommentDatePublish(new DateTime());
             // insert comment
-            $insertComment = $commentManager->insert($comment);
+            $category = $CategoryManager->insert($category);
 
-            if($insertComment===true) {
+            if($category===true) {
                 header("Location: ./");
                 exit();
             }else{
-                $error = $insertComment;
+                $error = $category;
             }
         }catch(Exception $e){
             $error = $e->getMessage();
         }
-        //var_dump($comment);
+        var_dump($category);
 
     }
     // view
-    require "../view/comment/insertComment.view.php";
+    require "../view/category/insertComment.view.php";
 
 // delete comment
 }elseif (isset($_GET['update'])&&ctype_digit($_GET['update'])) {
     $idComment = (int)$_GET['update'];
 
     // update comment
-    if (isset($_POST['comment_text'])) {
+    if(isset($_POST['category_name'],$_POST['category_slug '],$_POST['category_description'],$_POST['category_parent'])) {
         try {
             // create comment
-            $comment = new CommentMapping($_POST);
-            $comment->setCommentId($idComment);
+            $category = new CategoryMapping($_POST);
+            $category->setcategoryId($idComment);
             // update comment
-            $updateComment = $commentManager->update($comment);
+            $updatecategory = $CategoryManager->update($category);
             if($updateComment===true) {
                 header("Location: ./");
                 exit();
             }else{
-                $error = $updateComment;
+                $error = $updatecategory;
             }
         }catch (Exception $e) {
             $error = $e->getMessage();
         }
 
+    }if (isset($_GET["update"])) {
+        $id = $_GET["update"]; 
+        $selectOneCategory = $CategoryManager->selectOneById($id);
+        include ("../view/category/updateComment.view.php");
+        exit();
+
     }
     // select one comment
-    $selectOneComment = $commentManager->selectOneById($idComment);
     // view
-    require "../view/comment/updateComment.view.php";
+    require "../view/category/updateComment.view.php";
 
 // delete comment
 }elseif(isset($_GET['delete'])&&ctype_digit($_GET['delete'])){
-    $idComment = (int) $_GET['delete'];
+    $category_id  = (int) $_GET['delete'];
     // delete comment
-    $deleteComment = $commentManager->delete($idComment);
-    if($deleteComment===true) {
+    $deleteCategory = $CategoryManager->delete($category_id);
+    if($deleteCategory===true) {
         header("Location: ./");
         exit();
     }else{
-        $error = $deleteComment;
+        $error = $deleteCategory;
     }
 
 // homepage
 }else{
     // select all comments
-    $selectAllComments = $commentManager->selectAll();
+    $selectAllCategoryManager = $CategoryManager->selectAll();
     // view
-    require "../view/comment/selectAllComment.view.php";
+    require "../view/category/selectAllComment.view.php";
 }
 
 $dbConnect = null;

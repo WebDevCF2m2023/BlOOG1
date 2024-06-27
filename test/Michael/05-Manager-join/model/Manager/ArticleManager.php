@@ -19,7 +19,6 @@ use model\Mapping\CategoryMapping;
  * et InterfaceSlugManager.
  *
  */
-
 class ArticleManager implements InterfaceManager, InterfaceSlugManager
 {
 
@@ -39,21 +38,23 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
         // on récupère tous les articles
         $query = $this->db->query("SELECT * FROM article");
         // si aucun article n'est trouvé, on retourne null
-        if($query->rowCount()==0) return null;
+        if ($query->rowCount() == 0) return null;
         // on récupère les articles sous forme de tableau associatif
         $tabMapping = $query->fetchAll();
         // on ferme le curseur
         $query->closeCursor();
         // on crée le tableau où on va instancier les objets
         $tabObject = [];
-        foreach($tabMapping as $mapping){
+        foreach ($tabMapping as $mapping) {
             $tabObject[] = new ArticleMapping($mapping);
 
         }
         return $tabObject;
     }
+
     public function selectAllArticleHomepage(): ?array
     {
+
         // on récupère tous les articles avec jointures
         $query = $this->db->query("
         SELECT a.*, 
@@ -73,9 +74,9 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
             GROUP BY a.`article_id`
             ORDER BY a.`article_date_publish` DESC
         
-");
+        ");
         // si aucun article n'est trouvé, on retourne null
-        if($query->rowCount()==0) return null;
+        if ($query->rowCount() == 0) return null;
         // on récupère les articles sous forme de tableau associatif
         $tabMapping = $query->fetchAll();
         // on ferme le curseur
@@ -83,11 +84,11 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
         // on crée le tableau où on va instancier les objets
         $tabObject = [];
         // pour chaque article, on boucle
-        foreach($tabMapping as $mapping){
+        foreach ($tabMapping as $mapping) {
             // si on a un user on l'instancie
             $user = $mapping['user_login'] !== null ? new UserMapping($mapping) : null;
             // si on a des catégories
-            if($mapping['category_id'] !== null){
+            if ($mapping['category_id'] !== null) {
                 // on crée un tableau de catégories
                 $tabCategories = [];
                 // on récupère les catégories
@@ -95,7 +96,7 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
                 $tabCategoryNames = explode("|||", $mapping['category_name']);
                 $tabCategorySlugs = explode("|||", $mapping['category_slug']);
                 // on boucle sur les catégories
-                for($i=0; $i<count($tabCategoryIds); $i++){
+                for ($i = 0; $i < count($tabCategoryIds); $i++) {
                     // on instancie la catégorie
                     $category = new CategoryMapping([
                         'category_id' => $tabCategoryIds[$i],
@@ -105,7 +106,7 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
                     // on ajoute la catégorie au tableau
                     $tabCategories[] = $category;
                 }
-            }else{
+            } else {
                 $tabCategories = null;
             }
             // on instancie l'article

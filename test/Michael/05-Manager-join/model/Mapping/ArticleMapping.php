@@ -30,6 +30,8 @@ class ArticleMapping extends AbstractMapping
 
     // Pour la jointure externe avec la table category (0 à n possibilités)
     protected ?array $categories=null;
+    // Pour la jointure externe avec la table tag (0 à n possibilités)
+    protected ?array $tags=null;
 
     // getters et setters pour le user
     public function getUser(): ?UserMapping
@@ -53,6 +55,19 @@ class ArticleMapping extends AbstractMapping
         $this->categories = $categories;
     }
 
+    // getters et setters pour les tags
+    public function getTags(): ?array
+    {
+        return $this->tags;
+    }
+
+    public function setTags(?array $tags): void
+    {
+        $this->tags = $tags;
+    }
+
+    // getters et setters pour les attributs de la classe
+    // représentant les colonnes de la table article
     public function getArticleId(): ?int
     {
         return $this->article_id;

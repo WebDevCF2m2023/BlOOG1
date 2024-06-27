@@ -53,6 +53,13 @@ class CategoryManager implements InterfaceManager{
         return $arrayComment;
     }
 
+    // récupération de toutes les catégories AVEC le(s) titre et texte des articles
+
+    public function selectAllWithArticles():?array
+    {
+        return [];
+    }
+
     // récupération d'un commentaire via son id
     public function selectOneById(int $id): null|string|CategoryMapping
     {

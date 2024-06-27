@@ -14,6 +14,11 @@ class CategoryMapping extends AbstractMapping
     protected ?string $category_description=null;
     protected ?int $category_parent=null;
 
+    // pour charger les articles liés aux catégories (ArticlesMapping)
+    protected ?array $articles=null;
+
+    // création get set de $articles
+
     use TraitSlugify;
 
     public function getCategoryId(): ?int

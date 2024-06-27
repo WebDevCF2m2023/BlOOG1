@@ -27,7 +27,12 @@ DB_PWD);
 // create comment Manager
 $CategoryManager = new CategoryManager($dbConnect);
 
+if(isset($_GET['categArticles'])){
 
+    // view
+    require "../view/category/selectAllComment.articles.view.php";
+    exit();
+}
 
 // detail view
 if(isset($_GET['view'])&&ctype_digit($_GET['view'])){

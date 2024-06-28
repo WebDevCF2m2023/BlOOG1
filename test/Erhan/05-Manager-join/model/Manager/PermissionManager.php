@@ -6,6 +6,8 @@ use Exception;
 use model\Interface\InterfaceManager;
 use model\Mapping\PermissionMapping;
 use model\Abstract\AbstractMapping;
+use model\Mapping\UserMapping;
+
 
 
 use model\OurPDO;
@@ -156,6 +158,62 @@ class PermissionManager implements InterfaceManager{
             return $e->getMessage();
         }
         
-    }    
+    }
+
+    public function selectAllWithUsers(): ?array
+    {
+        // on récupère tous les articles avec jointures
+        $query = $this->connect->query("        
+            SELECT p.*,
+            GROUP_CONCAT(u.`user_id`) as user_id,
+            GROUP_CONCAT(u.`user_full_name` SEPARATOR '|||') as  user_full_name,
+            GROUP_CONCAT(u.`user_login` SEPARATOR '|||') as user_login
+            FROM `permission` p 
+            LEFT JOIN `user` u 
+            ON p.`permission_id` = u.`permission_permission_id`
+            GROUP BY p.`permission_id`;        
+        ");
+        // si aucun article n'est trouvé, on retourne null
+        if($query->rowCount()==0) return null;
+        // on récupère les articles sous forme de tableau associatif
+        $tabMapping = $query->fetchAll();
+        // on ferme le curseur
+        $query->closeCursor();
+        // on crée le tableau où on va instancier les objets
+        $tabObject = [];
+        // pour chaque article, on boucle
+        foreach($tabMapping as $mapping){
+            // si on a un user on l'instancie
+            if(is_null($mapping['user_login'])){
+                $users = null;
+            }
+            else
+            {
+                $users= [];
+
+                $usersId = explode(",",$mapping['user_id']);
+                $usersLogin = explode("|||",$mapping['user_login']);
+                $usersFullName = explode("|||",$mapping['user_full_name']);
+
+                for($i=0;$i<count($usersId);$i++)
+                {
+                    $user = new UserMapping([
+                        'user_id'=> $usersId[$i],
+                        'user_login'=> $usersLogin[$i],
+                        'user_full_name'=> $usersFullName[$i],
+                    ]);
+
+                    $users[]=$user;
+                }
+            
+            $permission = new PermissionMapping($mapping);
+            // on ajoute user à la permission
+            $permission->setUser($users);
+            
+            $tabObject[] = $permission;
+            }           
+        }           
+        return $tabObject;
+    }
 
 }

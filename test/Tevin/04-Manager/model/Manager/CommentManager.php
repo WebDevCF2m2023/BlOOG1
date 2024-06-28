@@ -1,16 +1,14 @@
 <?php
 
-namespace model\Manager;
+namespace model\Manager ;
 
 use Exception;
 use model\Interface\InterfaceManager;
-use model\Mapping\PermissionMapping;
+use model\Mapping\CommentMapping;
 use model\Abstract\AbstractMapping;
-
-
 use model\OurPDO;
 
-class PermissionManager implements InterfaceManager{
+class CommentManager implements InterfaceManager{
 
     // On va stocker la connexion dans une propriété privée
     private ?OurPDO $connect = null;
@@ -25,8 +23,8 @@ class PermissionManager implements InterfaceManager{
     public function selectAll(): ?array
     {
         // requête SQL
-        $sql = "SELECT * FROM `permission` -- WHERE `comment_id`=999
-         ORDER BY `permission_id` ASC";
+        $sql = "SELECT * FROM `comment` -- WHERE `comment_id`=999
+         ORDER BY `comment_date_create` DESC";
         // query car pas d'entrées d'utilisateur
         $select = $this->connect->query($sql);
 
@@ -39,27 +37,27 @@ class PermissionManager implements InterfaceManager{
         // on ferme le curseur
         $select->closeCursor();
 
-        // on va stocker les permissions dans un tableau
-        $arrayPermission = [];
+        // on va stocker les commentaires dans un tableau
+        $arrayComment = [];
 
         /* pour chaque valeur, on va créer une instance de classe
-        PermissionMapping, liée à la table qu'on va manager
+        CommentMapping, liée à la table qu'on va manager
         */
         foreach($array as $value){
             // on remplit un nouveau tableau contenant les commentaires
-            $arrayPermission[] = new PermissionMapping($value);
+            $arrayComment[] = new CommentMapping($value);
         }
 
         // on retourne le tableau
-        return $arrayPermission;
+        return $arrayComment;
     }
 
-    // récupération d'un permission via son id
-    public function selectOneById(int $id): null|string|PermissionMapping
+    // récupération d'un commentaire via son id
+    public function selectOneById(int $id): null|string|CommentMapping
     {
 
         // requête préparée
-        $sql = "SELECT * FROM `permission` WHERE `permission_id`= ?";
+        $sql = "SELECT * FROM `comment` WHERE `comment_id`= ?";
         $prepare = $this->connect->prepare($sql);
 
         try{
@@ -72,8 +70,8 @@ class PermissionManager implements InterfaceManager{
             // récupération des valeurs en tableau associatif
             $result = $prepare->fetch(OurPDO::FETCH_ASSOC);
 
-            // création de l'instance PermissionMapping
-            $result = new PermissionMapping($result);
+            // création de l'instance CommentMapping
+            $result = new CommentMapping($result);
 
             $prepare->closeCursor();
             
@@ -86,19 +84,20 @@ class PermissionManager implements InterfaceManager{
         
     }
 
-    // mise à jour d'un permission
+    // mise à jour d'un commentaire
     public function update(AbstractMapping $mapping): bool|string
     {
 
         // requête préparée
-        $sql = "UPDATE `permission` SET `permission_name`=?, `permission_description`=? WHERE `permission_id`=?";
-        
+        $sql = "UPDATE `comment` SET `comment_text`=?, `comment_date_update`=? WHERE `comment_id`=?";
+        // mise à jour de la date de modification
+        $mapping->setCommentDateUpdate(date("Y-m-d H:i:s"));
         $prepare = $this->connect->prepare($sql);
 
         try{
-            $prepare->bindValue(1,$mapping->getPermissionName());
-            $prepare->bindValue(2,$mapping->getPermissionDescription());
-            $prepare->bindValue(3,$mapping->getPermissionId(), OurPDO::PARAM_INT);
+            $prepare->bindValue(1,$mapping->getCommentText());
+            $prepare->bindValue(2,$mapping->getCommentDateUpdate());
+            $prepare->bindValue(3,$mapping->getCommentId(), OurPDO::PARAM_INT);
 
             $prepare->execute();
 
@@ -113,17 +112,18 @@ class PermissionManager implements InterfaceManager{
     }
 
 
-    // insertion d'un permission
+    // insertion d'un commentaire
     public function insert(AbstractMapping $mapping): bool|string
     {
 
         // requête préparée
-        $sql = "INSERT INTO `permission`(`permission_name`,`permission_description`)  VALUES (?,?)";
+        $sql = "INSERT INTO `comment`(`comment_text`,`user_user_id`,`article_article_id`)  VALUES (?,?,?)";
         $prepare = $this->connect->prepare($sql);
 
         try{
-            $prepare->bindValue(1,$mapping->getPermissionName());
-            $prepare->bindValue(2,$mapping->getPermissionDescription());
+            $prepare->bindValue(1,$mapping->getCommentText());
+            $prepare->bindValue(2,1, OurPDO::PARAM_INT);
+            $prepare->bindValue(3,1, OurPDO::PARAM_INT);
 
             $prepare->execute();
 
@@ -136,11 +136,11 @@ class PermissionManager implements InterfaceManager{
         }
     }
 
-    // suppression d'un permission
+    // suppression d'un commentaire
     public function delete(int $id): bool|string
     {
         // requête préparée
-        $sql = "DELETE FROM `permission` WHERE `permission_id`=?";
+        $sql = "DELETE FROM `comment` WHERE `comment_id`=?";
         $prepare = $this->connect->prepare($sql);
 
         try{
@@ -156,6 +156,6 @@ class PermissionManager implements InterfaceManager{
             return $e->getMessage();
         }
         
-    }    
+    }
 
 }

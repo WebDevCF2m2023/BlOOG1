@@ -26,7 +26,7 @@
     
         <?php
         endforeach;
-    endif;*/
+    endiffff;*/
         ?>
     </div>
     <h1>ICI les articles</h1>

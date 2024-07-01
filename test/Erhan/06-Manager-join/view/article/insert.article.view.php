@@ -17,7 +17,7 @@
     </div>
     <div class="flex flex-col items-center justify-center h-screen light -mt-7">
         <div class="w-full max-w-md bg-white rounded-lg shadow-md p-6">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">Insertion d'un nouvel artcileZ</h2>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">Insertion d'un nouvel article</h2>
 
             <form action="" method="post" class="flex flex-col">
                 <label for="user_login" class="text-sm font-medium text-gray-600 mb-2">Login :</label>

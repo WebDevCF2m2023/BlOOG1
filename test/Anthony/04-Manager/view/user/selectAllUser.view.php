@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php require "../controller/publicController.php"; ?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -80,6 +80,7 @@
                         </tr>
                     <?php
                     endforeach;
+                    
                     ?>
                 </tbody>
             </table>

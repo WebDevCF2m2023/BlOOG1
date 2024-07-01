@@ -57,7 +57,8 @@ class UserManager implements InterfaceManager
 
     public function selectAllWithPermission()
     {
-        $query = $this->connect->query("SELECT user.user_id, user.user_full_name, permission_permission_id, permission.permission_name
+        $query = $this->connect->query("SELECT user.user_id, user.user_full_name, permission_permission_id, permission.permission_name,
+        permission.permission_description
                 FROM user
                 LEFT JOIN permission
                 ON permission_permission_id = permission.permission_id");
@@ -76,7 +77,8 @@ class UserManager implements InterfaceManager
             // Si on a une permission, on l'instancie
             $permission = $mapping['permission_permission_id'] !== null ? new PermissionMapping([
                 'permission_id' => $mapping['permission_permission_id'],
-                'permission_name' => $mapping['permission_name']
+                'permission_name' => $mapping['permission_name'],
+                'permission_description' => $mapping['permission_description']
             ]) : null;
 
             // on instancie l'utilisateur

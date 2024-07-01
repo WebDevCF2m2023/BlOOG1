@@ -88,18 +88,17 @@ class ImageManager implements InterfaceManager{
     // mise à jour d'une image
     public function update(AbstractMapping $mapping): bool|string
     {
-
         // requête préparée
-        $sql = "UPDATE `image` SET `image_url`=?, `image_description`=?, `image_type`=? WHERE `image_id`=?";
-        // mise à jour de la date de modification
-        $mapping->setImageDateUpdate(date("Y-m-d H:i:s"));
+        $sql = "UPDATE `image` SET `image_url`=?, `image_description`=?, `image_type`=?  WHERE `image_id`=?";
         $prepare = $this->connect->prepare($sql);
-
+        
         try{
             $prepare->bindValue(1,$mapping->getImageUrlName());
-            $prepare->bindValue(2,$mapping->getImageDateUpdate());
-            $prepare->bindValue(3,$mapping->getImageId(), OurPDO::PARAM_INT);
+            $prepare->bindValue(2,$mapping->getImageDescription());
+            $prepare->bindValue(3,$mapping->getImageType());
+            $prepare->bindValue(4,$mapping->getImageId(), OurPDO::PARAM_INT);
 
+            
             $prepare->execute();
 
             $prepare->closeCursor();
@@ -123,8 +122,9 @@ class ImageManager implements InterfaceManager{
 
         try{
             $prepare->bindValue(1,$mapping->getImageUrlName());
-            $prepare->bindValue(2,1, OurPDO::PARAM_INT);
-            $prepare->bindValue(3,1, OurPDO::PARAM_INT);
+            $prepare->bindValue(2,$mapping->getImageDescription());
+            $prepare->bindValue(3,$mapping->getImageType());
+            
 
             $prepare->execute();
 

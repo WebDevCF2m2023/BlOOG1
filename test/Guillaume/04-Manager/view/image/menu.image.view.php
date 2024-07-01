@@ -1,4 +1,5 @@
 <div class="menu">
-    <a href="./">Homepage</a> |
-    <a href="?insert">Insert</a>
+    <a href="?viewImg">Homepage</a> |
+    <a href="?insertImg">Insert</a> |
+    <a href="?viewComment">CommentManager</a>
 </div>

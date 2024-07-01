@@ -14,8 +14,12 @@
         ?>
     <h3>Insertion d'une image</h3>
     <form action="" method="post">
-        <label for="image_url">Image</label>
-        <textarea name="image_url" id="image_url" cols="30" rows="10"></textarea>
+        <label for="image_url">Image</label> <br>
+        <textarea name="image_url" id="image_url" cols="30" rows="10"></textarea> <br>
+        <label for="image_description">Description</label> <br>
+        <textarea name="image_description" id="image_description" cols="30" rows="10"></textarea> <br>
+        <label for="image_type">Type</label> <br>
+        <textarea name="image_type" id="image_type" cols="30" rows="10"></textarea> <br>
         <input type="submit" value="Envoyer">
     </form>
 

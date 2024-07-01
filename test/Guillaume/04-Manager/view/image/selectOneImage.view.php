@@ -19,16 +19,17 @@
         <?php
     else:
         ?>
-    <h4>ID : <?=$selectOneComment->getImageId()?> <a href="?view=<?=$selectOneComment->getImageId()?>">Voir cette image via son id</a></h4>
+    <h4>ID : <?=$selectOneImage->getImageId()?> <a href="?view=<?=$selectOneImage->getImageId()?>">Voir cette image via son id</a></h4>
+    <h6>Url de l'image:</h6>
     <p><?=$selectOneImage->getImageUrlName()?></p>
-    <p><?=$selectOneImage->getImageDateCreate()?></p><hr>
+    <h6>Description:</h6>
+    <p><?=$selectOneImage->getImageDescription()?></p>
+    <h6>Type:</h6>
+    <p><?=$selectOneImage->getImageType()?></p><hr>
         <?php
     endif;
         ?>
     </div>
     
-    <?php
-var_dump($dbConnect,$imageManager,$selectOneImage);
-    ?>
 </body>
 </html>

@@ -19,9 +19,8 @@
     else:
         foreach($selectAllImages as $item):
         ?>
-    <h4>ID : <?=$item->getImageId()?> <a href="?view=<?=$item->getImageId()?>">Voir cette image via son id</a> | <a href="?update=<?=$item->getImageId()?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette image ?');">Supprimer</a> </h4>
+    <h4>ID : <?=$item->getImageId()?> <a href="?viewImg=<?=$item->getImageId()?>">Voir cette image via son id</a> | <a href="?deleteImg=<?=$item->getImageId()?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette image ?');">Supprimer</a> | <a href="?updateImg=<?=$item->getImageId()?>" onclick="return confirm('Êtes-vous sûr de vouloir mettre à jour cette image ?');">Mise à jour</a> </h4>
     <p><?=$item->getImageUrlName()?></p>
-    <p><?=$item->getImageDateCreate()?></p><hr>
         <?php
         endforeach;
     endif;

@@ -12,7 +12,7 @@
         <?php
         require 'menu.comment.view.php';
 
-      /*  if(is_null($selectAllCategoryManager)):
+       if(is_null($selectAllCategoryManager)):
         ?>
         <h3>Pas encore de commentaire !</h3>
         <?php
@@ -26,7 +26,7 @@
     
         <?php
         endforeach;
-    endiffff;*/
+    endif;
         ?>
     </div>
     <h1>ICI les articles</h1>

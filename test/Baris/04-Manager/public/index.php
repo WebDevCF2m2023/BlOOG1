@@ -28,10 +28,10 @@ DB_PWD);
 $CategoryManager = new CategoryManager($dbConnect);
 
 if(isset($_GET['categArticles'])){
-
+    // select all comments
+    $selectAllCategoryManager = $CategoryManager->selectAllWithArticles();
     // view
     require "../view/category/selectAllComment.articles.view.php";
-    exit();
 }
 
 // detail view

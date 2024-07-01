@@ -6,6 +6,7 @@ use Exception;
 use model\Interface\InterfaceManager;
 use model\Mapping\UserMapping;
 use model\Abstract\AbstractMapping;
+use model\Mapping\PermissionMapping;
 use model\OurPDO;
 
 class UserManager implements InterfaceManager
@@ -52,6 +53,49 @@ class UserManager implements InterfaceManager
 
         // on retourne le tableau
         return $arrayUser;
+    }
+
+    public function selectAllWithPermission()
+    {
+        $query = $this->connect->query("SELECT user.user_id, user.user_full_name, permission_permission_id, permission.permission_name,
+        permission.permission_description
+                FROM user
+                LEFT JOIN permission
+                ON permission_permission_id = permission.permission_id");
+
+        // si aucun article n'est trouvé, on retourne null
+        if ($query->rowCount() == 0) return null;
+        // on récupère les articles sous forme de tableau associatif
+        $tabMapping = $query->fetchAll();
+        // on ferme le curseur
+        $query->closeCursor();
+        // on crée le tableau où on va instancier les objets
+        $tabObject = [];
+
+        //Pour chaque utilisateur, on boucle
+        foreach ($tabMapping as $mapping) {
+            // Si on a une permission, on l'instancie
+            $permission = $mapping['permission_permission_id'] !== null ? new PermissionMapping([
+                'permission_id' => $mapping['permission_permission_id'],
+                'permission_name' => $mapping['permission_name'],
+                'permission_description' => $mapping['permission_description']
+            ]) : null;
+
+            // on instancie l'utilisateur
+            $user = new UserMapping([
+                'user_id' => $mapping['user_id'],
+                'user_full_name' => $mapping['user_full_name'],
+                'permission_permission_id' => $mapping['permission_permission_id']
+            ]);
+
+            // On ajoute la permission à l'utilisateur
+            $user->setPermission($permission);
+
+            // on ajoute l'utilisateur au tableau
+
+            $tabObject[] = $user;
+        }
+        return $tabObject;
     }
 
     // récupération d'un user via son id

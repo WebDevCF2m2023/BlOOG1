@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php require "../controller/publicController.php"; ?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemple de l'UserManager::selectAll()</title>
+    <title>Exemple de l'ArticleManager::selectAll()</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -14,11 +14,11 @@
 
     <div class="text-center mb-5 mt-7 ">
         <?php
-        require 'menu.user.view.php';
+        require 'menu.article.view.php';
 
         if (is_null($selectAllUser)) :
         ?>
-            <h3>Pas encore d'utilisateurs!</h3>
+            <h3>Pas encore d'articles!</h3>
 
 
         <?php
@@ -28,6 +28,7 @@
     </div>
     <h1 class="text-2xl  font-serif text-center pt-5 mb-7">
         User Manager
+        Article
     </h1>
     <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 pr-10 lg:px-8">
         <div class="align-middle rounded-tl-lg rounded-tr-lg inline-block w-full py-4 overflow-hidden bg-white  px-12">
@@ -78,11 +79,8 @@
                                 </a>
                             </td>
                         </tr>
-                   
-
                     <?php
                     endforeach;
-                    
                     ?>
                 </tbody>
             </table>

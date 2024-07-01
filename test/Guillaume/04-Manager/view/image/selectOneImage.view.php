@@ -31,8 +31,5 @@
         ?>
     </div>
     
-    <?php
-var_dump($dbConnect,$imageManager,$selectOneImage);
-    ?>
 </body>
 </html>

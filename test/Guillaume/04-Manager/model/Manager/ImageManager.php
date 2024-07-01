@@ -124,7 +124,7 @@ class ImageManager implements InterfaceManager{
             $prepare->bindValue(1,$mapping->getImageUrlName());
             $prepare->bindValue(2,$mapping->getImageDescription());
             $prepare->bindValue(3,$mapping->getImageType());
-            $prepare->bindValue(3,1, OurPDO::PARAM_INT);
+            
 
             $prepare->execute();
 

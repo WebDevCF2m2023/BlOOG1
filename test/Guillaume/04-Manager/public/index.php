@@ -35,7 +35,7 @@ $commentManager = new CommentManager($dbConnect);
 $imageManager = new ImageManager($dbConnect);
 
 
-/*
+
 // detail view
 if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
     $idComment = (int) $_GET['view'];
@@ -58,7 +58,7 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
             $insertComment = $commentManager->insert($comment);
 
             if($insertComment===true) {
-                header("Location: ./");
+                header("Location: ?viewComment");
                 exit();
             }else{
                 $error = $insertComment;
@@ -85,7 +85,7 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
             // update comment
             $updateComment = $commentManager->update($comment);
             if($updateComment===true) {
-                header("Location: ./");
+                header("Location: ?viewComment");
                 exit();
             }else{
                 $error = $updateComment;
@@ -106,30 +106,33 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
     // delete comment
     $deleteComment = $commentManager->delete($idComment);
     if($deleteComment===true) {
-        header("Location: ./");
+        header("Location: ?viewComment");
         exit();
     }else{
         $error = $deleteComment;
     }
 
 // homepage
-}else{
-    // select all images
-    $selectAllImages = $imageManager->selectAll();
+}elseif(isset($_GET['viewComment'])){
+    // select all comments
+    $selectAllComments = $commentManager->selectAll();
     // view
-    require "../view/image/selectAllImages.view.php";
+    require "../view/comment/selectAllComment.view.php";
+    
 }
-*/
+
+
+
 // detail view
-if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
-    $idImage = (int) $_GET['view'];
+if(isset($_GET['viewImg'])&&ctype_digit($_GET['viewImg'])){
+    $idImage = (int) $_GET['viewImg'];
     // select one image
     $selectOneImage = $imageManager->selectOneById($idImage);
     // view
     require "../view/image/selectOneImage.view.php";
 
 // insert image page
-}elseif(isset($_GET['insert'])){
+}elseif(isset($_GET['insertImg'])){
 
 // real insert image
     if(isset($_POST['image_url'])) {
@@ -153,7 +156,7 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
             $insertImage = $imageManager->insert($image);
             }   
             if($insertImage===true) {
-                header("Location: ./");
+                header("Location: ?viewImg");
                 exit();
             }else{
                 $error = $insertImage;
@@ -168,8 +171,8 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
     require "../view/image/insertImage.view.php";
 
 // delete image
-}elseif (isset($_GET['update'])&&ctype_digit($_GET['update'])) {
-    $idImage = (int)$_GET['update'];
+}elseif (isset($_GET['updateImg'])&&ctype_digit($_GET['updateImg'])) {
+    $idImage = (int)$_GET['updateImg'];
 
     // update image
     if (isset($_POST['image_url'])) {
@@ -192,7 +195,7 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
             $updateImage = $imageManager->update($image);
         }
             if($updateImage===true) {
-                header("Location: ./");
+                header("Location: ?viewImg");
                 exit();
             }else{
                 $error = $updateImage;
@@ -207,23 +210,23 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
     require "../view/image/updateImage.view.php";
 
 // delete image
-}elseif(isset($_GET['delete'])&&ctype_digit($_GET['delete'])){
-    $idImage = (int) $_GET['delete'];
+}elseif(isset($_GET['deleteImg'])&&ctype_digit($_GET['deleteImg'])){
+    $idImage = (int) $_GET['deleteImg'];
     // delete image
     $deleteImage = $imageManager->delete($idImage);
     if($deleteImage===true) {
-        header("Location: ./");
+        header("Location: ?viewImg");
         exit();
     }else{
         $error = $deleteImage;
     }
 
-// homepage
-}else{
+}elseif(isset($_GET['viewImg'])){
     // select all images
     $selectAllImages = $imageManager->selectAll();
     // view
     require "../view/image/selectAllImages.view.php";
+    die();
 }
 
 $dbConnect = null;

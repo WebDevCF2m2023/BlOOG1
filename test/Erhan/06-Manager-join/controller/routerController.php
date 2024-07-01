@@ -1,4 +1,16 @@
 <?php
+
+
+$array = [
+    "hi",
+];
+
+if(isset($_GET['withUsers'])){
+    echo $twig->render('permission/selectAllWithUsers.view.php.twig', ['chiffres' => $array]);
+}elseif(isset($_GET['allPermissions'])){
+    echo $twig->render('permission/allPermissions.view.php.twig', ['chiffres' => $array]);
+}
+
 // si nous sommes connectés
 if (isset($_SESSION['MySession'])) {
     $router = $_SESSION['permission_name'];

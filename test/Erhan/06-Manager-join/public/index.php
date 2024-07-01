@@ -48,11 +48,7 @@ require_once PROJECT_DIRECTORY."/controller/routerController.php";
 
 
 
-if(isset($_GET['withUsers'])){
-    echo $twig->render('permission/selectAllWithUsers.view.php.twig', ['chiffres' => $array]);
-}elseif(isset($_GET['allPermissions'])){
-    echo $twig->render('permission/allPermissions.view.php.twig', ['chiffres' => $array]);
-}
+
 
 
 

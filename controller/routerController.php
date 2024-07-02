@@ -18,7 +18,7 @@ if (isset($_SESSION['MySession'])) {
             break;
     }
 } else {
-    // si nous ne sommes pas connectés
+    // si nous ne sommes pas connectés,
     // nous chargeons le publicController
     require_once PROJECT_DIRECTORY . "/controller/publicController.php";
 }

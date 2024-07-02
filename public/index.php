@@ -3,14 +3,14 @@
 // session
 session_start();
 
-// chemin vers Twig
+// chemin vers les classes Twig
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 
 // Appel de la config
 require_once "../config.php";
 
-// our autoload
+// Notre autoload de classe
 spl_autoload_register(function ($class) {
     $class = str_replace('\\', '/', $class);
     require PROJECT_DIRECTORY.'/' .$class . '.php';
@@ -29,4 +29,5 @@ $twig = new Environment($loader, [
     'debug' => true,
 ]);
 
-echo "<h1>En construction</h1>";
+// Appel du router
+require_once PROJECT_DIRECTORY.'/controller/routerController.php';

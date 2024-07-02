@@ -41,3 +41,6 @@ $db->setAttribute(OurPDO::ATTR_ERRMODE, OurPDO::ERRMODE_EXCEPTION);
 
 // Appel du router
 require_once PROJECT_DIRECTORY.'/controller/routerController.php';
+
+// fermeture de la connexion
+$db = null;

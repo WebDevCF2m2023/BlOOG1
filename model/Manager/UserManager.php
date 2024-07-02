@@ -1,12 +1,55 @@
 <?php
 
-namespace model\Abstract;
+namespace model\Manager;
 
 use model\Abstract\AbstractMapping;
+use model\Interface\InterfaceManager;
+use model\Interface\InterfaceSlugManager;
 use model\Interface\InterfaceUserManager;
+use model\OurPDO;
 
-class AbstractUserWithMapping extends AbstractMapping implements InterfaceUserManager
+class UserManager implements InterfaceManager, InterfaceUserManager, InterfaceSlugManager
 {
+
+    private $pdo;
+
+    public function __construct(OurPDO $pdo)
+    {
+        $this->pdo = $pdo;
+    }
+
+    public function selectAll()
+    {
+        // TODO: Implement selectAll() method.
+    }
+
+    public function selectOneById(int $id)
+    {
+        // TODO: Implement selectOneById() method.
+    }
+
+    public function insert(AbstractMapping $mapping)
+    {
+        // TODO: Implement insert() method.
+    }
+
+    public function update(AbstractMapping $mapping)
+    {
+        // TODO: Implement update() method.
+    }
+
+    public function delete(int $id)
+    {
+        // TODO: Implement delete() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function selectOneBySlug(string $slug)
+    {
+        // TODO: Implement selectOneBySlug() method.
+    }
 
     public function register(string $login, string $email, string $password)
     {

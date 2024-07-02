@@ -7,6 +7,9 @@ session_start();
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 
+// on va utiliser notre connexion personnalisée (singleton)
+use model\OurPDO;
+
 // Appel de la config
 require_once "../config.php";
 
@@ -28,6 +31,13 @@ $twig = new Environment($loader, [
     // activation du debug en dev
     'debug' => true,
 ]);
+
+// connexion à la database
+$db = OurPDO::getInstance( DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME.";port=".DB_PORT.";charset=".DB_CHARSET,
+    DB_LOGIN,
+    DB_PWD);
+// résultats en tableau associatif
+$db->setAttribute(OurPDO::ATTR_ERRMODE, OurPDO::ERRMODE_EXCEPTION);
 
 // Appel du router
 require_once PROJECT_DIRECTORY.'/controller/routerController.php';

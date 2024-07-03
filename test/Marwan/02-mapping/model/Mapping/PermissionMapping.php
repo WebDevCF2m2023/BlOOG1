@@ -14,15 +14,7 @@ class PermissionMapping extends AbstractMapping
     protected ?int $permission_id;
     protected ?string $permission_name;
     protected ?string $permission_description;
-  
 
-    // Les getters et setters
-    // Les getters permettent de récupérer la valeur
-    // d'un attribut de la classe
-
-    // Les setters permettent de modifier la valeur
-    // d'un attribut de la classe, en utilisant l'hydratation
-    // venant de la classe AbstractMapping
     public function getPermissionId(): ?int
     {
         return $this->permission_id;
@@ -52,6 +44,7 @@ class PermissionMapping extends AbstractMapping
     {
         $this->permission_description = $permission_description;
     }
+
 
 
 

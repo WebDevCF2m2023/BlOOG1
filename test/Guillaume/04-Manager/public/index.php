@@ -118,6 +118,7 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
     $selectAllComments = $commentManager->selectAll();
     // view
     require "../view/comment/selectAllComment.view.php";
+    die();
     
 }
 
@@ -221,7 +222,7 @@ if(isset($_GET['viewImg'])&&ctype_digit($_GET['viewImg'])){
         $error = $deleteImage;
     }
 
-}elseif(isset($_GET['viewImg'])){
+}else{
     // select all images
     $selectAllImages = $imageManager->selectAll();
     // view

@@ -1,15 +1,17 @@
 <?php
 
 
-$array = [
-    "hi",
-];
 
 if(isset($_GET['withUsers'])){
-    echo $twig->render('permission/selectAllWithUsers.view.php.twig', ['chiffres' => $array]);
+    echo $twig->render('permission/PublicView/selectAllWithUsers.view.html.twig');
 }elseif(isset($_GET['allPermissions'])){
-    echo $twig->render('permission/allPermissions.view.php.twig', ['chiffres' => $array]);
+    echo $twig->render('permission/PublicView/allPermissions.view.html.twig');
+}else{
+    echo $twig->render('permission/PublicView/homepage.view.html.twig');
 }
+die();
+
+
 
 // si nous sommes connectés
 if (isset($_SESSION['MySession'])) {

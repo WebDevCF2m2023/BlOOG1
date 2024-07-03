@@ -48,9 +48,5 @@ require_once PROJECT_DIRECTORY."/controller/routerController.php";
 
 
 
-
-
-
-
 // fermeture de la connexion
 $dbConnect = null;

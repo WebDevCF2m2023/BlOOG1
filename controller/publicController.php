@@ -1,4 +1,4 @@
 <?php
 
 // vue de la base
-echo $twig->render('base.view.html.twig');
+include PROJECT_DIRECTORY."/view/public/public.homepage.php";

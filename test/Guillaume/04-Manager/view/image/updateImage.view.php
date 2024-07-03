@@ -20,8 +20,14 @@
         ?>
     <h3>Modification d'une image</h3>
     <form action="" method="post">
-        <label for="image_url">Image</label>
-        <textarea name="image_description" id="image_description" cols="30" rows="10"><?=$selectOneImage->getImageDescription()?></textarea>
+    <label for="image_id">ID</label> <br>
+        <input type="text" name="image_id" value="<?=$selectOneImage->getImageId()?>"> <br>
+        <label for="image_url">Image</label> <br>
+        <textarea name="image_url" id="image_url" cols="30" rows="10"><?=$selectOneImage->getImageUrlName()?></textarea> <br>
+        <label for="image_description">Description</label> <br>
+        <textarea name="image_description" id="image_description" cols="30" rows="10"><?=$selectOneImage->getImageDescription()?></textarea> <br>
+        <label for="image_type">Type</label> <br>
+        <textarea name="image_type" id="image_type" cols="30" rows="10"><?=$selectOneImage->getImageType()?></textarea> <br>
         <input type="submit" value="Envoyer">
     </form>
         <?php

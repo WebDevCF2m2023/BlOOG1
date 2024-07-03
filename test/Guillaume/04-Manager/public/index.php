@@ -42,7 +42,9 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
     // select one comment
     $selectOneComment = $commentManager->selectOneById($idComment);
     // view
+    
     require "../view/comment/selectOneComment.view.php";
+    die();
 
 // insert comment page
 }elseif(isset($_GET['insert'])){
@@ -68,9 +70,11 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
         }
         //var_dump($comment);
 
-    }
+    } else{
     // view
     require "../view/comment/insertComment.view.php";
+    die();
+    }
 
 // delete comment
 }elseif (isset($_GET['update'])&&ctype_digit($_GET['update'])) {
@@ -94,11 +98,13 @@ if(isset($_GET['view'])&&ctype_digit($_GET['view'])){
             $error = $e->getMessage();
         }
 
-    }
+    }else{
     // select one comment
     $selectOneComment = $commentManager->selectOneById($idComment);
     // view
     require "../view/comment/updateComment.view.php";
+    die();
+    }
 
 // delete comment
 }elseif(isset($_GET['delete'])&&ctype_digit($_GET['delete'])){

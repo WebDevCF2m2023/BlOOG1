@@ -8,10 +8,10 @@ use model\Interface\InterfaceSlugManager;
 use model\Interface\InterfaceUserManager;
 use model\OurPDO;
 
-class UserManager implements InterfaceManager, InterfaceUserManager, InterfaceSlugManager
+class UserManager implements InterfaceManager, InterfaceSlugManager, InterfaceUserManager
 {
 
-    private $pdo;
+    private OurPDO $pdo;
 
     public function __construct(OurPDO $pdo)
     {
@@ -43,10 +43,7 @@ class UserManager implements InterfaceManager, InterfaceUserManager, InterfaceSl
         // TODO: Implement delete() method.
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function selectOneBySlug(string $slug)
+    public function selectOneBySlug(string $slug): object
     {
         // TODO: Implement selectOneBySlug() method.
     }

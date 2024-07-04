@@ -2,7 +2,7 @@
 
 {% block title %}{{ parent() }} | Homepage{% endblock %}
 
-{% block main_title %}Bienvenue sur notre page d'accueil !{% endblock %}
+{% block main_title %}Permissions With Users !{% endblock %}
 
 
 {% block main_content_image %} 
@@ -18,7 +18,7 @@
                     <li><strong>Permission ID</strong>: {{ permissionuser.getPermissionId }}</li>
                     <li><strong>Permission Name</strong>: {{ permissionuser.getPermissionName }}</li>
                     <li><strong>Permission Description</strong>: {{ permissionuser.getPermissionDescription }}</li>
-                    
+
                     {% if permissionuser.getUser is not null %}
                     <ul>
                         {% for user in permissionuser.getUser %}

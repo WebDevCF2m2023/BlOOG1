@@ -9,16 +9,16 @@ $users = $permissionManager->selectAll();
 
 $usersHomepage = $permissionManager->selectAllWithUsers();
 
-/*
+
 
 echo "<h1>Instance de PermissionManager</h1>";
 //var_dump($permissionManager);
 echo "<h2>PermissionManager::selectAll()</h2>";
-//var_dump($users);
+var_dump($users);
 echo "<h2>PermissionManager::selectAllArticleHomepage()</h2>";
-echo '<a href= "?allPermissions">Perm</a><br>';
-echo '<a href= "?withUsers">User</a>';
-var_dump($usersHomepage);
+//echo '<a href= "?allPermissions">Perm</a><br>';
+//echo '<a href= "?withUsers">User</a>';
+//var_dump($usersHomepage);
 foreach ($usersHomepage as $permission) {
     echo "<h3>".$permission->getPermissionName()."</h3>";
     if($permission->getUser()!==null){
@@ -28,7 +28,7 @@ foreach ($usersHomepage as $permission) {
     }
 }
 
-*/
+
 
 /*
 foreach ($usersHomepage as $permission) {

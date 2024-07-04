@@ -1,2 +1,26 @@
-{{ 'test Permission' }}
+{% extends 'permission/template.view.html.twig' %}
 
+{% block title %}{{ parent() }} | Homepage{% endblock %}
+
+{% block main_title %}Bienvenue sur notre page d'accueil !{% endblock %}
+
+
+
+{% block main_content2 %}
+                
+                {% for user in users %}
+                    <div class="col-lg-4">
+                        <div class="portfolio-info">
+                            <h3>Permission Information</h3>
+                            <ul>
+                                <li><strong>Permission ID</strong>: {{ user.getPermissionId }}</li>
+                                <li><strong>Permission Name</strong>: {{ user.getPermissionName }}</li>
+                                <li><strong>Permission Description</strong>: {{ user.getPermissionDescription }}</li>
+                            </ul>
+                        </div>
+                    </div>
+
+    {% endfor %}
+   
+
+{% endblock %}

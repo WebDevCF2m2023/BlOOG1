@@ -1,13 +1,21 @@
 <?php
 
 
+use model\Manager\PermissionManager;
+
+$permissionManager = new PermissionManager($dbConnect);
+
+$users = $permissionManager->selectAll();
+
+$usersHomepage = $permissionManager->selectAllWithUsers();
+
 
 if(isset($_GET['withUsers'])){
-    echo $twig->render('permission/PublicView/selectAllWithUsers.view.html.twig');
+    echo $twig->render('permission/PublicView/selectAllWithUsers.view.html.twig' );
 }elseif(isset($_GET['allPermissions'])){
-    echo $twig->render('permission/PublicView/allPermissions.view.html.twig');
+    echo $twig->render('permission/PublicView/allPermissions.view.html.twig' , ['users' => $users]);
 }else{
-    echo $twig->render('permission/PublicView/homepage.view.html.twig');
+    echo $twig->render('permission/PublicView/homepage.view.html.twig', ['users' => $users]);
 }
 die();
 

@@ -11,11 +11,11 @@ $usersHomepage = $permissionManager->selectAllWithUsers();
 
 
 if(isset($_GET['withUsers'])){
-    echo $twig->render('permission/PublicView/selectAllWithUsers.view.html.twig' );
+    echo $twig->render('permission/PublicView/selectAllWithUsers.view.html.twig', ['permissionUsers' => $usersHomepage] );
 }elseif(isset($_GET['allPermissions'])){
-    echo $twig->render('permission/PublicView/allPermissions.view.html.twig' , ['users' => $users]);
+    echo $twig->render('permission/PublicView/allPermissions.view.html.twig', ['permissions' => $users]);
 }else{
-    echo $twig->render('permission/PublicView/homepage.view.html.twig', ['users' => $users]);
+    echo $twig->render('permission/PublicView/homepage.view.html.twig');
 }
 die();
 

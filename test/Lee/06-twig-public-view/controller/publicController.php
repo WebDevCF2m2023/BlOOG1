@@ -31,7 +31,7 @@ switch ($route) {
         // vue de la base NON TWIG
     //    include PROJECT_DIRECTORY."/view/publicView/public.homepage.php";
         $allTags = $articleManager->selectAllTagsForLee();
-        echo $twig->render("publicView/public.tag.view.twig", ['allTags' => $allTags]);
+        echo $twig->render("publicView/public.home.view.twig", ['allTags' => $allTags, "articles" => $articles, "categories" => $categories]);
         break;
 
     case 'categorie':
@@ -51,7 +51,7 @@ switch ($route) {
         // on charge les articles de la catégorie
         $articles = $articleManager->selectAllArticleByCategorySlug($_GET['slug']);
         // vue de la base NON TWIG
-        include PROJECT_DIRECTORY."/view/publicView/public.category.php";
+       echo $twig->render("publicView/author.view.html.twig");
 
         break;
 

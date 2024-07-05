@@ -23,7 +23,7 @@ spl_autoload_register(function ($class) {
 require_once PROJECT_DIRECTORY.'/vendor/autoload.php';
 
 // chemin vers les templates twig
-$loader = new FilesystemLoader(PROJECT_DIRECTORY.'../view/');
+$loader = new FilesystemLoader(PROJECT_DIRECTORY.'/view/');
 // création d'une instance de $twig
 $twig = new Environment($loader, [
     'cache' => false, // pas de cache en dev

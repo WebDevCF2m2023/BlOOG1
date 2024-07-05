@@ -5,10 +5,13 @@ namespace model\Mapping;
 use model\Abstract\AbstractMapping;
 use model\Trait\TraitDateTime;
 use model\Trait\TraitSlugify;
+use model\Mapping\UserMapping;
+use model\Mapping\CategoryMapping;
+use model\Mapping\TagMapping;
 use DateTime;
 use Exception;
 
-class ArticlesMapping extends AbstractMapping
+class ArticleMapping extends AbstractMapping
 {
 
     use TraitDateTime;
@@ -23,7 +26,49 @@ class ArticlesMapping extends AbstractMapping
     protected null|string|DateTime $article_date_publish=null;
     protected ?int $user_user_id=null;
 
+    // Pour la jointure interne avec la table user (1 ou 0 possibilité)
+    protected ?UserMapping $user=null;
 
+    // Pour la jointure externe avec la table category (0 à n possibilités)
+    protected ?array $categories=null;
+    // Pour la jointure externe avec la table tag (0 à n possibilités)
+    protected ?array $tags=null;
+
+    // getters et setters pour le user
+    public function getUser(): ?UserMapping
+    {
+        return $this->user;
+    }
+
+    public function setUser(?UserMapping $user): void
+    {
+        $this->user = $user;
+    }
+
+    // getters et setters pour les categories
+    public function getCategories(): ?array
+    {
+        return $this->categories;
+    }
+
+    public function setCategories(?array $categories): void
+    {
+        $this->categories = $categories;
+    }
+
+    // getters et setters pour les tags
+    public function getTags(): ?array
+    {
+        return $this->tags;
+    }
+
+    public function setTags(?array $tags): void
+    {
+        $this->tags = $tags;
+    }
+
+    // getters et setters pour les attributs de la classe
+    // représentant les colonnes de la table article
     public function getArticleId(): ?int
     {
         return $this->article_id;

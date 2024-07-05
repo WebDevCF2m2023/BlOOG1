@@ -1,0 +1,14 @@
+{% extends 'permission/template.view.html.twig' %}
+
+{% block title %}{{ parent() }} | Homepage{% endblock %}
+
+{% block main_title %}Bienvenue sur notre page d'accueil !{% endblock %}
+
+{% block main_content %}
+    {% for item in chiffres %}
+        {{ item }}
+        {% if not loop.last %} | {% endif %}
+    {% endfor %}
+    {{ parent() }}
+
+{% endblock %}

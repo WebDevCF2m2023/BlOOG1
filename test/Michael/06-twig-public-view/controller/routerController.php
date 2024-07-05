@@ -5,6 +5,7 @@
 
 // si nous sommes connectés
 if (isset($_SESSION['MySession'])) {
+    // nous allons charger les autres routers en fonction des permissions
     $router = $_SESSION['permission_name'];
     switch ($router) {
         case 'Administrateur':

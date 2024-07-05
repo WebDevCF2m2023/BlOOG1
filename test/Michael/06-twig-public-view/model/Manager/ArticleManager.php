@@ -63,15 +63,10 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
                GROUP_CONCAT(c.`category_id`) as`category_id`, 
                GROUP_CONCAT(c.`category_name` SEPARATOR '|||') as `category_name`, 
                GROUP_CONCAT(c.`category_slug` SEPARATOR '|||') as `category_slug`,
-               (SELECT GROUP_CONCAT(t.`tag_slug` SEPARATOR '|||')
-                    FROM `tag` t
-                    INNER JOIN `tag_has_article` tha
-                        ON tha.`article_article_id` = a.`article_id`
-                    WHERE t.`tag_id` = tha.`tag_tag_id`
-                    GROUP BY a.`article_id`
-                    ORDER BY t.`tag_slug` ASC    
-                    ) as `tag_slug`
-
+               (SELECT COUNT(*)
+                    FROM `comment` c
+                    WHERE a.`article_id` = c.`article_article_id`)
+                   as `comment_count`
         FROM `article` a
         INNER JOIN `user` u  
             ON u.`user_id` = a.`user_user_id`
@@ -119,24 +114,6 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
             } else {
                 $tabCategories = null;
             }
-            // si on a des tags
-            if ($mapping['tag_slug'] !== null) {
-                // on crée un tableau de tags
-                $tabTags = [];
-                // on récupère les tags
-                $tabTagSlugs = explode("|||", $mapping['tag_slug']);
-                // on boucle sur les tags
-                for ($i = 0; $i < count($tabTagSlugs); $i++) {
-                    // on instancie le tag
-                    $tag = new TagMapping([
-                        'tag_slug' => $tabTagSlugs[$i]
-                    ]);
-                    // on ajoute le tag au tableau
-                    $tabTags[] = $tag;
-                }
-            } else {
-                $tabTags = null;
-            }
 
 
             // on instancie l'article
@@ -145,8 +122,6 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
             $article->setUser($user);
             // on ajoute les catégories à l'article
             $article->setCategories($tabCategories);
-            // on ajoute les tags à l'article
-            $article->setTags($tabTags);
             // on ajoute l'article au tableau
             $tabObject[] = $article;
         }

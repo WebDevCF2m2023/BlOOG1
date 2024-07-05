@@ -39,7 +39,7 @@ $db = OurPDO::getInstance( DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME.";port=".
 // résultats en tableau associatif
 $db->setAttribute(OurPDO::ATTR_ERRMODE, OurPDO::ERRMODE_EXCEPTION);
 
-// Appel du router
+// Appel du router général
 require_once PROJECT_DIRECTORY.'/controller/routerController.php';
 
 // fermeture de la connexion

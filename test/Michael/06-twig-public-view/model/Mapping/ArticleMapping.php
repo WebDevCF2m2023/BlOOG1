@@ -34,6 +34,19 @@ class ArticleMapping extends AbstractMapping
     // Pour la jointure externe avec la table tag (0 à n possibilités)
     protected ?array $tags=null;
 
+    protected ?int $comment_count=null;
+
+    // getters et setters pour le comment_count
+    public function getCommentCount(): ?int
+    {
+        return $this->comment_count;
+    }
+
+    public function setCommentCount(?int $comment_count): void
+    {
+        $this->comment_count = $comment_count;
+    }
+
     // getters et setters pour le user
     public function getUser(): ?UserMapping
     {
@@ -90,10 +103,11 @@ class ArticleMapping extends AbstractMapping
 
         // on vérifie que le titre n'est pas null
         if ($article_title === null) return null;
+        // on remplit et on protège le titre
+        $article_title = trim(strip_tags($article_title));
         // on vérifie que le titre n'est pas vide
         if ($article_title === "") throw new Exception("Merci d'inclure une Titre");
-        // on remplit et on protège le titre
-        $this->article_title = trim(strip_tags($article_title));
+        $this->article_title = $article_title;
 
     }
 

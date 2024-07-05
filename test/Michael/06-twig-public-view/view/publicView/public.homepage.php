@@ -9,5 +9,8 @@
 </head>
 <body>
     <h1>Bloog 1 | Homepage</h1>
+    <?php
+    var_dump($articles);
+    ?>
 </body>
 </html>

@@ -11,15 +11,14 @@ class UserMapping extends AbstractMapping
     // Les propriétés de la classe sont le nom des
     // attributs de la table Exemple (qui serait en
     // base de données)
-    protected ?int $user_id = null;
-    protected ?string $user_login = null;
-    protected ?string $user_password = null;
-    protected ?string $user_full_name = null;
-    protected ?string $user_mail = null;
-    protected ?int $user_status = null;
-    protected ?string $user_secret_key = null;
-    protected ?int $permission_permission_id = null;
-    protected ?PermissionMapping $permission = null;
+    protected ?int $user_id=null;
+    protected ?string $user_login=null;
+    protected ?string $user_password=null;
+    protected ?string $user_full_name=null;
+    protected ?string $user_mail=null;
+    protected ?int $user_status=null;
+    protected ?string $user_secret_key=null;
+    protected ?int $permission_permission_id=null;
 
     // Les getters et setters
 
@@ -41,10 +40,10 @@ class UserMapping extends AbstractMapping
 
     public function setUserLogin(?string $user_login)
     {
-        if (is_null($user_login)) return null;
+        if(is_null($user_login)) return null;
         $texte = trim(strip_tags($user_login));
-        if (empty($texte)) throw new Exception("Le login n'est pas renseigné");
-        if (strlen($texte) < 3) throw new Exception("Le login doit contenir au moins 3 caractères");
+        if(empty($texte)) throw new Exception("Le login n'est pas renseigné");
+        if(strlen($texte) < 3) throw new Exception("Le login doit contenir au moins 3 caractères");
 
         $this->user_login = $texte;
     }
@@ -66,7 +65,7 @@ class UserMapping extends AbstractMapping
 
     public function setUserFullName(?string $user_full_name)
     {
-        if (is_null($user_full_name)) return null;
+        if(is_null($user_full_name)) return null;
         $texte = trim(strip_tags($user_full_name));
         $this->user_full_name = $texte;
     }
@@ -78,10 +77,11 @@ class UserMapping extends AbstractMapping
 
     public function setUserMail(?string $user_mail)
     {
-        if (is_null($user_mail)) return null;
+        if(is_null($user_mail)) return null;
         $cleanEmail = filter_var($user_mail, FILTER_VALIDATE_EMAIL);
-        if (!$cleanEmail) throw new Exception("L'adresse mail n'est pas valide");
+        if(!$cleanEmail) throw new Exception("L'adresse mail n'est pas valide");
         $this->user_mail = $cleanEmail;
+
     }
 
     public function getUserStatus(): ?int
@@ -114,13 +114,5 @@ class UserMapping extends AbstractMapping
         $this->permission_permission_id = $permission_permission_id;
     }
 
-    public function setPermission(?PermissionMapping $permission): void
-    {
-        $this->permission = $permission;
-    }
 
-    public function getPermission(): ?PermissionMapping
-    {
-        return $this->permission;
-    }
 }

@@ -39,6 +39,17 @@ switch ($route) {
             header('Location: ./');
             exit;
         }
+        // on charge la catégorie
+        $category = $categoryManager->selectOneBySlug($_GET['slug']);
+        // si la catégorie n'existe pas, on redirige vers la page 404
+        if($category === null){
+            header('Location: ./?route=404');
+            exit;
+        }
+        // on charge les articles de la catégorie
+        $articles = $articleManager->selectAllArticleByCategorySlug($_GET['slug']);
+        // vue de la base NON TWIG
+        include PROJECT_DIRECTORY."/view/publicView/public.category.php";
 
         break;
 
@@ -60,6 +71,15 @@ switch ($route) {
         // vue de la base NON TWIG
         include PROJECT_DIRECTORY."/view/publicView/public.article.php";
 
+        break;
+    case 'tag':
+        // on vérifie si le slug du tag est bien présent
+        if(!isset($_GET['slug'])){
+            header('Location: ./');
+            exit;
+        }
+
+        echo "<h1>On affiche une nouvelle vue avec les articles qui ont ce tag</h1>";
         break;
     case '404':
         // vue de la base NON TWIG

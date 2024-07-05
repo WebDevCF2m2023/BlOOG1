@@ -130,6 +130,57 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
         return $tabObject;
     }
 
+    public function selectAllArticleByCategorySlug(string $slug): ?array
+    {
+
+        // on récupère tous les articles avec jointures
+        $prepare = $this->db->prepare("
+        SELECT a.`article_id`, a.`article_title`, 
+               SUBSTRING_INDEX(a.`article_text`,' ', 30) as `article_text`,
+               a.`article_slug`, a.`article_date_publish`, 
+               u.`user_id`, u.`user_login`, u.`user_full_name`,
+               
+               (SELECT COUNT(*)
+                    FROM `comment` c
+                    WHERE a.`article_id` = c.`article_article_id`)
+                   as `comment_count`
+        FROM `article` a
+        INNER JOIN `user` u  
+            ON u.`user_id` = a.`user_user_id`
+        LEFT JOIN article_has_category ahc
+            ON ahc.`article_article_id` = a.`article_id`
+        LEFT JOIN category c
+            ON c.`category_id` = ahc.`category_category_id`
+        WHERE a.`article_is_published` = 1
+        AND c.`category_slug` = :slug
+            GROUP BY a.`article_id`
+            ORDER BY a.`article_date_publish` DESC
+        
+        ");
+        $prepare->execute(['slug' => $slug]);
+        // si aucun article n'est trouvé, on retourne null
+        if ($prepare->rowCount() == 0) return null;
+        // on récupère les articles sous forme de tableau associatif
+        $tabMapping = $prepare->fetchAll();
+        // on ferme le curseur
+        $prepare->closeCursor();
+        // on crée le tableau où on va instancier les objets
+        $tabObject = [];
+        // pour chaque article, on boucle
+        foreach ($tabMapping as $mapping) {
+            // si on a un user on l'instancie
+            $user = $mapping['user_login'] !== null ? new UserMapping($mapping) : null;
+
+            // on instancie l'article
+            $article = new ArticleMapping($mapping);
+            // on ajoute user à l'article
+            $article->setUser($user);
+            // on ajoute l'article au tableau
+            $tabObject[] = $article;
+        }
+        return $tabObject;
+    }
+
 
     public function selectOneById(int $id): object
     {
@@ -168,6 +219,7 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
                     GROUP BY a.`article_id`
                     ORDER BY t.`tag_slug` ASC    
                     ) as `tag_slug`
+            
 
         FROM `article` a
         INNER JOIN `user` u  

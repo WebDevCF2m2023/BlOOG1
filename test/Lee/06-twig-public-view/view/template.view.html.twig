@@ -2,29 +2,152 @@
 
 
 {% block headtitle %} {{ parent() }} | Lee {% endblock %}
+
 {% block stylesheet %}
-    <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="plugins/themify-icons/themify-icons.css">
-    <link rel="stylesheet" href="plugins/slick/slick.css">
+    <link rel="stylesheet" href="assets/theme/plugins/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/theme/plugins/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="assets/theme/plugins/slick/slick.css">
 
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="css/style.css" media="screen">
+    <link rel="stylesheet" href="assets/theme/css/style.css" media="screen">
 
     <!--Favicon-->
-    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
-    <link rel="icon" href="images/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="assets/theme/images/favicon.png" type="image/x-icon">
 {% endblock %}
 
 {% block body %}
     {% block navbar %}
-    {% endblock %}
+        <!-- navigation -->
+        <header class="navigation fixed-top">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-white">
+                    <a class="navbar-brand order-1" href="index.html">
+                        <img class="img-fluid" width="100px" src="assets/theme/images/logo.png"
+                             alt="Reader | Hugo Personal Blog Template">
+                    </a>
+                    <div class="collapse navbar-collapse text-center order-lg-2 order-3" id="navigation">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">
+                                    homepage <i class="ti-angle-down ml-1"></i>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Homepage Full Width</a>
+                                    <!--
+
+                                    <a class="dropdown-item" href="index-full-left.html">Homepage Full With Left Sidebar</a>
+
+                                    <a class="dropdown-item" href="index-full-right.html">Homepage Full With Right Sidebar</a>
+
+                                    <a class="dropdown-item" href="index-list.html">Homepage List Style</a>
+
+                                    <a class="dropdown-item" href="index-list-left.html">Homepage List With Left Sidebar</a>
+
+                                    <a class="dropdown-item" href="index-list-right.html">Homepage List With Right Sidebar</a>
+
+                                    <a class="dropdown-item" href="index-grid.html">Homepage Grid Style</a>
+
+                                    <a class="dropdown-item" href="index-grid-left.html">Homepage Grid With Left Sidebar</a>
+
+                                    <a class="dropdown-item" href="index-grid-right.html">Homepage Grid With Right Sidebar</a>
+                                -->
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">
+                                    About <i class="ti-angle-down ml-1"></i>
+                                </a>
+                                <div class="dropdown-menu">
+
+                                    <a class="dropdown-item" href="about-me.html">About Me</a>
+
+                                    <a class="dropdown-item" href="about-us.html">About Us</a>
+
+                                </div>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="contact.html">Contact</a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">Pages <i class="ti-angle-down ml-1"></i>
+                                </a>
+                                <div class="dropdown-menu">
+
+                                    <a class="dropdown-item" href="#">Author</a>
+<!--
+                                    <a class="dropdown-item" href="author-single.html">Author Single</a>
+
+                                    <a class="dropdown-item" href="advertise.html">Advertise</a>
+
+                                    <a class="dropdown-item" href="post-details.html">Post Details</a>
+
+                                    <a class="dropdown-item" href="post-elements.html">Post Elements</a>
+
+                                    <a class="dropdown-item" href="tags.html">Tags</a>
+
+                                    <a class="dropdown-item" href="search-result.html">Search Result</a>
+
+                                    <a class="dropdown-item" href="search-not-found.html">Search Not Found</a>
+
+                                    <a class="dropdown-item" href="privacy-policy.html">Privacy Policy</a>
+
+                                    <a class="dropdown-item" href="terms-conditions.html">Terms Conditions</a>
+
+                                    <a class="dropdown-item" href="404.html">404 Page</a>
+-->
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <div class="order-2 order-lg-3 d-flex align-items-center">
+                        <select class="m-2 border-0 bg-transparent" id="select-language">
+                            <option id="en" value="">En</option>
+                            <option id="fr" value="" selected>Fr</option>
+                        </select>
+
+                        <!-- search -->
+                        <form class="search-bar">
+                            <input id="search-query" name="s" type="search" placeholder="Demo - non fonctionnant">
+                        </form>
+
+                        <button class="navbar-toggler border-0 order-1" type="button" data-toggle="collapse" data-target="#navigation">
+                            <i class="ti-menu"></i>
+                        </button>
+                    </div>
+
+                </nav>
+            </div>
+        </header>
+        <!-- /navigation -->
+    {% endblock %} {# end Navbar #}
     {% block content %}
-    {% endblock %}
+
+
+    {% endblock %} {# end content #}
 
     {% block footer %}
 {{ parent () }}
     {% endblock %}
     {% block javascript %}
+    <!-- JS Plugins -->
+    <script src="assets/theme/plugins/jQuery/jquery.min.js"></script>
 
+    <script src="assets/theme/plugins/bootstrap/bootstrap.min.js"></script>
+
+    <script src="assets/theme/plugins/slick/slick.min.js"></script>
+
+    <script src="assets/theme/plugins/instafeed/instafeed.min.js"></script>
+
+
+    <!-- Main Script -->
+    <script src="assets/theme/js/script.js"></script>
     {% endblock %}
 {% endblock %}

@@ -298,4 +298,21 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
 
         return $article;
     }
+
+    public function selectAllTagsForLee() : array| null {
+        $query = $this->db->prepare("SELECT * FROM `tag`
+                                         ORDER BY tag_slug ASC");
+        $query->execute();
+        if($query->rowCount() === 0){
+            return null;
+        }
+        $allTags = $query->fetchAll();
+        $query->closeCursor();
+        $tabObject = [];
+        foreach ($allTags as $mapping) {
+            $tabObject[] = new TagMapping($mapping);
+        }
+        return $tabObject;
+
+    }
 }

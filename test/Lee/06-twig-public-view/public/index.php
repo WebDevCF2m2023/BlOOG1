@@ -31,7 +31,7 @@ $twig = new Environment($loader, [
     // activation du debug en dev
     'debug' => true,
 ]);
-
+$twig->addExtension(new \Twig\Extension\DebugExtension()); // pour permettre d'utilisation du {{ dump }}
 // connexion à la database singleton
 $db = OurPDO::getInstance( DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME.";port=".DB_PORT.";charset=".DB_CHARSET,
     DB_LOGIN,

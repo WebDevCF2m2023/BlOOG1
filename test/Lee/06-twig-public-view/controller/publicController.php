@@ -30,7 +30,8 @@ switch ($route) {
         $articles = $articleManager->selectAllArticleHomepage();
         // vue de la base NON TWIG
     //    include PROJECT_DIRECTORY."/view/publicView/public.homepage.php";
-        echo $twig->render("template.view.html.twig");
+        $allTags = $articleManager->selectAllTagsForLee();
+        echo $twig->render("publicView/public.tag.view.twig", ['allTags' => $allTags]);
         break;
 
     case 'categorie':

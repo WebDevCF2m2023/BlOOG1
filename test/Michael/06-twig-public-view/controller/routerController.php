@@ -1,4 +1,8 @@
 <?php
+/*
+ * Ce fichier sera le router général de notre application
+ */
+
 // si nous sommes connectés
 if (isset($_SESSION['MySession'])) {
     $router = $_SESSION['permission_name'];

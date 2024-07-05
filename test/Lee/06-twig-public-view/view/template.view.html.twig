@@ -1,0 +1,30 @@
+{% extends "base.view.html.twig" %}
+
+
+{% block headtitle %} {{ parent() }} | Lee {% endblock %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="plugins/slick/slick.css">
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/style.css" media="screen">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="images/favicon.png" type="image/x-icon">
+{% endblock %}
+
+{% block body %}
+    {% block navbar %}
+    {% endblock %}
+    {% block content %}
+    {% endblock %}
+
+    {% block footer %}
+{{ parent () }}
+    {% endblock %}
+    {% block javascript %}
+
+    {% endblock %}
+{% endblock %}

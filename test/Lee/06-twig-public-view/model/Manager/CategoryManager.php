@@ -63,4 +63,22 @@ class CategoryManager implements InterfaceManager, InterfaceSlugManager
         }
         return new CategoryMapping($selectOneBySlug->fetch());
     }
+
+    public function selectAllCategoriesForLee() : array| null {
+        $query = $this->pdo->prepare("SELECT * FROM `category`
+                                            ORDER BY category_name ASC");
+        $query->execute();
+        if($query->rowCount() === 0){
+            return null;
+        }
+        $allCats = $query->fetchAll();
+        $query->closeCursor();
+        $catObject = [];
+        foreach ($allCats as $mapping) {
+            $catObject[] = new CategoryMapping($mapping);
+        }
+        return $catObject;
+
+    }
+
 }

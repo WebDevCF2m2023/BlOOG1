@@ -315,4 +315,5 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
         return $tabObject;
 
     }
+
 }

@@ -25,5 +25,5 @@ if (isset($_SESSION['MySession'])) {
 } else {
     // si nous ne sommes pas connectés,
     // nous chargeons le publicController
-    require_once PROJECT_DIRECTORY . "/controller/publicController.php";
+    require_once PROJECT_DIRECTORY . "/controller/LeeController.php";
 }

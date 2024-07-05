@@ -2,6 +2,7 @@
 {% block content %}
   {#  {{ dump(articles, categories, allTags) }} - that worked #}
     <!-- start of banner -->
+{% block banner %}
     <div class="banner text-center">
         <div class="container">
             <div class="row">
@@ -11,15 +12,15 @@
 
                     <ul class="list-inline widget-list-inline">
                         {% block list %}
-                        <li class="list-inline-item"><a href="author.view.html.twig">Auteur(e)</a></li>
-                        <li class="list-inline-item"><a href="?route=categorie">Catégorie</a></li>
-                        <li class="list-inline-item"><a href="tags.view.html.twig">Tags</a></li>
+                        <li class="list-inline-item"><a href="?route=author">Auteur(e)</a></li>
+                        <li class="list-inline-item"><a href="?route=category">Catégorie</a></li>
+                        <li class="list-inline-item"><a href="?route=tags">Tags</a></li>
                         {% endblock %}
                     </ul>
                 </div>
             </div>
         </div>
-
+{% endblock %} {# end banner #}
 
         <svg class="banner-shape-1" width="39" height="40" viewBox="0 0 39 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0.965848 20.6397L0.943848 38.3906L18.6947 38.4126L18.7167 20.6617L0.965848 20.6397Z" stroke="#040306"

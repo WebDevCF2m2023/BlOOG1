@@ -1,24 +1,31 @@
-{% extends "template.view.html.twig" %}
-
+{% extends "/publicView/public.home.view.twig" %}
 
 {% block content %}
-<!-- start of banner -->
-<div class="banner text-center">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-9 mx-auto">
-                <h1 class="mb-5">Qu’aimeriez-vous <br>Lire Aujourd’Hui?</h1>
-                <ul class="list-inline widget-list-inline">
-                    {% for tag in allTags %}
-                        <li class="list-inline-item"><a href="tags.html">{{ tag.getTagSlug() }}</a></li>
-                    {% endfor %}
-                </ul>
+    {% block banner %}
+        <div class="banner text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9 mx-auto">
+                        <h1 class="mb-5">Qu’aimeriez-vous <br>Lire Aujourd’Hui?</h1>
+                        <h3 class="mb-5">Choisissez parmi les suivantes</h3>
+
+                        <ul class="list-inline widget-list-inline">
+                            {% block list %}
+                                {% for tag in allTags %}
+                                    <li class="list-inline-item"><a href="tags.html">{{ tag.getTagSlug() }}</a></li>
+                                {% endfor %}
+                            {% endblock %}
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    {% endblock %}
 
 
-    <svg class="banner-shape-1" width="39" height="40" viewBox="0 0 39 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+
+<svg class="banner-shape-1" width="39" height="40" viewBox="0 0 39 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0.965848 20.6397L0.943848 38.3906L18.6947 38.4126L18.7167 20.6617L0.965848 20.6397Z" stroke="#040306"
               stroke-miterlimit="10" />
         <path class="path" d="M10.4966 11.1283L10.4746 28.8792L28.2255 28.9012L28.2475 11.1503L10.4966 11.1283Z" />

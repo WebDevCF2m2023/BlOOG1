@@ -8,6 +8,8 @@ use model\Interface\InterfaceSlugManager;
 use model\Interface\InterfaceUserManager;
 use model\OurPDO;
 
+use model\mapping\UserMapping;
+
 class UserManager implements InterfaceManager, InterfaceSlugManager, InterfaceUserManager
 {
 
@@ -86,5 +88,22 @@ class UserManager implements InterfaceManager, InterfaceSlugManager, InterfaceUs
     public function logout()
     {
         // TODO: Implement logout() method.
+    }
+
+    public function selectAllUsersForLee() : array| null {
+        $query = $this->pdo->prepare("SELECT * FROM `user`
+                                         ORDER BY user_full_name ASC");
+        $query->execute();
+        if($query->rowCount() === 0){
+            return null;
+        }
+        $allUsers = $query->fetchAll();
+        $query->closeCursor();
+        $userObject = [];
+        foreach ($allUsers as $mapping) {
+            $userObject[] = new UserMapping($mapping);
+        }
+        return $userObject;
+
     }
 }

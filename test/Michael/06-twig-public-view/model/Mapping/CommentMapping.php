@@ -9,6 +9,8 @@ use model\Abstract\AbstractMapping;
 # notre trait de gestion du DateTime 
 use model\Trait\TraitDateTime;
 
+use model\Mapping\UserMapping;
+
 # objets se trouvant à la racine de l'espace de nom, 
 # il faut les appeler dans notre espace de nom model\Mapping 
 # pour pouvoir les utiliser 
@@ -36,7 +38,19 @@ class CommentMapping extends AbstractMapping
     protected ?int $user_user_id=null;
     protected ?int $article_article_id=null;
 
+    protected ?UserMapping $user=null;
+
     // Les getters et setters
+
+    public function getUser(): ?UserMapping
+    {
+        return $this->user;
+    }
+
+    public function setUser(?UserMapping $user): void
+    {
+        $this->user = $user;
+    }
 
     public function getCommentId(): ?int
     {

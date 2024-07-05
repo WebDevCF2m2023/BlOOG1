@@ -35,8 +35,23 @@
                         endif;
                     ?>
                 </p>
-                <p>Nombre de commentaires: <?= $article->getCommentCount() ?></p>
-                <hr>
+                <?php if(is_null($comments)): ?>
+                    <h4>Aucun commentaire n'a été trouvé</h4>
+                <?php else:
+                $nbComments = count($comments);
+                ?>
+                <h4>Commentaire<?php if($nbComments >1)echo "s";?> (<?=$nbComments?>) </h4>
+                <?php
+                    foreach ($comments as $comment):
+                ?>
+                         <h5><?= $comment->getUser()->getUserFullName() ?></h5>
+                        <p><?= $comment->getCommentText() ?></p>
+                        <p>Publié le <?= $comment->getCommentDateCreate() ?></p>
+                        <hr>
+                <?php
+                    endforeach;
+                endif;
+                ?>
             </article>
 
 </body>

@@ -6,11 +6,14 @@
 
 use model\Manager\ArticleManager;
 use model\Manager\CategoryManager;
+use model\Manager\CommentManager;
 
 // on instancie le manager des articles
 $articleManager = new ArticleManager($db);
 // on instancie le manager des catégories
 $categoryManager = new CategoryManager($db);
+// on instancie le manager des commentaires
+$commentManager = new CommentManager($db);
 
 // si la route n'est pas définie, on affiche la page d'accueil
 $route = $_GET['route'] ?? 'accueil';
@@ -52,6 +55,8 @@ switch ($route) {
             header('Location: ./?route=404');
             exit;
         }
+        // on charge les commentaires de l'article
+        $comments = $commentManager->selectAllByIDArticle($article->getArticleId());
         // vue de la base NON TWIG
         include PROJECT_DIRECTORY."/view/publicView/public.article.php";
 

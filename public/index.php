@@ -22,6 +22,7 @@ spl_autoload_register(function ($class) {
 // chargement de l'autoload de composer
 require_once PROJECT_DIRECTORY.'/vendor/autoload.php';
 
+
 // chemin vers les templates twig
 $loader = new FilesystemLoader(PROJECT_DIRECTORY.'/view/');
 // création d'une instance de $twig

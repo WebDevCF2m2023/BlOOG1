@@ -153,6 +153,97 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
 
     public function selectOneBySlug(string $slug)
     {
-        // TODO: Implement selectOneBySlug() method.
+        // on récupère tous les articles avec jointures
+        $query = $this->db->prepare("
+        SELECT a.*, 
+               u.`user_id`, u.`user_login`, u.`user_full_name`,
+               GROUP_CONCAT(c.`category_id`) as`category_id`, 
+               GROUP_CONCAT(c.`category_name` SEPARATOR '|||') as `category_name`, 
+               GROUP_CONCAT(c.`category_slug` SEPARATOR '|||') as `category_slug`,
+               (SELECT GROUP_CONCAT(t.`tag_slug` SEPARATOR '|||')
+                    FROM `tag` t
+                    INNER JOIN `tag_has_article` tha
+                        ON tha.`article_article_id` = a.`article_id`
+                    WHERE t.`tag_id` = tha.`tag_tag_id`
+                    GROUP BY a.`article_id`
+                    ORDER BY t.`tag_slug` ASC    
+                    ) as `tag_slug`
+
+        FROM `article` a
+        INNER JOIN `user` u  
+            ON u.`user_id` = a.`user_user_id`
+        LEFT JOIN article_has_category ahc
+            ON ahc.`article_article_id` = a.`article_id`
+        LEFT JOIN category c
+            ON c.`category_id` = ahc.`category_category_id`
+        WHERE a.`article_is_published` = 1
+            AND a.`article_slug` = :slug
+            GROUP BY a.`article_id`
+        
+        ");
+        $query->execute(['slug' => $slug]);
+        // si aucun article n'est trouvé, on retourne null
+        if ($query->rowCount() == 0) return null;
+        // on récupère les articles sous forme de tableau associatif
+        $mapping = $query->fetch();
+        // on ferme le curseur
+        $query->closeCursor();
+
+            // si on a un user on l'instancie
+            $user = $mapping['user_login'] !== null ? new UserMapping($mapping) : null;
+            // si on a des catégories
+            if ($mapping['category_id'] !== null) {
+                // on crée un tableau de catégories
+                $tabCategories = [];
+                // on récupère les catégories
+                $tabCategoryIds = explode(",", $mapping['category_id']);
+                $tabCategoryNames = explode("|||", $mapping['category_name']);
+                $tabCategorySlugs = explode("|||", $mapping['category_slug']);
+                // on boucle sur les catégories
+                for ($i = 0; $i < count($tabCategoryIds); $i++) {
+                    // on instancie la catégorie
+                    $category = new CategoryMapping([
+                        'category_id' => $tabCategoryIds[$i],
+                        'category_name' => $tabCategoryNames[$i],
+                        'category_slug' => $tabCategorySlugs[$i]
+                    ]);
+                    // on ajoute la catégorie au tableau
+                    $tabCategories[] = $category;
+                }
+
+            } else {
+                $tabCategories = null;
+            }
+            // si on a des tags
+            if ($mapping['tag_slug'] !== null) {
+                // on crée un tableau de tags
+                $tabTags = [];
+                // on récupère les tags
+                $tabTagSlugs = explode("|||", $mapping['tag_slug']);
+                // on boucle sur les tags
+                for ($i = 0; $i < count($tabTagSlugs); $i++) {
+                    // on instancie le tag
+                    $tag = new TagMapping([
+                        'tag_slug' => $tabTagSlugs[$i]
+                    ]);
+                    // on ajoute le tag au tableau
+                    $tabTags[] = $tag;
+                }
+            } else {
+                $tabTags = null;
+            }
+
+
+            // on instancie l'article
+            $article = new ArticleMapping($mapping);
+            // on ajoute user à l'article
+            $article->setUser($user);
+            // on ajoute les catégories à l'article
+            $article->setCategories($tabCategories);
+            // on ajoute les tags à l'article
+            $article->setTags($tabTags);
+            // on retourne l'article
+
+        return $article;
     }
 }

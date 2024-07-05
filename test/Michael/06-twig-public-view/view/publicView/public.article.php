@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
-    <title>Bloog 1 | Homepage</title>
+    <title>Bloog 1 | <?=$article->getArticleTitle()?></title>
 </head>
 <body>
     <h1>Bloog 1 | Homepage</h1>
@@ -14,17 +14,10 @@
     require 'public.menu.php';
     ?>
     <h2>Les derniers articles</h2>
-    <?php
-    if($articles === null):
-    ?>
-    <h3>Aucun article n'a été trouvé</h3>
-    <?php
-    else:
-        foreach ($articles as $article):
-            ?>
+
             <article>
-                <h3><a href="?route=article&slug=<?= $article->getArticleSlug() ?>"><?= $article->getArticleTitle() ?></a></h3>
-                <p><?= $article->getArticleText() ?> <a href="?route=article&slug=<?= $article->getArticleSlug() ?>"> ... Lire la suite</a></p>
+                <h3><?= $article->getArticleTitle() ?></h3>
+                <p><?= $article->getArticleText() ?></p>
                 <p>Publié le <?= $article->getArticleDatePublish() ?> par <?= $article->getUser()->getUserFullName() ?></p>
                 <p>Categories:
                     <?php
@@ -45,12 +38,6 @@
                 <p>Nombre de commentaires: <?= $article->getCommentCount() ?></p>
                 <hr>
             </article>
-            <?php
-        endforeach;
-    endif;
-    ?>
-    <?php
-    var_dump($articles,$categories);
-    ?>
+
 </body>
 </html>

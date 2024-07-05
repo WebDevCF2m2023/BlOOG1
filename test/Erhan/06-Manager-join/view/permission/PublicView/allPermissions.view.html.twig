@@ -1,0 +1,25 @@
+{% extends 'permission/template.view.html.twig' %}
+
+{% block title %}{{ parent() }} | Homepage{% endblock %}
+
+{% block main_title %}All Permissions !{% endblock %}
+
+
+{% block main_content_image %} 
+
+{% endblock %}
+
+{% block main_content2 %}                
+    {% for permission in permissions %}
+        <div class="col-lg-4">
+            <div class="portfolio-info">
+                <h3>Permission Information</h3>
+                <ul>
+                    <li><strong>Permission ID</strong>: {{ permission.getPermissionId }}</li>
+                    <li><strong>Permission Name</strong>: {{ permission.getPermissionName }}</li>
+                    <li><strong>Permission Description</strong>: {{ permission.getPermissionDescription }}</li>
+                </ul>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

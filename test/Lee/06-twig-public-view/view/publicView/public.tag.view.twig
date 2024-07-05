@@ -12,7 +12,7 @@
                         <ul class="list-inline widget-list-inline">
                             {% block list %}
                                 {% for tag in allTags %}
-                                    <li class="list-inline-item"><a href="tags.html">{{ tag.getTagSlug() }}</a></li>
+                                    <li class="list-inline-item"><a href="?route=select&selection=tags&id={{ tag.getTagId() }}">{{ tag.getTagSlug() }}</a></li>
                                 {% endfor %}
                             {% endblock %}
                         </ul>

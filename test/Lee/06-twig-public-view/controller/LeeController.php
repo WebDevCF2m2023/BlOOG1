@@ -26,8 +26,8 @@ $route = $_GET['route'] ?? 'accueil';
 $categories = $categoryManager->selectAll();
 
 // on va charger les modèles et les vues en fonction de la route
+    $subRoute = $_GET['selection'] ?? 'author';
 switch ($route) {
-
     case 'accueil':
         $articles = $articleManager->selectAllArticleHomepage();
         echo $twig->render("publicView/public.home.view.twig", ["articles" => $articles]);
@@ -45,6 +45,18 @@ switch ($route) {
         $allTags = $articleManager->selectAllTagsForLee();
         echo $twig->render("publicView/public.tag.view.twig", ['allTags' => $allTags, "articles" => $articles, "categories" => $categories]);
         break;
+    case 'select' :
+            switch ($subRoute) {
+                case 'author' :
+                    die("that worked - authors");
+                    break;
+                case 'category' :
+                    die("that worked - cats");
+                    break;
+                case 'tags' :
+                    die("that worked - tags");
+                    break;
+            }
 
     case '404':
         // vue de la base NON TWIG

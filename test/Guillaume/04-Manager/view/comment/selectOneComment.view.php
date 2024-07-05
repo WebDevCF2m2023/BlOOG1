@@ -27,8 +27,5 @@
         ?>
     </div>
     
-    <?php
-var_dump($dbConnect,$commentManager,$selectOneComment);
-    ?>
 </body>
 </html>

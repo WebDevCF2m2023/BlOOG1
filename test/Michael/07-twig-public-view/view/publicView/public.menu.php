@@ -1,18 +1,18 @@
 <nav>
     <ul>
-        <li><a href="/test/Michael/07-twig-public-view/public/">Accueil</a></li>
+        <li><a href="<?=$root?>">Accueil</a></li>
         <?php
         if(is_null($categories)){
             $categories = [];
         }
         foreach ($categories as $category) {
             ?>
-            <li><a href=".?route=categorie&slug=<?= $category->getCategorySlug() ?>"><?= $category->getCategoryName() ?></a></li>
+            <li><a href="<?=$root?>categorie/<?= $category->getCategorySlug() ?>"><?= $category->getCategoryName() ?></a></li>
             <?php
         }
 
         ?>
-        <li><a href="./?connect">Connexion</a></li>
-        <li><a href="./?inscription">Inscription</a></li>
+        <li><a href="<?=$root?>?connect">Connexion</a></li>
+        <li><a href="<?=$root?>?inscription">Inscription</a></li>
     </ul>
 </nav>

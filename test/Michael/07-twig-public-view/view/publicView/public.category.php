@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/test/Michael/07-twig-public-view/public/css/style.css">
+    <link rel="stylesheet" href="<?=$root?>css/style.css">
     <title>Bloog 1 | <?=$category->getCategoryName()?></title>
 </head>
 <body>
@@ -26,8 +26,8 @@
         foreach ($articles as $article):
             ?>
             <article>
-                <h3><a href="?route=article&slug=<?= $article->getArticleSlug() ?>"><?= $article->getArticleTitle() ?></a></h3>
-                <p><?= $article->getArticleText() ?> <a href="?route=article&slug=<?= $article->getArticleSlug() ?>"> ... Lire la suite</a></p>
+                <h3><a href="<?=$root?>article/<?= $article->getArticleSlug() ?>"><?= $article->getArticleTitle() ?></a></h3>
+                <p><?= $article->getArticleText() ?> <a href="<?=$root?>article/<?= $article->getArticleSlug() ?>"> ... Lire la suite</a></p>
                 <p>Publié le <?= $article->getArticleDatePublish() ?> par <?= $article->getUser()->getUserFullName() ?></p>
                 <p>Categories:
                     <?php
@@ -39,7 +39,7 @@
                         foreach ($article->getCategories() as $categorie):
                             ?>
 
-                            <a href=".?route=categorie&slug=<?= $categorie->getCategorySlug()?>"><?= $categorie->getCategoryName() ?></a>
+                            <a href="<?=$root?>categorie/<?= $categorie->getCategorySlug()?>"><?= $categorie->getCategoryName() ?></a>
                         <?php
                         endforeach;
                     endif;

@@ -28,7 +28,7 @@
             <article>
                 <h3><a href="<?=$root?>article/<?= $article->getArticleSlug() ?>"><?= $article->getArticleTitle() ?></a></h3>
                 <p><?= $article->getArticleText() ?> <a href="<?=$root?>article/<?= $article->getArticleSlug() ?>"> ... Lire la suite</a></p>
-                <p>Publié le <?= $article->getArticleDatePublish() ?> par <?= $article->getUser()->getUserFullName() ?></p>
+                <p>Publié le <?= $article->getArticleDatePublish() ?> par <a href="<?=$root."user/".$article->getUser()->getUserLogin()?>"><?= $article->getUser()->getUserFullName() ?></a></p>
                 <p>Categories:
                     <?php
                     if(is_null($article->getCategories())):

@@ -34,7 +34,7 @@
                     ?><hr>
                 </p>
                 <p><?= nl2br($article->getArticleText()) ?></p>
-                <p>Publié le <?= $article->getArticleDatePublish() ?> par <?= $article->getUser()->getUserFullName() ?></p>
+                <p>Publié le <?= $article->getArticleDatePublish() ?> par <a href="<?=$root."user/".$article->getUser()->getUserLogin()?>"><?= $article->getUser()->getUserFullName() ?></a></p>
                 <hr>
                 <p>Tags:
                     <?php

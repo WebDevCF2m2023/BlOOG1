@@ -7,6 +7,7 @@ use model\Interface\InterfaceManager;
 use model\Interface\InterfaceSlugManager;
 use model\Interface\InterfaceUserManager;
 use model\OurPDO;
+use model\Mapping\UserMapping;
 
 class UserManager implements InterfaceManager, InterfaceSlugManager, InterfaceUserManager
 {
@@ -43,9 +44,12 @@ class UserManager implements InterfaceManager, InterfaceSlugManager, InterfaceUs
         // TODO: Implement delete() method.
     }
 
-    public function selectOneBySlug(string $slug): object
+    public function selectOneBySlug(string $slug): ?UserMapping
     {
-        // TODO: Implement selectOneBySlug() method.
+        $prepare = $this->pdo->prepare("SELECT u.user_id, u.user_full_name, u.`user_login` FROM `user` u WHERE u.`user_login` = :slug");
+        $prepare->execute([':slug' => $slug]);
+        if($prepare->rowCount() === 0) return null;
+        return new UserMapping($prepare->fetch());
     }
 
     public function register(string $login, string $email, string $password)

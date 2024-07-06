@@ -27,9 +27,10 @@ switch ($route) {
     case 'accueil':
 
         // on charge les articles pour la page d'accueil
-        $articles = $articleManager->selectAllArticleHomepage();
-        // vue de la base NON TWIG
-        echo $twig->render('template.view.html.twig', ['articles' => $articles]);
+        $articles = $articleManager->selectAllArticleHomepage(1);
+        $categories = $categoryManager->selectAll(3 );
+        // vue de la base NON TWIG // c'est TWIG mainenant :p
+        echo $twig->render('publicView/public.homepage.view.twig', ['articles' => $articles, 'categories' => $categories]);
         break;
 
     case 'categorie':

@@ -34,10 +34,15 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
     }
 
     // simple selectAll sur la table article
-    public function selectAll(): ?array
+    public function selectAll($limit=999): ?array
     {
         // on récupère tous les articles
-        $query = $this->db->query("SELECT * FROM article");
+        $query = $this->db->query("SELECT * 
+                                         FROM (SELECT * 
+                                               FROM article 
+                                               ORDER BY RAND() 
+                                               LIMIT $limit) as randSelect 
+                                         ORDER BY article_id");
         // si aucun article n'est trouvé, on retourne null
         if ($query->rowCount() == 0) return null;
         // on récupère les articles sous forme de tableau associatif
@@ -53,11 +58,12 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
         return $tabObject;
     }
 
-    public function selectAllArticleHomepage(): ?array
+    public function selectAllArticleHomepage($limit=999): ?array
     {
 
         // on récupère tous les articles avec jointures
         $query = $this->db->query("
+        SELECT * FROM(
         SELECT a.`article_id`, a.`article_title`, 
                SUBSTRING_INDEX(a.`article_text`,' ', 30) as `article_text`,
                a.`article_slug`, a.`article_date_publish`, 
@@ -78,7 +84,8 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
             ON c.`category_id` = ahc.`category_category_id`
         WHERE a.`article_is_published` = 1
             GROUP BY a.`article_id`
-            ORDER BY a.`article_date_publish` DESC
+            ORDER BY a.`article_date_publish` DESC) as mainSel
+            ORDER BY RAND() LIMIT $limit
         
         ");
         // si aucun article n'est trouvé, on retourne null

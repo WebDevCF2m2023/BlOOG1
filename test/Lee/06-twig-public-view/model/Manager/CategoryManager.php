@@ -18,9 +18,16 @@ class CategoryManager implements InterfaceManager, InterfaceSlugManager
         $this->pdo = $pdo;
     }
 
-    public function selectAll(): ?array
+    public function selectAll($limit=999): ?array
+    // petit changement ici pour limiter le montant
     {
-        $selectAll = $this->pdo->prepare("SELECT * FROM category");
+      //  $selectAll = $this->pdo->prepare("SELECT * FROM category ORDER BY RAND() LIMIT $limit");
+        $selectAll = $this->pdo->prepare("SELECT * 
+                                                FROM (SELECT * 
+                                                      FROM category 
+                                                      ORDER BY RAND() 
+                                                      LIMIT $limit) as randSelect 
+                                                ORDER BY category_id");
         $selectAll->execute();
         if($selectAll->rowCount() === 0){
             return null;

@@ -22,13 +22,29 @@
     <h3>Aucun article n'a été trouvé</h3>
     <?php
     else:
+        //var_dump($articles);
         foreach ($articles as $article):
             ?>
             <article>
                 <h3><a href="?route=article&slug=<?= $article->getArticleSlug() ?>"><?= $article->getArticleTitle() ?></a></h3>
                 <p><?= $article->getArticleText() ?> <a href="?route=article&slug=<?= $article->getArticleSlug() ?>"> ... Lire la suite</a></p>
                 <p>Publié le <?= $article->getArticleDatePublish() ?> par <?= $article->getUser()->getUserFullName() ?></p>
+                <p>Categories:
+                    <?php
+                    if(is_null($article->getCategories())):
+                        ?>
+                        Aucune catégorie !
+                    <?php
+                    else:
+                        foreach ($article->getCategories() as $categorie):
+                            ?>
 
+                            <a href=".?route=categorie&slug=<?= $categorie->getCategorySlug()?>"><?= $categorie->getCategoryName() ?></a>
+                        <?php
+                        endforeach;
+                    endif;
+                    ?>
+                </p>
                 <p>Nombre de commentaires: <?= $article->getCommentCount() ?></p>
                 <hr>
             </article>

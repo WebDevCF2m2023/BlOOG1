@@ -139,18 +139,28 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
                SUBSTRING_INDEX(a.`article_text`,' ', 30) as `article_text`,
                a.`article_slug`, a.`article_date_publish`, 
                u.`user_id`, u.`user_login`, u.`user_full_name`,
-               
+               GROUP_CONCAT(c2.`category_id`) as`category_id`, 
+               GROUP_CONCAT(c2.`category_name` SEPARATOR '|||') as `category_name`, 
+               GROUP_CONCAT(c2.`category_slug` SEPARATOR '|||') as `category_slug`,
                (SELECT COUNT(*)
                     FROM `comment` c
                     WHERE a.`article_id` = c.`article_article_id`)
                    as `comment_count`
         FROM `article` a
+            -- on récupère l'utilisateur
         INNER JOIN `user` u  
             ON u.`user_id` = a.`user_user_id`
+            -- on fait une première jointure pour récupérer les articles de la catégorie actuelle
         LEFT JOIN article_has_category ahc
             ON ahc.`article_article_id` = a.`article_id`
         LEFT JOIN category c
             ON c.`category_id` = ahc.`category_category_id`
+            -- on fait une seconde jointure pour récupérer toutes les catégories
+        LEFT JOIN article_has_category ahc2
+            ON ahc2.`article_article_id` = a.`article_id`
+        LEFT JOIN category c2
+            ON c2.`category_id` = ahc2.`category_category_id`
+        -- on filtre sur la catégorie et sur les articles publiés
         WHERE a.`article_is_published` = 1
         AND c.`category_slug` = :slug
             GROUP BY a.`article_id`
@@ -170,11 +180,35 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
         foreach ($tabMapping as $mapping) {
             // si on a un user on l'instancie
             $user = $mapping['user_login'] !== null ? new UserMapping($mapping) : null;
+            // si on a des catégories
+            if ($mapping['category_id'] !== null) {
+                // on crée un tableau de catégories
+                $tabCategories = [];
+                // on récupère les catégories
+                $tabCategoryIds = explode(",", $mapping['category_id']);
+                $tabCategoryNames = explode("|||", $mapping['category_name']);
+                $tabCategorySlugs = explode("|||", $mapping['category_slug']);
+                // on boucle sur les catégories
+                for ($i = 0; $i < count($tabCategoryIds); $i++) {
+                    // on instancie la catégorie
+                    $category = new CategoryMapping([
+                        'category_id' => $tabCategoryIds[$i],
+                        'category_name' => $tabCategoryNames[$i],
+                        'category_slug' => $tabCategorySlugs[$i]
+                    ]);
+                    // on ajoute la catégorie au tableau
+                    $tabCategories[] = $category;
+                }
 
+            } else {
+                $tabCategories = null;
+            }
             // on instancie l'article
             $article = new ArticleMapping($mapping);
             // on ajoute user à l'article
             $article->setUser($user);
+            // on ajoute les catégories à l'article
+            $article->setCategories($tabCategories);
             // on ajoute l'article au tableau
             $tabObject[] = $article;
         }

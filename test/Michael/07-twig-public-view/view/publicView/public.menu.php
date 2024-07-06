@@ -1,6 +1,6 @@
 <nav>
     <ul>
-        <li><a href="./">Accueil</a></li>
+        <li><a href="/test/Michael/07-twig-public-view/public/">Accueil</a></li>
         <?php
         if(is_null($categories)){
             $categories = [];

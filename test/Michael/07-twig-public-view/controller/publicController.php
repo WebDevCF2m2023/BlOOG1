@@ -7,6 +7,7 @@
 use model\Manager\ArticleManager;
 use model\Manager\CategoryManager;
 use model\Manager\CommentManager;
+use model\Manager\TagManager;
 
 // on instancie le manager des articles
 $articleManager = new ArticleManager($db);
@@ -14,6 +15,8 @@ $articleManager = new ArticleManager($db);
 $categoryManager = new CategoryManager($db);
 // on instancie le manager des commentaires
 $commentManager = new CommentManager($db);
+// on instancie le manager des tags
+$tagManager = new TagManager($db);
 
 // si la route n'est pas définie, on affiche la page d'accueil
 $route = $_GET['route'] ?? 'accueil';
@@ -36,14 +39,14 @@ switch ($route) {
 
         // on vérifie si le slug de la catégorie est bien présent
         if(!isset($_GET['slug'])){
-            header('Location: ./');
+            include PROJECT_DIRECTORY."/view/publicView/public.404.php";
             exit;
         }
         // on charge la catégorie
         $category = $categoryManager->selectOneBySlug($_GET['slug']);
         // si la catégorie n'existe pas, on redirige vers la page 404
         if($category === null){
-            header('Location: ./?route=404');
+            include PROJECT_DIRECTORY."/view/publicView/public.404.php";
             exit;
         }
         // on charge les articles de la catégorie
@@ -56,14 +59,14 @@ switch ($route) {
     case 'article':
         // on vérifie si le slug de l'article est bien présent
         if(!isset($_GET['slug'])){
-            header('Location: ./');
+            include PROJECT_DIRECTORY."/view/publicView/public.404.php";
             exit;
         }
         // on charge l'article
         $article = $articleManager->selectOneBySlug($_GET['slug']);
         // si l'article n'existe pas, on redirige vers la page 404
         if($article === null){
-            header('Location: ./?route=404');
+            include PROJECT_DIRECTORY."/view/publicView/public.404.php";
             exit;
         }
         // on charge les commentaires de l'article
@@ -75,17 +78,27 @@ switch ($route) {
     case 'tag':
         // on vérifie si le slug du tag est bien présent
         if(!isset($_GET['slug'])){
-            header('Location: ./');
+            include PROJECT_DIRECTORY."/view/publicView/public.404.php";
             exit;
         }
-
-        echo "<h1>On affiche une nouvelle vue avec les articles qui ont ce tag</h1>";
+        // on charge le tag
+        $tag = $tagManager->selectOneBySlug($_GET['slug']);
+        // si le tag n'existe pas, on redirige vers la page 404
+        if($tag === null){
+            include PROJECT_DIRECTORY."/view/publicView/public.404.php";
+            exit;
+        }
+        // on charge les articles du tag
+        $articles = $articleManager->selectAllArticleByTagSlug($_GET['slug']);
+        include PROJECT_DIRECTORY."/view/publicView/public.tag.php";
         break;
     case '404':
         // vue de la base NON TWIG
         include PROJECT_DIRECTORY."/view/publicView/public.404.php";
+        exit;
         break;
     default:
-        include PROJECT_DIRECTORY."/controller/publicController.php";
+        include PROJECT_DIRECTORY."/view/publicView/public.404.php";
+        exit;
         break;
 }

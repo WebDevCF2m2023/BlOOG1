@@ -10,3 +10,5 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^article/([a-zA-Z0-9-]+)/?$ ./index.php?route=article&slug=$1 [L,QSA]
 
 RewriteRule ^categorie/([a-zA-Z0-9-]+)/?$ ./index.php?route=categorie&slug=$1 [L,QSA]
+
+RewriteRule ^tag/([a-zA-Z0-9-]+)/?$ ./index.php?route=tag&slug=$1 [L,QSA]

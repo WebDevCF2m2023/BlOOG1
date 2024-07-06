@@ -46,7 +46,7 @@
                     foreach ($article->getTags() as $tags):
                         ?>
 
-                        <a href=".?route=tag&slug=<?= $tags->getTagSlug()?>"><?= $tags->getTagSlug() ?></a>
+                        <a href="<?=$root?>tag/<?= $tags->getTagSlug()?>"><?= $tags->getTagSlug() ?></a>
             <?php
             endforeach;
             endif;

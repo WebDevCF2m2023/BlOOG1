@@ -39,7 +39,7 @@ $db = OurPDO::getInstance( DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME.";port=".
 // résultats en tableau associatif
 $db->setAttribute(OurPDO::ATTR_ERRMODE, OurPDO::ERRMODE_EXCEPTION);
 
-// chemin qui sera utilisé pour les liens absolus
+// chemin qui sera utilisé pour les liens absolus dans les vues
 $root = "/test/Michael/07-twig-public-view/public/";
 
 // Appel du router général

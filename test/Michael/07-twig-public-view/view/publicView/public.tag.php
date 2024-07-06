@@ -6,16 +6,15 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="<?=$root?>css/style.css">
-    <title>Bloog 1 | Catégorie | <?=$category->getCategoryName()?></title>
+    <title>Bloog 1 | Tag | <?=$tag->getTagSlug()?></title>
 </head>
 <body>
-    <h1>Bloog 1 | Catégorie | <?=$category->getCategoryName()?></h1>
+    <h1>Bloog 1 | Tag | <?=$tag->getTagSlug()?></h1>
     <?php
     require 'public.menu.php';
     ?>
-    <h2>Description : </h2>
-    <p><?=$category->getCategoryDescription()?></p>
-    <h2>Articles : </h2>
+    <h2>Nombre d'utilisations : <?=$tag->getCountTag()?></h2>
+    <h2>Articles contenant ce tag : </h2>
     <?php
     if($articles === null):
     ?>

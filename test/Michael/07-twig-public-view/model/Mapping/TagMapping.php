@@ -9,10 +9,21 @@ use model\Trait\TraitSlugify;
 class TagMapping extends AbstractMapping
 {
     // Les propriétés de la classe sont le nom des
-    // attributs de la table Exemple (qui serait en
-    // base de données)
+
     protected ?int $tag_id=null;
     protected ?string $tag_slug=null;
+    // nombre de fois que le tag est utilisé
+    protected ?int $count_tag=null;
+
+    public function getCountTag(): ?int
+    {
+        return $this->count_tag;
+    }
+
+    public function setCountTag(?int $count_tag): void
+    {
+        $this->count_tag = $count_tag;
+    }
 
     use TraitSlugify;
     

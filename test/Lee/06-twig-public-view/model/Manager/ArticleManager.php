@@ -316,4 +316,24 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
 
     }
 
+    public function selectAllArticlesByAuthor($id) : array| null {
+        $query = $this->db->prepare("SELECT  article.*, user.user_full_name
+                                           FROM `article`
+                                           INNER JOIN user
+                                           ON user.`user_id` = article.`user_user_id`
+                                           WHERE article_is_published = 1
+                                           AND user_user_id = :id");
+        $query->execute(['id' => $id]);
+        if ($query->rowCount() == 0) return null;
+        $artMapping = $query->fetchAll();
+        $query->closeCursor();
+        $artObject = [];
+
+        foreach ($artMapping as $mapping) {
+            $artObject[] = new ArticleMapping($mapping);
+
+        }
+        return $artObject;
+    }
+
 }

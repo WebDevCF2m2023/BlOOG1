@@ -26,6 +26,19 @@ class ArticleMapping extends AbstractMapping
     protected null|string|DateTime $article_date_publish=null;
     protected ?int $user_user_id=null;
 
+// Je n'arrive pas à trouver le manière correcte pour acceder au user_full_name via UserMapping
+// quand j'essayé de crée un setUserFullName(?UserMapping $user_full_name, il bug)
+// Donc, j'ai un peu triché pour ne pas perdre tout espoir
+    protected ?string $user_full_name=null;
+    public function getUserFullName(): ?string
+    {
+        return $this->user_full_name;
+    }
+    public function setUserFullName(?string $user_full_name): void
+    {
+        $this->user_full_name = $user_full_name;
+    }
+
     // Pour la jointure interne avec la table user (1 ou 0 possibilité)
     protected ?UserMapping $user=null;
 

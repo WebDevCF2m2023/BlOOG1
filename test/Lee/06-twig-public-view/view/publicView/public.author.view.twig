@@ -14,9 +14,13 @@
                         <ul class="list-inline widget-list-inline">
                             {% block list %}
                                 {% for user in users %}
-                                    <li class="list-inline-item"><a href="?route=select&selection=author&id={{ user.getUserID() }}">{{ user.getUserFullName() }}</a></li>
+                                    <li class="list-inline-item"><a href="?route=select&selection=author&id={{ user.getUserId() }}">{{ user.getUserFullName() }}</a></li>
                                 {% endfor %}
-
+                                {% if arts %}
+                                    {% for art in arts %}
+                                        <li class="list-inline-item"><a href="?route=select&selection=oneArt&id={{ art.getArticleId() }}">{{ art.getArticleText() }}</a></li>
+                                    {% endfor %}
+                                {% endif %}
                             {% endblock %}
                         </ul>
                     </div>

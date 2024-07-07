@@ -338,11 +338,39 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
         if ($prep->rowCount() == 0) return null;
         $mapping = $prep->fetchAll(OurPDO::FETCH_ASSOC);
         $prep->closeCursor();
-            $article = new ArticleMapping($mapping);
-            die(var_dump($article));
-            return $article;
 
+            $tabObject = [];
+        foreach ($mapping as $map) {
+            $tabObject[] = new ArticleMapping($map);
 
+        }
+        return $tabObject;
+    }
+
+    public function selectArticlesForOneUser(int $userId): ?array {
+        $prep = $this->db->prepare("SELECT 
+                                              u.user_id,
+                                              u.user_full_name,
+                                              a.article_id,
+                                              a.article_title,
+                                              a.article_date_publish,
+                                              SUBSTR(a.article_text, 1, 75) as article_text
+                                          FROM user u
+                                          
+                                          LEFT JOIN article a ON a.user_user_id = u.user_id
+                                          WHERE u.user_id = :userId
+                                          ORDER BY u.user_id ASC, a.article_date_publish DESC");
+        $prep->execute(['userId' => $userId]);
+        if ($prep->rowCount() == 0) return null;
+        $articles = $prep->fetchAll(OurPDO::FETCH_ASSOC);
+        $authors = [];
+        foreach ($articles as $article) {
+            $authorId = $article['user_id'];
+            
+            $authors[$authorId]['articles'][] = $article;
+        }
+
+        return $authors;
     }
 
 }

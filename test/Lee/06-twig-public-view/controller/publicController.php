@@ -28,7 +28,25 @@ $route = $_GET['route'] ?? 'accueil';
 // on charge les catégories pour le menu sur toutes les pages
 $categories = $categoryManager->selectAll();
 
-// on va charger les modèles et les vues en fonction de la route
+if (isset($_GET["select"])) {
+    $subRoute = $_GET["select"]; // faut que j'applique sanitisation ici
+    $id = $_GET["id"];
+    switch ($subRoute) {
+        case "oneArt":
+            echo ($id. ' : Article');
+            break;
+        case "oneAuthor":
+            $author = $articleManager->selectArticlesForOneUser($id);
+            echo $twig->render('publicView/public.oneAuthor.view.twig', ["author" => $author ]);
+            break;
+        case "oneCat":
+            echo ($id. ' : Category');
+            break;
+        case "oneTag":
+            echo ($id. ' : Tag');
+            break;
+    }
+}else {
 switch ($route) {
 
     case 'accueil':
@@ -101,4 +119,5 @@ switch ($route) {
     default:
         include PROJECT_DIRECTORY."/controller/publicController.php";
         break;
+}
 }

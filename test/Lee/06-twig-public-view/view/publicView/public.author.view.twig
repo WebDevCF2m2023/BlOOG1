@@ -72,11 +72,11 @@
 
                         <img class="author-image" src="assets/theme/images/author-{{ userId }}.jpg" alt="{{ author.getUserFullName }} n'as pas mise un photo">
 
-                        <h3 class="mb-2"><a href="?route=author&select={{ userId }}" class="post-title">{{ author.getUserFullName }}</a></h3>
+                        <h3 class="mb-2"><a href="?route=author&select=oneAuthor&id={{ userId }}" class="post-title">{{ author.getUserFullName }}</a></h3>
                         <p class="mb-3">Author &amp; developer of Bexer, Biztrox theme</p>
                         <p class="mb-3">J'aimerai changer ceci mais pour ça il faut changer le DB</p>
 
-                        <a class="post-count" href="author-single.html#post"><i class="ti-pencil-alt mr-2"></i><span class="text-primary">{{ author.getUserArticleCount }}</span> Articles par cet auteur</a>
+                        <a class="post-count" href="?route=author&select=oneAuthor&id={{ userId }}"><i class="ti-pencil-alt mr-2"></i><span class="text-primary">{{ author.getUserArticleCount }}</span> Articles par cet auteur</a>
                         <ul class="list-inline social-icons">
 
                             <li class="list-inline-item"><a href="#"><i class="ti-facebook"></i></a></li>

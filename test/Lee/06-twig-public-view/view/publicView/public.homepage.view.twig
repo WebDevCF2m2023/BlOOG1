@@ -3,6 +3,7 @@
 {% block content %}
 {{ parent() }}
   {# {{ dump(categories) }} Comme d'hab, j'aime utiliser var_dump ou ses cousins  #}
+
     <section class="section pb-0">
         <div class="container">
             <div class="row">
@@ -17,9 +18,9 @@
                             <h3 class="h4 mb-3"><a class="post-title" href="?route=article&select={{ art.getArticleSlug }}">{{ art.getArticleTitle }}</a></h3>
                             <ul class="card-meta list-inline">
                                 <li class="list-inline-item">
-                                    <a href="author-single.html" class="card-meta-author">
-                                        <img src="assets/theme/images/john-doe.jpg">
-                                        <span>{{ art.getUser().getUserFullName() }}</span>
+                                    <a href="?route=author&select={{ art.getUser.getUserId }}" class="card-meta-author">
+                                        <img src="assets/theme/images/author-{{ art.getUser.getUserId }}.jpg" alt="{{ art.getUser.getUserFullName }}">
+                                        <span>{{ art.getUser.getUserFullName }}</span>
                                     </a>
                                 </li>
                                 <li class="list-inline-item">
@@ -30,9 +31,10 @@
                                 </li>
                                 <li class="list-inline-item">
                                     <ul class="card-meta-tag list-inline">
-                                        <li class="list-inline-item"><a href="tags.html">Color</a></li>
-                                        <li class="list-inline-item"><a href="tags.html">Recipe</a></li>
-                                        <li class="list-inline-item"><a href="tags.html">Fish</a></li>
+                                        {% for tag in art.getTags %}
+                                            <li class="list-inline-item"><a href="?route=tag&select={{ tag.getTagId }}"> {{ tag.getTagSlug }}</a></li>
+                                        {% endfor %}
+
                                     </ul>
                                 </li>
                             </ul>
@@ -75,22 +77,23 @@
                             <h3 class="h4 mb-3"><a class="post-title" href="?route=article&select={{ pop.getArticleSlug }}">{{ pop.getArticleTitle }}</a></h3>
                             <ul class="card-meta list-inline">
                                 <li class="list-inline-item">
-                                    <a href="author-single.html" class="card-meta-author">
-                                        <img src="assets/theme/images/kate-stone.jpg" alt="Kate Stone">
-                                        <span>{{ pop.getUser().getUserFullName() }}</span>
+                                    <a href="?route=author&select={{ pop.getUser.getUserId }}" class="card-meta-author">
+                                        <img src="assets/theme/images/author-{{ pop.getUser.getUserId }}.jpg" alt="{{ pop.getUser.getUserFullName }}">
+                                        <span>{{ pop.getUser.getUserFullName }}</span>
                                     </a>
                                 </li>
                                 <li class="list-inline-item">
                                     <i class="ti-timer"></i>2 Min To Read
                                 </li>
                                 <li class="list-inline-item">
-                                    <i class="ti-calendar"></i>14 jan, 2020
+                                    <i class="ti-calendar"></i> {{ pop.getArticleDatePublish }}
                                 </li>
                                 <li class="list-inline-item">
                                     <ul class="card-meta-tag list-inline">
-                                        <li class="list-inline-item"><a href="tags.html">City</a></li>
-                                        <li class="list-inline-item"><a href="tags.html">Food</a></li>
-                                        <li class="list-inline-item"><a href="tags.html">Taste</a></li>
+                                        {% for tag in pop.getTags %}
+                                            <li class="list-inline-item"><a href="?route=tag&select={{ tag.getTagId }}"> {{ tag.getTagSlug }}</a></li>
+                                        {% endfor %}
+
                                     </ul>
                                 </li>
                             </ul>

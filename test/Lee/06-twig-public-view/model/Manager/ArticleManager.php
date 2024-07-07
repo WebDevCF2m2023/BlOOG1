@@ -62,29 +62,37 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
     {
 
         // on récupère tous les articles avec jointures
+        // J'ai ajouté les tags dedans aussi
         $query = $this->db->query("
         SELECT * FROM(
-        SELECT a.`article_id`, a.`article_title`, 
-               SUBSTRING_INDEX(a.`article_text`,' ', 30) as `article_text`,
-               a.`article_slug`, a.`article_date_publish`, 
-               u.`user_id`, u.`user_login`, u.`user_full_name`,
-               GROUP_CONCAT(c.`category_id`) as`category_id`, 
-               GROUP_CONCAT(c.`category_name` SEPARATOR '|||') as `category_name`, 
-               GROUP_CONCAT(c.`category_slug` SEPARATOR '|||') as `category_slug`,
+        SELECT a.article_id, a.article_title, 
+               SUBSTRING_INDEX(a.article_text,' ', 30) as article_text,
+               a.article_slug, a.article_date_publish, 
+               u.user_id, u.user_login, u.user_full_name,
+               GROUP_CONCAT(c.category_id) as category_id, 
+               GROUP_CONCAT(c.category_name SEPARATOR '|||') as category_name, 
+               GROUP_CONCAT(c.category_slug SEPARATOR '|||') as category_slug,
+               GROUP_CONCAT(tag.tag_id SEPARATOR '|||') as tag_id,
+               GROUP_CONCAT(tag.tag_slug SEPARATOR '|||') as tag_slug,
                (SELECT COUNT(*)
-                    FROM `comment` c
-                    WHERE a.`article_id` = c.`article_article_id`)
-                   as `comment_count`
-        FROM `article` a
-        INNER JOIN `user` u  
-            ON u.`user_id` = a.`user_user_id`
+                    FROM comment c
+                    WHERE a.article_id = c.article_article_id)
+                   as comment_count
+        FROM article a
+        INNER JOIN user u  
+            ON u.user_id = a.user_user_id
         LEFT JOIN article_has_category ahc
-            ON ahc.`article_article_id` = a.`article_id`
+            ON ahc.article_article_id = a.article_id
         LEFT JOIN category c
-            ON c.`category_id` = ahc.`category_category_id`
-        WHERE a.`article_is_published` = 1
-            GROUP BY a.`article_id`
-            ORDER BY a.`article_date_publish` DESC) as mainSel
+            ON c.category_id = ahc.category_category_id
+         JOIN tag_has_article tha
+        	ON tha.article_article_id = a.article_id
+         JOIN tag 
+        	ON tag.tag_id = tha.tag_tag_id
+        WHERE a.article_is_published = 1
+            GROUP BY a.article_id
+            ORDER BY a.article_date_publish DESC
+) as mainSel
             ORDER BY RAND() LIMIT $limit
         
         ");
@@ -123,7 +131,20 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
             } else {
                 $tabCategories = null;
             }
-
+            if ($mapping["tag_slug"] !== null){
+                $tabTags = [];
+                $tabTagIds = explode("|||", $mapping["tag_id"]);
+                $tabTagSlugs = explode("|||", $mapping["tag_slug"]);
+                for ($i = 0; $i < count($tabTagSlugs); $i++) {
+                    $tags = new TagMapping([
+                        'tag_id' => $tabTagIds[$i],
+                        'tag_slug' => $tabTagSlugs[$i]
+                    ]);
+                    $tabTags[] = $tags;
+                }
+            }else {
+                $tabTags = null;
+            }
 
             // on instancie l'article
             $article = new ArticleMapping($mapping);
@@ -132,6 +153,8 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
             // on ajoute les catégories à l'article
             $article->setCategories($tabCategories);
             // on ajoute l'article au tableau
+            $article->setTags($tabTags);
+            // die(var_dump($article)); // une heure perdu car il n'affiché pas les cats et tags....par contre avec die() on les vois
             $tabObject[] = $article;
         }
         return $tabObject;

@@ -6,6 +6,7 @@ use model\Abstract\AbstractMapping;
 use model\Interface\InterfaceManager;
 use model\Interface\InterfaceSlugManager;
 use model\Interface\InterfaceUserManager;
+use model\Mapping\CategoryMapping;
 use model\OurPDO;
 
 class UserManager implements InterfaceManager, InterfaceSlugManager, InterfaceUserManager
@@ -18,9 +19,25 @@ class UserManager implements InterfaceManager, InterfaceSlugManager, InterfaceUs
         $this->pdo = $pdo;
     }
 
-    public function selectAll()
+    public function selectAll($limit=999)
     {
-        // TODO: Implement selectAll() method.
+        $selectAll = $this->pdo->prepare("SELECT * 
+                                                FROM (SELECT * 
+                                                      FROM user 
+                                                      ORDER BY RAND() 
+                                                      LIMIT $limit) as randSelect 
+                                                ORDER BY user_id");
+        $selectAll->execute();
+        if($selectAll->rowCount() === 0){
+            return null;
+        }
+        $allUsers = $selectAll->fetchAll();
+        $selectAll->closeCursor();
+        $userObject = [];
+        foreach ($allUsers as $mapping) {
+            $userObject[] = new CategoryMapping($mapping);
+        }
+        return $userObject;
     }
 
     public function selectOneById(int $id)

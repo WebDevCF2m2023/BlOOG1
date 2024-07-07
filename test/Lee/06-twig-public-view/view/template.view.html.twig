@@ -17,7 +17,7 @@
                                 homepage <i class="ti-angle-down ml-1"></i>
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="index-full.html">Homepage Full Width</a>
+                                <a class="dropdown-item" href="?route=accueil">Retour à l'accueil</a>
                                 <a class="dropdown-item" href="index-full-left.html">Homepage Full With Left Sidebar</a>
                                 <a class="dropdown-item" href="index-full-right.html">Homepage Full With Right Sidebar</a>
                                 <a class="dropdown-item" href="index-list.html">Homepage List Style</a>
@@ -49,11 +49,11 @@
 
                         <li class="nav-item dropdown">
                             <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-                               aria-expanded="false">Pages <i class="ti-angle-down ml-1"></i>
+                               aria-expanded="false">Sélect par <i class="ti-angle-down ml-1"></i>
                             </a>
                             <div class="dropdown-menu">
 
-                                <a class="dropdown-item" href="author.html">Author</a>
+                                <a class="dropdown-item" href="?route=author">Auteur(e)</a>
                                 <a class="dropdown-item" href="author-single.html">Author Single</a>
                                 <a class="dropdown-item" href="advertise.html">Advertise</a>
                                 <a class="dropdown-item" href="post-details.html">Post Details</a>
@@ -102,23 +102,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-9 mx-auto">
-                    <h1 class="mb-5">What Would You <br> Like To Read Today?</h1>
+                    <h1 class="mb-5">FETCH_ASSOC n'est pas mis comme défaut <br> Pourquoi tout fonctionne?</h1>
                     <ul class="list-inline widget-list-inline">
-                        <li class="list-inline-item"><a href="tags.html">City</a></li>
-                        <li class="list-inline-item"><a href="tags.html">Color</a></li>
-                        <li class="list-inline-item"><a href="tags.html">Creative</a></li>
-                        <li class="list-inline-item"><a href="tags.html">Decorate</a></li>
-                        <li class="list-inline-item"><a href="tags.html">Demo</a></li>
-                        <li class="list-inline-item"><a href="tags.html">Elements</a></li>
-                        <li class="list-inline-item"><a href="tags.html">Fish</a></li>
-                        <li class="list-inline-item"><a href="tags.html">Food</a></li>
-                        <li class="list-inline-item"><a href="tags.html">Nice</a></li>
-                        <li class="list-inline-item"><a href="tags.html">Recipe</a></li>
-                        <li class="list-inline-item"><a href="tags.html">Season</a></li>
-                        <li class="list-inline-item"><a href="tags.html">Taste</a></li>
-                        <li class="list-inline-item"><a href="tags.html">Tasty</a></li>
-                        <li class="list-inline-item"><a href="tags.html">Vlog</a></li>
-                        <li class="list-inline-item"><a href="tags.html">Wow</a></li>
+                        {% for tag in tags %}
+                        <li class="list-inline-item"><a href="?route=tag&select={{ tag.getTagId }}">{{ tag.getTagSlug }}</a></li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>

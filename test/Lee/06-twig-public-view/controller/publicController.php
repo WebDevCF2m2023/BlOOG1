@@ -7,6 +7,8 @@
 use model\Manager\ArticleManager;
 use model\Manager\CategoryManager;
 use model\Manager\CommentManager;
+use model\Manager\TagManager;
+use model\Manager\UserManager;
 
 // on instancie le manager des articles
 $articleManager = new ArticleManager($db);
@@ -14,6 +16,10 @@ $articleManager = new ArticleManager($db);
 $categoryManager = new CategoryManager($db);
 // on instancie le manager des commentaires
 $commentManager = new CommentManager($db);
+// j'ai besoin de manager pour User aussi
+$userManager = new UserManager($db);
+// et le nouveau TagManager
+$tagManager = new TagManager($db);
 
 // si la route n'est pas définie, on affiche la page d'accueil
 $route = $_GET['route'] ?? 'accueil';
@@ -30,8 +36,9 @@ switch ($route) {
         $articles = $articleManager->selectAllArticleHomepage(1);
         $popular = $articleManager->selectAllArticleHomepage(1);
         $categories = $categoryManager->selectAll(3 );
+        $tags = $tagManager->selectAll();
         // vue de la base NON TWIG // c'est TWIG mainenant :p
-        echo $twig->render('publicView/public.homepage.view.twig', ['articles' => $articles, 'categories' => $categories, 'popular' => $popular]);
+        echo $twig->render('publicView/public.homepage.view.twig', ['articles' => $articles, 'categories' => $categories, 'popular' => $popular, 'tags' => $tags]);
         break;
 
     case 'categorie':
@@ -82,6 +89,10 @@ switch ($route) {
         }
 
         echo "<h1>On affiche une nouvelle vue avec les articles qui ont ce tag</h1>";
+        break;
+    case 'author':
+        $authors = $userManager->selectAll();
+        echo $twig->render('publicView/public.author.view.twig', ['authors' => $authors]);
         break;
     case '404':
         // vue de la base NON TWIG

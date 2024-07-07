@@ -13,29 +13,29 @@
     </head>
 <body>
      <!-- Page content-->
-     <div class="container mt-5">
-            <div class="row">
-                <div class="col-lg-8">
-                    <!-- Post content-->
-                    <article>
-                        <!-- Post header-->
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- Post content-->
+                <article>
+                    <!-- Post header-->
                         <header class="mb-4">
                             <!-- Post title-->
                             <h1 class="fw-bolder mb-1">Bloog 1 | Homepage</h1>
     <?php
     require 'public.menu.php';
     ?>
-    <h2>Les derniers articles</h2>
+    <h2 lass="fw-bolder mb-1">Les derniers articles</h2>
     <?php
     if($articles === null):
     ?>
-    <h3>Aucun article n'a été trouvé</h3>
+    <h3 lass="fw-bolder mb-1">Aucun article n'a été trouvé</h3>
     <?php
     else:
         foreach ($articles as $article):
             ?>
             <article>
-                <h3><a href="?route=article&slug=<?= $article->getArticleSlug() ?>"><?= $article->getArticleTitle() ?></a></h3>
+                <h3 lass="fw-bolder mb-1"><a href="?route=article&slug=<?= $article->getArticleSlug() ?>"><?= $article->getArticleTitle() ?></a></h3>
                 <p class="fs-5 mb-4"><?= $article->getArticleText() ?> <a href="?route=article&slug=<?= $article->getArticleSlug() ?>"> ... Lire la suite</a></p>
                 <div class="text-muted fst-italic mb-2">Publié le <?= $article->getArticleDatePublish() ?> par <?= $article->getUser()->getUserFullName() ?></div>
                 <p class="fs-5 mb-4">Categories:
@@ -48,7 +48,7 @@
                             foreach ($article->getCategories() as $categorie):
                      ?>
 
-                        <a href=".?route=categorie&slug=<?= $categorie->getCategorySlug()?>"><?= $categorie->getCategoryName() ?></a>
+                        <a class="badge bg-secondary text-decoration-none link-light" href=".?route=categorie&slug=<?= $categorie->getCategorySlug()?>"><?= $categorie->getCategoryName() ?></a>
                         <?php
                              endforeach;
                         endif;
@@ -61,6 +61,10 @@
         endforeach;
     endif;
     ?>
+        </div>
+    </div>
+</div>
+
 <!-- Footer-->
 <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>

@@ -99,7 +99,7 @@
                     <h1 class="mb-5">FETCH_ASSOC n'est pas mis comme défaut <br> Pourquoi tout fonctionne?</h1>
                     <ul class="list-inline widget-list-inline">
                         {% for tag in tags %}
-                        <li class="list-inline-item"><a href="?route=tag&select={{ tag.getTagId }}">{{ tag.getTagSlug }}</a></li>
+                        <li class="list-inline-item"><a href="?route=tag&select=oneTag&id={{ tag.getTagId }}">{{ tag.getTagSlug }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>

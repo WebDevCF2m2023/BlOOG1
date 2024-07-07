@@ -95,8 +95,7 @@ switch ($route) {
         echo $twig->render('publicView/public.author.view.twig', ['authors' => $authors]);
         break;
     case '404':
-        // vue de la base NON TWIG
-        include PROJECT_DIRECTORY."/view/publicView/public.404.php";
+        echo $twig->render('publicView/public.404.view.twig');
         break;
     default:
         include PROJECT_DIRECTORY."/controller/publicController.php";

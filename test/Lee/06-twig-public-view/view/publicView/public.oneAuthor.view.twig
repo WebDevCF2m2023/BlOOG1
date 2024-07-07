@@ -1,8 +1,8 @@
 {% extends "template.view.html.twig" %}
 {% block content %}
- {{ dump(author) }}
 
     <div class="author">
+
         <div class="container">
             <div class="row no-gutters justify-content-center">
                 <div class="col-lg-3 col-md-4 mb-4 mb-md-0">
@@ -11,7 +11,7 @@
 
                 </div>
                 <div class="col-md-8 col-lg-6 text-center text-md-left">
-                    <h2 class="mb-2">Charls Xaviar</h2>
+                    <h2 class="mb-2">{{ authors.user_full_name }}</h2>
                         <strong class="mb-2 d-block">Author &amp; developer of Bexer, Biztrox theme</strong>
                         <div class="content">
                             <p>Donec nisi dolor, consequat vel pretium id, auctor in dui. Nam iaculis, neque ac ullamcorper.</p>
@@ -82,6 +82,51 @@
                     stroke-width="2" />
         </svg>
     </div>
+    <section class="section-sm" id="post">
+        <div class="container">
+            <div class="row">
 
+                {% for article in authors.articles %}
+
+                <div class="col-lg-8 mx-auto">
+                    <article class="card mb-4">
+
+                        <div class="post-slider">
+                            <img src="images/post/post-7.jpg" class="card-img-top" alt="post-thumb">
+                        </div>
+
+                        <div class="card-body">
+                            <h3 class="mb-3"><a class="post-title" href="post-details.html">{{ article.getArticleTitle }}</a></h3>
+                            <ul class="card-meta list-inline">
+                                <li class="list-inline-item">
+                                    <a href="author-single.html" class="card-meta-author">
+                                        <img src="images/john-doe.jpg">
+                                        <span>Charls Xaviar</span>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <i class="ti-timer"></i>2 Min To Read
+                                </li>
+                                <li class="list-inline-item">
+                                    <i class="ti-calendar"></i>{{ article.getArticleDatePublish }}
+                                </li>
+                                <li class="list-inline-item">
+                                    <ul class="card-meta-tag list-inline">
+                                        <li class="list-inline-item"><a href="tags.html">Color</a></li>
+                                        <li class="list-inline-item"><a href="tags.html">Recipe</a></li>
+                                        <li class="list-inline-item"><a href="tags.html">Fish</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <p>{{ article.getArticleText }}</p>
+                            <a href="post-details.html" class="btn btn-outline-primary">Read More</a>
+                        </div>
+                    </article>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
 {% endblock %}
 

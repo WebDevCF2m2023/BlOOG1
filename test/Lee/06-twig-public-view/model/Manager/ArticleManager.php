@@ -347,30 +347,37 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
         return $tabObject;
     }
 
-    public function selectArticlesForOneUser(int $userId): ?array {
-        $prep = $this->db->prepare("SELECT 
-                                              u.user_id,
-                                              u.user_full_name,
-                                              a.article_id,
-                                              a.article_title,
-                                              a.article_date_publish,
-                                              SUBSTR(a.article_text, 1, 75) as article_text
-                                          FROM user u
-                                          
-                                          LEFT JOIN article a ON a.user_user_id = u.user_id
-                                          WHERE u.user_id = :userId
-                                          ORDER BY u.user_id ASC, a.article_date_publish DESC");
-        $prep->execute(['userId' => $userId]);
-        if ($prep->rowCount() == 0) return null;
-        $articles = $prep->fetchAll(OurPDO::FETCH_ASSOC);
-        $authors = [];
-        foreach ($articles as $article) {
-            $authorId = $article['user_id'];
-            
-            $authors[$authorId]['articles'][] = $article;
-        }
+    public function selectArticlesForOneUser(int $userId): ?array
+    {
+        $stmt = $this->db->prepare("
+       SELECT 
+           u.user_id,
+           u.user_full_name,
+           a.article_id,
+           a.article_title,
+           a.article_date_publish,
+           SUBSTR(a.article_text, 1, 75) as article_text
+       FROM user u
+       LEFT JOIN article a ON a.user_user_id = u.user_id
+       WHERE u.user_id = :userId AND a.article_is_published = 1
+       ORDER BY a.article_date_publish DESC;
+    ");
 
-        return $authors;
+        $stmt->execute(['userId' => $userId]);
+        $articles = $stmt->fetchAll(OurPDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        if (empty($articles)) return null;
+
+        $author = [
+            'user_id' => $articles[0]['user_id'],
+            'user_full_name' => $articles[0]['user_full_name'],
+            'articles' => []
+        ];
+
+        foreach ($articles as $article) {
+            $author['articles'][] = new ArticleMapping($article);
+        }
+        return $author;
     }
 
 }

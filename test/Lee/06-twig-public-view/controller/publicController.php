@@ -24,6 +24,7 @@ $tagManager = new TagManager($db);
 // si la route n'est pas définie, on affiche la page d'accueil
 $route = $_GET['route'] ?? 'accueil';
 
+
 // on charge les catégories pour le menu sur toutes les pages
 $categories = $categoryManager->selectAll();
 
@@ -91,7 +92,7 @@ switch ($route) {
         echo "<h1>On affiche une nouvelle vue avec les articles qui ont ce tag</h1>";
         break;
     case 'author':
-        $authors = $userManager->selectAll();
+        $authors = $userManager->selectAllWithArtCount();
         echo $twig->render('publicView/public.author.view.twig', ['authors' => $authors]);
         break;
     case '404':

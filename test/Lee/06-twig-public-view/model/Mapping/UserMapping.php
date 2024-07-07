@@ -19,6 +19,17 @@ class UserMapping extends AbstractMapping
     protected ?int $user_status=null;
     protected ?string $user_secret_key=null;
     protected ?int $permission_permission_id=null;
+    protected ?int $user_article_count=null;
+
+    public function getUserArticleCount(): ?int
+    {
+        return $this->user_article_count;
+    }
+
+    public function setUserArticleCount(?int $user_article_count): void
+    {
+        $this->user_article_count = $user_article_count;
+    }
 
     // Les getters et setters
 

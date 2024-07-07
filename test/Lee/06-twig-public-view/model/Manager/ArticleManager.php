@@ -328,4 +328,22 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
 
         return $article;
     }
+
+    public function selectArticlesByUser(int $userId): ?array {
+        $prep = $this->db->prepare("SELECT *
+                                          FROM article
+                                          WHERE user_user_id
+                                          = :userId");
+        $prep->execute(['userId' => $userId]);
+        if ($prep->rowCount() == 0) return null;
+        $mapping = $prep->fetchAll(OurPDO::FETCH_ASSOC);
+        $prep->closeCursor();
+            $article = new ArticleMapping($mapping);
+            die(var_dump($article));
+            return $article;
+
+
+    }
+
 }
+

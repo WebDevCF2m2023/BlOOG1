@@ -28,7 +28,7 @@ switch ($route) {
 
         // on charge les articles pour la page d'accueil
         $articles = $articleManager->selectAllArticleHomepage();
-        // vue de la base NON TWIG
+        // vue de la base TWIG
        echo $twig->render("publicView/public.homepage.view.html.twig", ['articles' => $articles, 'categories'=>$categories]);
         break;
 
@@ -49,7 +49,7 @@ switch ($route) {
         // on charge les articles de la catégorie
         $articles = $articleManager->selectAllArticleByCategorySlug($_GET['slug']);
         // vue de la base NON TWIG
-        echo $twig->render("/view/publicView/public.category.view.html.twig",['articles' => $articles]);
+        echo $twig->render("publicView/public.category.view.html.twig",['articles' => $articles, 'category' => $category]);
 
         break;
 

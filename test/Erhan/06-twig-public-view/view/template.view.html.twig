@@ -47,7 +47,7 @@
 	
 				<div class="col-lg-8 col-md-12">
 					<nav class="navbar navbar-expand-lg navigation-2 navigation">
-						<a class="navbar-brand text-uppercase d-lg-none" href="#">
+						<a class="navbar-brand text-uppercase d-lg-none" href="./">
 							<img src="images/logo.png" alt="" class="img-fluid">
 						</a>
 						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse"
@@ -63,26 +63,14 @@
 										Home
 									</a>
 								</li>
-								<li class="nav-item dropdown">
-									<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
-										aria-haspopup="true" aria-expanded="false">
-										Categories
-									</a>
-									
-									<div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+								
 									{% for category in categories %}
-										<a class="dropdown-item" href=".?route=categorie&slug={{ category.getCatagorySlug }}">{{ category.getCatagoryName }}</a>
-										{% endfor %}
-									</div>
-								</li>
+
+									<li class="nav-item"><a href=".?route=categorie&slug={{ category.getCategorySlug }}">{{ category.getCategoryName }}</a></li>
+									{% endfor %}
+
 								<li class="nav-item"><a href="./?inscription" class="nav-link">Inscription</a></li>
 								<li class="nav-item"><a href="./?connect" class="nav-link">Connexion</a></li>
-							</ul>
-							<ul class="list-inline mb-0 d-block d-lg-none">
-								<li class="list-inline-item"><a href="#"><i class="ti-facebook"></i></a></li>
-								<li class="list-inline-item"><a href="#"><i class="ti-twitter"></i></a></li>
-								<li class="list-inline-item"><a href="#"><i class="ti-linkedin"></i></a></li>
-								<li class="list-inline-item"><a href="#"><i class="ti-pinterest"></i></a></li>
 							</ul>
 						</div>
 					</nav>
@@ -90,15 +78,7 @@
 	 
 {% endblock %}
 
-				<div class="col-lg-2 col-md-4 col-6">
-					<div class="header-socials-2 text-right d-none d-lg-block">
-						<ul class="list-inline mb-0">
-							<li class="list-inline-item"><a href="#"><i class="ti-facebook"></i></a></li>
-							<li class="list-inline-item"><a href="#"><i class="ti-twitter"></i></a></li>
-							<li class="list-inline-item"><a href="#"><i class="ti-linkedin"></i></a></li>
-							<li class="list-inline-item"><a href="#"><i class="ti-pinterest"></i></a></li>
-						</ul>
-					</div>
+				
 				</div>
 			</div>
 		</div>

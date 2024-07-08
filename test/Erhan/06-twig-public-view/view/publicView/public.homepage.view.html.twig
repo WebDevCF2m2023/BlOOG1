@@ -1,4 +1,5 @@
 {% extends 'template.view.html.twig' %}
+ 
 
 {% block section_slider %}
 {% endblock %}
@@ -40,13 +41,8 @@
                 {% endfor %} 
             {% endif %}
 
-            <span class="text-muted letter-spacing text-uppercase font-sm">{{ article.getArticleDatePublish }} par 
-            {% if article.getUser is not null %}
-                {% for user in article.getUser %}
-                    {{ user.getUserFullName }}
-                {% endfor %}
-            {% endif %}
-            </span>  
+            <span class="text-muted letter-spacing text-uppercase font-sm">{{ article.getArticleDatePublish }} Par {{ article.getUser.getUserFullName }}</span>
+            
  
         </article>
         </div>

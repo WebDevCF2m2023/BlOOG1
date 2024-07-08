@@ -30,10 +30,13 @@ $categories = $categoryManager->selectAll();
 
 if (isset($_GET["select"])) {
     $subRoute = $_GET["select"]; // faut que j'applique sanitisation ici
-    $id = $_GET["id"];
+    $slug = $_GET["id"];
     switch ($subRoute) {
         case "oneArt":
-            echo ($id. ' : Article');
+
+            $article = $articleManager->selectOneBySlug($slug);
+
+            echo $twig->render("publicView/public.oneArt.view.twig", ["article" => $article]);
             break;
         case "oneAuthor":
             $author = $articleManager->selectArticlesForOneUser($id);

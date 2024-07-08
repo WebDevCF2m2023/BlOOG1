@@ -49,7 +49,7 @@ switch ($route) {
         // on charge les articles de la catégorie
         $articles = $articleManager->selectAllArticleByCategorySlug($_GET['slug']);
         // vue de la base NON TWIG
-        include PROJECT_DIRECTORY."/view/publicView/public.category.php";
+        echo $twig->render("/view/publicView/public.category.view.html.twig",['articles' => $articles]);
 
         break;
 

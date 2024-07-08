@@ -69,7 +69,7 @@ switch ($route) {
         // on charge les commentaires de l'article
         $comments = $commentManager->selectAllByIDArticle($article->getArticleId());
         // vue de la base NON TWIG
-        include PROJECT_DIRECTORY."/view/publicView/public.article.php";
+        echo $twig->render("publicView/public.article.view.html.twig",['comments' =>$comments, 'article'=>$article]);
 
         break;
     case 'tag':

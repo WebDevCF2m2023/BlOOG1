@@ -7,7 +7,7 @@
             <div class="row no-gutters justify-content-center">
                 <div class="col-lg-3 col-md-4 mb-4 mb-md-0">
 
-                    <img class="author-image" src="assets/theme/images/author-">
+                    <img class="author-image" src="assets/theme/images/author-{{ authors.user_id }}">
 
                 </div>
                 <div class="col-md-8 col-lg-6 text-center text-md-left">
@@ -92,16 +92,16 @@
                     <article class="card mb-4">
 
                         <div class="post-slider">
-                            <img src="images/post/post-7.jpg" class="card-img-top" alt="post-thumb">
+                            <img src="assets/theme/images/post/post-{{ article.getArticleId }}.jpg" class="card-img-top" alt="post-thumb">
                         </div>
 
                         <div class="card-body">
                             <h3 class="mb-3"><a class="post-title" href="post-details.html">{{ article.getArticleTitle }}</a></h3>
                             <ul class="card-meta list-inline">
                                 <li class="list-inline-item">
-                                    <a href="author-single.html" class="card-meta-author">
-                                        <img src="images/john-doe.jpg">
-                                        <span>Charls Xaviar</span>
+                                    <a href="?route=author&select=oneAuthor&id={{ authors.user_id }}" class="card-meta-author">
+                                        <img src="assets/theme/images/author-{{ authors.user_id }}.jpg">
+                                        <span>{{ authors.user_full_name }}</span>
                                     </a>
                                 </li>
                                 <li class="list-inline-item">
@@ -110,16 +110,10 @@
                                 <li class="list-inline-item">
                                     <i class="ti-calendar"></i>{{ article.getArticleDatePublish }}
                                 </li>
-                                <li class="list-inline-item">
-                                    <ul class="card-meta-tag list-inline">
-                                        <li class="list-inline-item"><a href="tags.html">Color</a></li>
-                                        <li class="list-inline-item"><a href="tags.html">Recipe</a></li>
-                                        <li class="list-inline-item"><a href="tags.html">Fish</a></li>
-                                    </ul>
-                                </li>
+
                             </ul>
-                            <p>{{ article.getArticleText }}</p>
-                            <a href="post-details.html" class="btn btn-outline-primary">Read More</a>
+                            <p>{{ article.getArticleText }}...</p>
+                            <a href="?route=article&select=oneArt&id={{ article.getArticleId }}" class="btn btn-outline-primary">Lire la suite...</a>
                         </div>
                     </article>
                 </div>

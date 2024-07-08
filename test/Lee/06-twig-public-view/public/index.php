@@ -33,6 +33,9 @@ $twig = new Environment($loader, [
 ]);
 $twig->addExtension(new \Twig\Extension\DebugExtension()); // afin d'utiliser {{ dump }} il faut charger cet extension
 // connexion à la database singleton
+
+if (DB_NAME !== "bioog_lee") die("Pour que tout fonctionne, faut installer bioog_lee.sql (il est dans mon dossier datas - 06-twig-public-view)");
+
 $db = OurPDO::getInstance( DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME.";port=".DB_PORT.";charset=".DB_CHARSET,
     DB_LOGIN,
     DB_PWD);

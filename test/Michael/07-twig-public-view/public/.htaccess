@@ -1,0 +1,16 @@
+Options +FollowSymlinks
+RewriteEngine on
+
+# Existing conditions to ensure the request is not for a real file or directory
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# New rule to rewrite /article/hebergement-mutualise-wikipedia/ to ?route=article&slug=hebergement-mutualise-wikipedia
+
+RewriteRule ^article/([a-zA-Z0-9-]+)/?$ ./index.php?route=article&slug=$1 [L,QSA]
+
+RewriteRule ^categorie/([a-zA-Z0-9-]+)/?$ ./index.php?route=categorie&slug=$1 [L,QSA]
+
+RewriteRule ^tag/([a-zA-Z0-9-]+)/?$ ./index.php?route=tag&slug=$1 [L,QSA]
+
+RewriteRule ^user/([a-zA-Z0-9-]+)/?$ ./index.php?route=user&slug=$1 [L,QSA]

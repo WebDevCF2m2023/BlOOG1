@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="{% block language %}fr{% endblock %}">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    {% block head %}
+    <meta name="description" content="Bloog de Classe 1" />
+    <meta name="author" content="Classe 1" />
+    <title>{% block headtitle %}Bloog{% endblock %}</title>
+    {% block stylesheet %}
+        <!-- plugins -->
+        <link rel="stylesheet" href="assets/theme/plugins/bootstrap/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/theme/plugins/themify-icons/themify-icons.css">
+        <link rel="stylesheet" href="assets/theme/plugins/slick/slick.css">
+
+        <!-- Main Stylesheet -->
+        <link rel="stylesheet" href="assets/theme/css/style.css" media="screen">
+    {% endblock %} {# end stylesheet #}
+    {% endblock %} {# end head #}
+</head>
+<body>
+{% block body %}
+    {% block navbar %}
+    {% endblock %}
+    {% block content %}
+        {% block banner %}
+        {% endblock %}
+    {% endblock %}
+
+{% block footer %}
+    <footer class="py-5 bg-dark">
+        <div class="container"><p class="m-0 text-center text-white">Copyright &copy; CF2m {{ now|date('Y') }}</p></div>
+    </footer>
+    {% endblock %}
+    {% block javascript %}
+<!-- JS Plugins -->
+<script src="assets/theme/plugins/jQuery/jquery.min.js"></script>
+<script src="assets/theme/plugins/bootstrap/bootstrap.min.js"></script>
+<script src="assets/theme/plugins/slick/slick.min.js"></script>
+<script src="assets/theme/plugins/instafeed/instafeed.min.js"></script>
+<!-- Main Script -->
+<script src="assets/theme/js/script.js"></script>
+{% endblock %} {# end javascript #}
+{% endblock %} {# end content #}
+</body>
+</html>

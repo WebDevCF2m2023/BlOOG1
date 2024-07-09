@@ -13,10 +13,10 @@
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="row">
-                        <div class="col-lg-3 col-md-6">
-                            <article class="post-grid mb-5">
+                        <div class="col-lg-12 col-md-6">
+                            <article class="post-grid mb-3">
                                 <a class="post-thumb mb-4 d-block" href="blog-single.html">
-                                    <img src="images/news/f1.jpg" alt="" class="img-fluid w-100">
+                                    <img src="images/news/f1.jpg" alt="" class="img-fluid w-25">
                                 </a>
 
                                 <h3 class="post-title mt-1">{{ article.getArticleTitle }}</h3>
@@ -30,12 +30,43 @@
                                 <span class="cat-name text-color font-extra text-sm text-uppercase letter-spacing-1"><a href=".?route=categorie&slug={{ category.getCategorySlug }}">{{ category.getCategoryName }}</a></span>  
                                     {% endfor %} 
                                 {% endif %}
+                                </article>
 
                                 <span class="cat-name text-color font-extra text-sm text-uppercase letter-spacing-1">{{ article.getArticleText }}</span>
 
-                                <span class="text-muted letter-spacing text-uppercase font-sm">{{ article.getArticleDatePublish }} Par {{ article.getUser.getUserFullName }}</span>
-                                                   
-                            </article>
+                                <article class="post-grid mt-2">
+                                <span class="text-muted letter-spacing text-uppercase font-sm">{{ article.getArticleDatePublish }} Par {{ article.getUser.getUserFullName }}</span></article>
+
+
+        
+                            <article class="post-grid mt-2">
+
+                                {% if article.getTags is null %}                   
+                                    <h3>{{ "Aucun tag !" }}</h3> 
+                                {% else %}  
+                                    {% for tags in article.getTags %}   
+                                
+                                <span class="cat-name text-color font-extra text-sm text-uppercase letter-spacing-1"><a href=".?route=tag&slug={{ tags.getTagSlug }}">{{ tags.getTagSlug }} / </a></span>  
+                                    {% endfor %} 
+                                {% endif %}
+                             </article>
+
+                             <article class="post-grid mt-2">
+
+                                {% if comments is null %}                   
+                                    <h3>{{ "Aucun commentaire n'a été trouvé" }}</h3> 
+                                {% else %}  
+                            
+                                    {% for comment in comments %}   
+
+                                <span class="text-muted letter-spacing text-uppercase font-sm">Par {{ comment.getUser.getUserFullName }}</span>
+                                
+                                <span class="text-muted letter-spacing text-uppercase font-sm">{{ comment.getCommentText }}</span>  
+
+                                <span class="text-muted letter-spacing text-uppercase font-sm">Publié le {{ comment.getCommentDateCreate }}</span>
+                                    {% endfor %} 
+                                {% endif %}
+                             </article>                                          
                      </div>    
                 </div>
             </div>

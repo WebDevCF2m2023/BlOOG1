@@ -29,7 +29,7 @@
 
             <span class="cat-name text-color font-extra text-sm text-uppercase letter-spacing-1"><a href="?route=article&slug={{ article.getArticleSlug }}">{{ article.getArticleTitle }}</a></span>
 
-            <h3 class="post-title mt-1">{{ article.getArticleText|length < 59 ? : article.getArticleText|slice(0, 59) ~ '' }}<a href="?route=article&slug={{ article.getArticleSlug }}">...</a></h3>
+            <h3 class="post-title mt-1">{{ article.getArticleText|length < 59 ? : article.getArticleText|slice(0, 59) ~ '' }}<a href="?route=article&slug={{ article.getArticleSlug }}">..Lire plus.</a></h3>
 
 
             {% if article.getCategories is null %}                   

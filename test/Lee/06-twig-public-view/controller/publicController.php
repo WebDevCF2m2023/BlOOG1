@@ -115,6 +115,7 @@ switch ($route) {
         break;
     case 'author':
         $authors = $userManager->selectAllWithArtCount();
+
         echo $twig->render('publicView/public.author.view.twig', ['authors' => $authors]);
         break;
     case '404':

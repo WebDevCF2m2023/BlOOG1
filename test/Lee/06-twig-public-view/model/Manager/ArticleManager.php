@@ -237,30 +237,34 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
         // on récupère tous les articles avec jointures
         $query = $this->db->prepare("
         SELECT a.*, 
-               u.`user_id`, u.`user_login`, u.`user_full_name`,
-               GROUP_CONCAT(c.`category_id`) as`category_id`, 
-               GROUP_CONCAT(c.`category_name` SEPARATOR '|||') as `category_name`, 
-               GROUP_CONCAT(c.`category_slug` SEPARATOR '|||') as `category_slug`,
-               (SELECT GROUP_CONCAT(t.`tag_slug` SEPARATOR '|||')
-                    FROM `tag` t
-                    INNER JOIN `tag_has_article` tha
-                        ON tha.`article_article_id` = a.`article_id`
-                    WHERE t.`tag_id` = tha.`tag_tag_id`
-                    GROUP BY a.`article_id`
-                    ORDER BY t.`tag_slug` ASC    
-                    ) as `tag_slug`
-            
+       u.`user_id`, u.`user_login`, u.`user_full_name`,
+       GROUP_CONCAT(c.`category_id`) as `category_id`, 
+       GROUP_CONCAT(c.`category_name` SEPARATOR '|||') as `category_name`, 
+       GROUP_CONCAT(c.`category_slug` SEPARATOR '|||') as `category_slug`,
+       (SELECT GROUP_CONCAT(t.`tag_slug` SEPARATOR '|||')
+            FROM `tag` t
+            INNER JOIN `tag_has_article` tha
+                ON tha.`article_article_id` = a.`article_id`
+            WHERE t.`tag_id` = tha.`tag_tag_id`
+            ORDER BY t.`tag_slug` ASC
+        ) as `tag_slug`,
+       (SELECT GROUP_CONCAT(t.`tag_id`)
+            FROM `tag` t
+            INNER JOIN `tag_has_article` tha
+                ON tha.`article_article_id` = a.`article_id`
+            WHERE t.`tag_id` = tha.`tag_tag_id`
+        ) as `tag_id`
+FROM `article` a
+INNER JOIN `user` u  
+    ON u.`user_id` = a.`user_user_id`
+LEFT JOIN article_has_category ahc
+    ON ahc.`article_article_id` = a.`article_id`
+LEFT JOIN category c
+    ON c.`category_id` = ahc.`category_category_id`
+WHERE a.`article_is_published` = 1
+    AND a.`article_slug` = :slug
+GROUP BY a.`article_id`
 
-        FROM `article` a
-        INNER JOIN `user` u  
-            ON u.`user_id` = a.`user_user_id`
-        LEFT JOIN article_has_category ahc
-            ON ahc.`article_article_id` = a.`article_id`
-        LEFT JOIN category c
-            ON c.`category_id` = ahc.`category_category_id`
-        WHERE a.`article_is_published` = 1
-            AND a.`article_slug` = :slug
-            GROUP BY a.`article_id`
         
         ");
         $query->execute(['slug' => $slug]);
@@ -302,11 +306,13 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
                 $tabTags = [];
                 // on récupère les tags
                 $tabTagSlugs = explode("|||", $mapping['tag_slug']);
+                $tabTagIds = explode(",", $mapping['tag_id']);
                 // on boucle sur les tags
                 for ($i = 0; $i < count($tabTagSlugs); $i++) {
                     // on instancie le tag
                     $tag = new TagMapping([
-                        'tag_slug' => $tabTagSlugs[$i]
+                        'tag_slug' => $tabTagSlugs[$i],
+                        'tag_id' => $tabTagIds[$i]
                     ]);
                     // on ajoute le tag au tableau
                     $tabTags[] = $tag;

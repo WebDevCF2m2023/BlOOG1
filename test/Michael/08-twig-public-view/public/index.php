@@ -43,6 +43,7 @@ $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 // chemin qui sera utilisé pour les liens absolus dans les vues
 $root = "/test/Michael/08-twig-public-view/public/";
 
+
 // Appel du router général
 require_once PROJECT_DIRECTORY.'/controller/routerController.php';
 

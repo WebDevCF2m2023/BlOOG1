@@ -1,0 +1,9 @@
+{% extends 'template.startbootstrap.html.twig' %}
+{% block title %}{{ parent() }} | Accueil{% endblock %}
+
+{% block navTitle %}Accueil{% endblock %}
+{% block footer %}
+
+    {% block copyright %}Copyright &copy; Mon site {{ now|date('Y') }}{% endblock %}
+{% endblock %}
+

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+        {% block meta %}{% endblock %}
+        <title>{% block title %}Un titre{% endblock %}</title>
+        {% block stylesheet %}{% endblock %}
+    {% endblock %}
+</head>
+<body>
+{% block content %}{% endblock %}
+
+{% block footer %}
+Rien
+{% endblock %}
+{% block javascript %}{% endblock %}
+<!-- yep -->
+</body>
+</html>

@@ -38,6 +38,7 @@ $db = OurPDO::getInstance( DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME.";port=".
     DB_PWD);
 // résultats en tableau associatif
 $db->setAttribute(OurPDO::ATTR_ERRMODE, OurPDO::ERRMODE_EXCEPTION);
+$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
 // chemin qui sera utilisé pour les liens absolus dans les vues
 $root = "/test/Michael/07-twig-public-view/public/";

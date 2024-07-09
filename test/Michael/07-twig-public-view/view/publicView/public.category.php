@@ -14,7 +14,7 @@
     require 'public.menu.php';
     ?>
     <h2>Description : </h2>
-    <p><?=$category->getCategoryDescription()?></p>
+    <p><?=$category->getCategoryDescription()?> ici</p>
     <h2>Articles : </h2>
     <?php
     if($articles === null):

@@ -5,9 +5,9 @@
         if(is_null($categories)){
             $categories = [];
         }
-        foreach ($categories as $category) {
+        foreach ($categories as $oneCategory) {
             ?>
-            <li><a href="<?=$root?>categorie/<?= $category->getCategorySlug() ?>"><?= $category->getCategoryName() ?></a></li>
+            <li><a href="<?=$root?>categorie/<?= $oneCategory->getCategorySlug() ?>"><?= $oneCategory->getCategoryName() ?></a></li>
             <?php
         }
 

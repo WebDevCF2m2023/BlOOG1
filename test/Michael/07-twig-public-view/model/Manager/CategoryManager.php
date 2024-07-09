@@ -61,6 +61,8 @@ class CategoryManager implements InterfaceManager, InterfaceSlugManager
         if($selectOneBySlug->rowCount() === 0){
             return null;
         }
-        return new CategoryMapping($selectOneBySlug->fetch());
+        $fetchOne = $selectOneBySlug->fetch();
+        var_dump($fetchOne);
+        return new CategoryMapping($fetchOne);
     }
 }

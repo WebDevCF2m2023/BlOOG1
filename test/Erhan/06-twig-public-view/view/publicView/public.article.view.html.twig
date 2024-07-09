@@ -36,11 +36,11 @@
                                 <span class="cat-name text-color font-extra text-sm text-uppercase letter-spacing-1">{{ article.getArticleText }}</span>
 
                                 <article class="post-grid mt-2">
-                                <span class="text-muted letter-spacing text-uppercase font-sm">{{ article.getArticleDatePublish }} Par {{ article.getUser.getUserFullName }}</span></article>
-
+                                <span class="text-muted letter-spacing text-uppercase font-sm">{{ article.getArticleDatePublish }} Par {{ article.getUser.getUserFullName }}</span>
+                                </article>
 
         
-                            <article class="post-grid mt-2">
+                                <article class="post-grid mt-2">
 
                                 {% if article.getTags is null %}                   
                                     <h3>{{ "Aucun tag !" }}</h3> 
@@ -50,9 +50,9 @@
                                 <span class="cat-name text-color font-extra text-sm  letter-spacing-1"><a href=".?route=tag&slug={{ tags.getTagSlug }}">{{ tags.getTagSlug }} / </a></span>  
                                     {% endfor %} 
                                 {% endif %}
-                             </article>
+                                </article>
 
-                             <article class="post-grid mt-2">
+                                <article class="post-grid mt-2">
 
                                 {% if comments is null %}                   
                                     <h3>{{ "Aucun commentaire n'a été trouvé" }}</h3> 
@@ -67,7 +67,7 @@
                                 <span class="text-muted letter-spacing text-uppercase font-sm">Publié le {{ comment.getCommentDateCreate }}</span>
                                     {% endfor %} 
                                 {% endif %}
-                             </article>                                          
+                                </article>                                          
                      </div>    
                 </div>
             </div>

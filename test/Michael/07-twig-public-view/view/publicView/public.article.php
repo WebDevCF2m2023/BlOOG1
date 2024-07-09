@@ -1,3 +1,6 @@
+<?php
+var_dump($article);
+?>
 <!doctype html>
 <html lang="en">
 <head>

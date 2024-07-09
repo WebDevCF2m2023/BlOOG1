@@ -62,7 +62,7 @@ class CategoryManager implements InterfaceManager, InterfaceSlugManager
             return null;
         }
         $fetchOne = $selectOneBySlug->fetch();
-        var_dump($fetchOne);
+        //var_dump($fetchOne);
         return new CategoryMapping($fetchOne);
     }
 }

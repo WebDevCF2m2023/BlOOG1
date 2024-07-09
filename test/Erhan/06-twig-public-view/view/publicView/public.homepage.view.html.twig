@@ -1,0 +1,57 @@
+{% extends 'template.view.html.twig' %}
+ 
+
+{% block section_slider %}
+{% endblock %}
+
+
+{% block section_articles %}
+
+
+{% block section_articles1 %}
+<section class="section-padding">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="row">
+
+    {% for article in articles %}
+
+    {% if article.getArticleTitle is null %}                   
+            <h3>{{ "Aucun article n'a été trouvé" }}</h3>       
+    {% endif %}
+
+    <div class="col-lg-3 col-md-6">
+        <article class="post-grid mb-5">
+            <a class="post-thumb mb-4 d-block" href="blog-single.html">
+                <img src="images/news/f1.jpg" alt="" class="img-fluid w-100">
+            </a>
+
+            <span class="cat-name text-color font-extra text-sm text-uppercase letter-spacing-1"><a href="?route=article&slug={{ article.getArticleSlug }}">{{ article.getArticleTitle }}</a></span>
+
+            <h3 class="post-title mt-1">{{ article.getArticleText|length < 59 ? : article.getArticleText|slice(0, 59) ~ '' }}<a href="?route=article&slug={{ article.getArticleSlug }}">..Lire plus.</a></h3>
+
+
+            {% if article.getCategories is null %}                   
+                <h3>{{ "Aucune catégorie n'a été trouvé" }}</h3> 
+            {% else %}  
+                {% for category in article.getCategories %}   
+            
+            <span class="cat-name text-color font-extra text-sm text-uppercase letter-spacing-1"><a href=".?route=categorie&slug={{ category.getCategorySlug }}">{{ category.getCategoryName }}</a></span>  
+                {% endfor %} 
+            {% endif %}
+
+            <span class="text-muted letter-spacing text-uppercase font-sm">{{ article.getArticleDatePublish }} Par {{ article.getUser.getUserFullName }}</span>
+            
+ 
+        </article>
+        </div>
+    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+{% endblock %}

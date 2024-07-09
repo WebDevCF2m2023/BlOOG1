@@ -4,8 +4,8 @@
 session_start();
 
 // chemin vers les classes Twig
-//use Twig\Loader\FilesystemLoader;
-//use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
+use Twig\Environment;
 
 // on va utiliser notre connexion personnalisée (singleton)
 use model\OurPDO;
@@ -20,7 +20,7 @@ spl_autoload_register(function ($class) {
 });
 
 // chargement de l'autoload de composer
-/*require_once PROJECT_DIRECTORY.'/vendor/autoload.php';
+require_once PROJECT_DIRECTORY.'/vendor/autoload.php';
 
 // chemin vers les templates twig
 $loader = new FilesystemLoader(PROJECT_DIRECTORY.'/view/');
@@ -31,7 +31,7 @@ $twig = new Environment($loader, [
     // activation du debug en dev
     'debug' => true,
 ]);
-*/
+
 // connexion à la database singleton
 $db = OurPDO::getInstance( DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME.";port=".DB_PORT.";charset=".DB_CHARSET,
     DB_LOGIN,

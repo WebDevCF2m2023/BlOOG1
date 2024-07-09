@@ -59,7 +59,6 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
         // on récupère tous les articles avec jointures
         $query = $this->db->query("
         SELECT a.*, 
-               u.`user_id`, u.`user_login`, u.`user_full_name`,
                GROUP_CONCAT(c.`category_id`) as`category_id`, 
                GROUP_CONCAT(c.`category_name` SEPARATOR '|||') as `category_name`, 
                GROUP_CONCAT(c.`category_slug` SEPARATOR '|||') as `category_slug`,

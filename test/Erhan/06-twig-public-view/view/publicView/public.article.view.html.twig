@@ -31,6 +31,8 @@
                                     {% endfor %} 
                                 {% endif %}
 
+                                <span class="cat-name text-color font-extra text-sm text-uppercase letter-spacing-1">{{ article.getArticleText }}</span>
+
                                 <span class="text-muted letter-spacing text-uppercase font-sm">{{ article.getArticleDatePublish }} Par {{ article.getUser.getUserFullName }}</span>
                                                    
                             </article>

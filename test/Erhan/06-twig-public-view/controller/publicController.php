@@ -49,7 +49,7 @@ switch ($route) {
         // on charge les articles de la catégorie
         $articles = $articleManager->selectAllArticleByCategorySlug($_GET['slug']);
         // vue de la base NON TWIG
-        echo $twig->render("publicView/public.category.view.html.twig",['articles' => $articles, 'category' => $category]);
+        echo $twig->render("publicView/public.category.view.html.twig",['articles' => $articles, 'category' => $category, 'categories'=>$categories]);
 
         break;
 
@@ -69,7 +69,7 @@ switch ($route) {
         // on charge les commentaires de l'article
         $comments = $commentManager->selectAllByIDArticle($article->getArticleId());
         // vue de la base NON TWIG
-        echo $twig->render("publicView/public.article.view.html.twig",['comments' =>$comments, 'article'=>$article]);
+        echo $twig->render("publicView/public.article.view.html.twig",['comments' =>$comments, 'article'=>$article, 'categories'=>$categories]);
 
         break;
     case 'tag':
@@ -83,7 +83,7 @@ switch ($route) {
         break;
     case '404':
         // vue de la base NON TWIG
-        include PROJECT_DIRECTORY."/view/publicView/public.404.php";
+        echo $twig->render("publicView/public.404.html.twig");
         break;
     default:
         include PROJECT_DIRECTORY."/controller/publicController.php";

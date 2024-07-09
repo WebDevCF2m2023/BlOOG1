@@ -19,7 +19,8 @@
                                     <img src="images/news/f1.jpg" alt="" class="img-fluid w-25">
                                 </a>
 
-                                <h3 class="post-title mt-1">{{ article.getArticleTitle }}</h3>
+                                <article class="post-grid mb-2">
+                                <span class="cat-name text-color font-extra text-sm text-uppercase letter-spacing-1">{{ article.getArticleTitle }}</span></article>
 
 
                                 {% if article.getCategories is null %}                   
@@ -27,7 +28,7 @@
                                 {% else %}  
                                     {% for category in article.getCategories %}   
                                 
-                                <span class="cat-name text-color font-extra text-sm text-uppercase letter-spacing-1"><a href=".?route=categorie&slug={{ category.getCategorySlug }}">{{ category.getCategoryName }}</a></span>  
+                                <span class="cat-name text-color font-extra text-sm text-uppercase letter-spacing-1"><a href=".?route=categorie&slug={{ category.getCategorySlug }}">{{ category.getCategoryName }} / </a></span>  
                                     {% endfor %} 
                                 {% endif %}
                                 </article>
@@ -46,7 +47,7 @@
                                 {% else %}  
                                     {% for tags in article.getTags %}   
                                 
-                                <span class="cat-name text-color font-extra text-sm text-uppercase letter-spacing-1"><a href=".?route=tag&slug={{ tags.getTagSlug }}">{{ tags.getTagSlug }} / </a></span>  
+                                <span class="cat-name text-color font-extra text-sm  letter-spacing-1"><a href=".?route=tag&slug={{ tags.getTagSlug }}">{{ tags.getTagSlug }} / </a></span>  
                                     {% endfor %} 
                                 {% endif %}
                              </article>

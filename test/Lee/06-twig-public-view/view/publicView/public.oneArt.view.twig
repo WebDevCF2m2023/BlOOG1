@@ -2,7 +2,7 @@
 
 {% block content %}
 
-{{ dump(article) }}
+
 
 
     <section class="section">
@@ -18,7 +18,7 @@
                         <ul class="card-meta my-3 list-inline">
                             <li class="list-inline-item">
                                 <a href="author-single.html" class="card-meta-author">
-                                    <img src="images/john-doe.jpg">
+                                    <img src="assets/theme/images/author-{{ article.user.getUserId }}">
                                     <span>{{ article.user.getUserFullName }}</span>
                                 </a>
                             </li>
@@ -41,6 +41,7 @@
                         </ul>
                         <div class="content"><p>
                                 {{ article.getArticleText }}
+
                             </p>
                         </div>
                     </article>

@@ -44,9 +44,11 @@ if (isset($_GET["select"])) {
             echo $twig->render('publicView/public.oneAuthor.view.twig', ["authors" => $author ]);
             break;
         case "oneCat":
+            $id = $_GET["id"];
             echo ($id. ' : Category');
             break;
         case "oneTag":
+            $id = $_GET["id"];
             echo ($id. ' : Tag');
             break;
     }

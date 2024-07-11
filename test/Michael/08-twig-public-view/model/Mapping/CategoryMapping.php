@@ -57,6 +57,7 @@ class CategoryMapping extends AbstractMapping
 
     public function setCategoryDescription(?string $category_description): void
     {
+        $category_description = $category_description ?? "";
         $this->category_description = trim(strip_tags($category_description));
     }
 

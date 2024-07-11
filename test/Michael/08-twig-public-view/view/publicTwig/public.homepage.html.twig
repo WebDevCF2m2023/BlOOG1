@@ -16,8 +16,74 @@
 {# end contentNavbarMenu #}
 {% endblock %}
 
-{% block contentMainPost %}Les articles seront ici{% endblock %}
+{% block contentMainPost %}
+{% for item in articles %}
+    <header class="mb-4">
+        <!-- Post title-->
+        <h1 class="fw-bolder mb-1">{{ item.getArticleTitle }}</h1>
+        <!-- Post meta content-->
+        <div class="text-muted fst-italic mb-2">Publié le {{ item.getArticleDatePublish|date('d/m/Y \à h:i')}} par {{ item.getUser.getUserFullName }}</div>
+        <!-- Post categories-->
+        {% for categ in item.getCategories %}
+        <a class="badge bg-secondary text-decoration-none link-light" href="{{ root }}categorie/{{ categ.getCategorySlug }}">{{ categ.getCategoryName }}</a>
+        {% else %}
+                <h4>Pas de catégories</h4>
+        {% endfor %}
+    </header>
+    <!-- Preview image figure-->
+    <!--<figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure>-->
+    <!-- Post content-->
+    <section class="mb-5">
+        <p class="fs-5 mb-4">{{ item.getArticleText }} ... <a href="{{ root }}article/{{ item.getArticleSlug }}">Lire la suite</a></p>
+    </section>
+    </article>
+<section class="mb-5">
+    <div class="card bg-light">
+        <div class="card-body">Commentaire ({{ item.getCommentCount }})
+        </div>
+    </div>
+</section>
+    {% else %}
+<article>
+    <header class="mb-4">
+        <h1 class="fw-bolder mb-1">Pas encore d'article</h1>
+    </header>
+</article>
+    {% endfor %}
+{% endblock %}
 {% block contentMainComment %}{% endblock %}
+{% block contentSideCateg %}
+<!-- Categories widget-->
+<div class="card mb-4">
+    <div class="card-header">Categories ({{ categories|length }})</div>
+    <div class="card-body">
+        {% set nombreCateg = categories|length %}
+        {% set count = 1 %}
+        {% for categ in categories %}
+        {%  if count is odd  %}
+        <div class="row">
+            <div class="col-sm-6">
+                <ul class="list-unstyled mb-0">
+                    <li><a href="{{ root }}categorie/{{ categ.getCategorySlug }}">{{ categ.getCategoryName }}</a></li>
+                </ul>
+            </div>
+            {% set count = count+1 %}
+            {%  else  %}
+                {% set count = count+1 %}
+            <div class="col-sm-6">
+                <ul class="list-unstyled mb-0">
+                    <li><a href="{{ root }}categorie/{{ categ.getCategorySlug }}">{{ categ.getCategoryName }}</a></li>
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        {% else %}
+        PAS
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
 
 
 {% block copyright %}Copyright &copy; Mon site {{ now|date('Y') }}{% endblock %}

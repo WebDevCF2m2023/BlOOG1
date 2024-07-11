@@ -77,6 +77,7 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
         LEFT JOIN category c
             ON c.`category_id` = ahc.`category_category_id`
         WHERE a.`article_is_published` = 1
+        -- AND a.`article_id`=999
             GROUP BY a.`article_id`
             ORDER BY a.`article_date_publish` DESC
         

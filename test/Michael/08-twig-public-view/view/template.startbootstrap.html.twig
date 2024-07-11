@@ -13,26 +13,34 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />{% endblock %}
 {% block content %}
-
+    {% block contentNavbar %}
     <!-- Responsive navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="#!">{% block navTitle %}Start Bootstrap{% endblock %}</a>
+            {# ! {{ root }} devra se trouver dans les enfants si on garde contentNavbar #}
+            <a class="navbar-brand" href="{{ root }}">{% block contentNavbarTitle %}Start Bootstrap{% endblock %}</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        {% block contentNavbarMenu %}
                     <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Blog</a></li>
+        {# end contentNavbarMenu #}
+        {% endblock %}
                 </ul>
             </div>
         </div>
     </nav>
+    {# end contentNavbar #}
+    {% endblock %}
+    {% block contentMain %}
     <!-- Page content-->
     <div class="container mt-5">
         <div class="row">
             <div class="col-lg-8">
+        {% block contentMainPost %}
                 <!-- Post content-->
                 <article>
                     <!-- Post header-->
@@ -57,6 +65,9 @@
                         <p class="fs-5 mb-4">Venus has a runaway greenhouse effect. I kind of want to know what happened there because we're twirling knobs here on Earth without knowing the consequences of it. Mars once had running water. It's bone dry today. Something bad happened there as well.</p>
                     </section>
                 </article>
+        {# end contentMainPost #}
+        {% endblock %}
+        {% block contentMainComment %}
                 <!-- Comments section-->
                 <section class="mb-5">
                     <div class="card bg-light">
@@ -99,6 +110,8 @@
                         </div>
                     </div>
                 </section>
+        {# block contentMainComment #}
+            {% endblock %}
             </div>
             <!-- Side widgets-->
             <div class="col-lg-4">
@@ -142,6 +155,9 @@
             </div>
         </div>
     </div>
+    {# end contentMain #}
+    {% endblock %}
+{# end content #}
 {% endblock %}
 
 {% block footer %}

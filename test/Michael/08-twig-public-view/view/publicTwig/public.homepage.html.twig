@@ -1,9 +1,26 @@
 {% extends 'template.startbootstrap.html.twig' %}
 {% block title %}{{ parent() }} | Accueil{% endblock %}
 
-{% block navTitle %}Accueil{% endblock %}
-{% block footer %}
+{% block contentNavbarTitle %}Accueil{% endblock %}
 
-    {% block copyright %}Copyright &copy; Mon site {{ now|date('Y') }}{% endblock %}
+{% block contentNavbarMenu %}
+
+<li class="nav-item"><a class="nav-link" href="{{ root }}">Accueil</a></li>
+    {% for elementMenu in categories %}
+<li class="nav-item"><a class="nav-link" href="{{ root }}categorie/{{  elementMenu.getCategorySlug  }}">{{ elementMenu.getCategoryName }}</a></li>
+    {% else %}
+    <li class="nav-item">Pas encore de rubriques</li>
+    {% endfor %}
+
+<li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ root }}?connect">Connexion</a></li><li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ root }}?inscription">Inscription</a></li>
+{# end contentNavbarMenu #}
 {% endblock %}
+
+{% block contentMainPost %}Les articles seront ici{% endblock %}
+{% block contentMainComment %}{% endblock %}
+
+
+{% block copyright %}Copyright &copy; Mon site {{ now|date('Y') }}{% endblock %}
+
+
 

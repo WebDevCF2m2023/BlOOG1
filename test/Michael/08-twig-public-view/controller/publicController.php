@@ -37,7 +37,11 @@ switch ($route) {
         // vue de la base NON TWIG
         //include PROJECT_DIRECTORY."/view/publicView/public.homepage.php";
         // appel de la homepage en twig
-        echo $twig->render('publicTwig/public.homepage.html.twig', ['articles' => $articles]);
+        echo $twig->render('publicTwig/public.homepage.html.twig', [
+            'root' => $root,
+            'articles' => $articles,
+            'categories' => $categories,
+        ]);
         break;
 
     case 'categorie':

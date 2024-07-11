@@ -4,15 +4,7 @@
 {% block contentNavbarTitle %}Accueil{% endblock %}
 
 {% block contentNavbarMenu %}
-
-<li class="nav-item"><a class="nav-link" href="{{ root }}">Accueil</a></li>
-    {% for elementMenu in categories %}
-<li class="nav-item"><a class="nav-link" href="{{ root }}categorie/{{  elementMenu.getCategorySlug  }}">{{ elementMenu.getCategoryName }}</a></li>
-    {% else %}
-    <li class="nav-item">Pas encore de rubriques</li>
-    {% endfor %}
-
-<li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ root }}?connect">Connexion</a></li><li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ root }}?inscription">Inscription</a></li>
+{% include 'publicTwig/public.menu.html.twig' %}
 {# end contentNavbarMenu #}
 {% endblock %}
 

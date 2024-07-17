@@ -1,0 +1,38 @@
+{% extends 'template.startbootstrap.html.twig' %}
+{% block title %}{{ parent() }} | Admin{% endblock %}
+                    {% block navLinks %}
+                        <li class="nav-item"><a class="nav-link" href="?route=accueil">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="?route=logout">Déconnexion</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Blog</a></li>
+                    {% endblock %}
+{% block innerContent %}
+    <div class="container text-center d-flex flex-column w-25">
+    <div class="card mb-4">
+        <div class="card-header">Qu'est-ce que vous voulez faire?</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <ul class="list-unstyled mb-0">
+                        <li><a href="?route=admin&section=articles">Articles</a></li>
+                        <li><a href="?route=admin&section=categories">Categories</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-6">
+                    <ul class="list-unstyled mb-0">
+                        <li><a href="?route=admin&section=tags">Tags</a></li>
+                        <li><a href="?route=admin&section=users">Users</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+        {% if cats %}
+        {% include 'privateTwig/inc/private.category.view.twig' %}
+        {% endif %}
+        {% if tags %}
+            {% include 'privateTwig/inc/private.tag.view.twig' %}
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+<?php
+?>
+
+<div class="table-responsive">
+
+    <table class="table table-bordered table-striped" data-toggle="table" data-show-columns="true" data-search="true" data-pagination="true">
+        <thead>
+        <tr>
+            <th class="text-center"  data-sortable="true">ID</th>
+            <th class="text-center"  data-sortable="true">Title</th>
+            <th class="text-center">Modifier</th>
+            <th class="text-center">Hide/Show</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for art in arts %}
+            {% if art.getArticleIsPublished == 1 %}
+            {% set artVis = "Hide" %}
+            {% else %}
+                {% set artVis = "Show" %}
+            {% endif %}
+            <tr>
+                <td>{{ art.getArticleId }}</td>
+                <td>{{ art.getArticleTitle }}</td>
+                <td><a href="?route=admin&section=articles&action=update&slug={{ art.getArticleSlug }}"><img src="images/pencil.svg" alt="update"></a></td>
+                <td><a href="?route=admin&section=articles&action=visibility&slug={{ art.getArticleSlug }}&vis={{ art.getArticleIsPublished }}">{{ artVis }}</a></td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+</div>

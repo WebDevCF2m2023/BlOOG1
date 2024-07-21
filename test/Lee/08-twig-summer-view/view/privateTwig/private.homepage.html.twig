@@ -28,6 +28,9 @@
             </div>
         </div>
     </div>
+        {% if arts %}
+        {% include "privateTwig/inc/private.article.view.twig" %}
+        {% endif %}
         {% if cats %}
         {% include 'privateTwig/inc/private.category.view.twig' %}
         {% endif %}

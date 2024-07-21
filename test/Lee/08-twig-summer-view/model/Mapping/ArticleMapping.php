@@ -24,6 +24,17 @@ class ArticleMapping extends AbstractMapping
     protected null|string|DateTime $article_date_create=null;
     protected null|string|DateTime $article_date_update=null;
     protected null|string|DateTime $article_date_publish=null;
+    protected ?string $article_is_published=null;
+
+    public function getArticleIsPublished(): ?string
+    {
+        return $this->article_is_published;
+    }
+
+    public function setArticleIsPublished(?string $article_is_published): void
+    {
+        $this->article_is_published = $article_is_published;
+    }
     protected ?int $user_user_id=null;
 
     // Pour la jointure interne avec la table user (1 ou 0 possibilité)

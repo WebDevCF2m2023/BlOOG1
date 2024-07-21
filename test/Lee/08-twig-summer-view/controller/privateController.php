@@ -87,6 +87,8 @@ switch ($route) {
     case 'admin':
         $section = $_GET["section"] ?? "none";
         $arts=null;
+        $oneArt=null;
+        $delArt=null;
         $cats=null;
         $oneCat=null;
         $delCat=null;
@@ -96,7 +98,17 @@ switch ($route) {
         $users=null;
         switch($section){
             case 'articles' :
-                $arts=true;
+                $arts=$articleManager->selectAll();
+                if (isset($_GET["action"])) {
+                    switch ($_GET["action"]) {
+                        case 'update':
+                            $oneArt = $articleManager->selectOneBySlug($_GET["slug"]);
+                            break;
+                        case 'delete':
+                            $delArt = $articleManager->selectOneBySlug($_GET["slug"]);
+                            break;
+                    }
+                }
                 break;
             case 'categories' :
                 $cats = $categoryManager->selectAll();

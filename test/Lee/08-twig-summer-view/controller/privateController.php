@@ -81,6 +81,8 @@ if(isset($_POST["tagIdUpdate"])
      header("Location: ?route=admin&section=tags");
  }
 
+
+
 $route = $_GET['route'] ?? 'admin';
 
 switch ($route) {
@@ -104,9 +106,11 @@ switch ($route) {
                         case 'update':
                             $oneArt = $articleManager->selectOneBySlug($_GET["slug"]);
                             break;
-                        case 'delete':
-                            $delArt = $articleManager->selectOneBySlug($_GET["slug"]);
+                        case 'visibility':
+                            $artVis = $articleManager->changeArticleVisibility($_GET["id"], $_GET["vis"]);
+                            if($artVis) header("Location: ?route=admin&section=articles");
                             break;
+
                     }
                 }
                 break;

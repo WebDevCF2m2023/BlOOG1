@@ -24,8 +24,8 @@
             <tr>
                 <td>{{ art.getArticleId }}</td>
                 <td>{{ art.getArticleTitle }}</td>
-                <td><a href="?route=admin&section=articles&action=update&slug={{ art.getArticleSlug }}"><img src="images/pencil.svg" alt="update"></a></td>
-                <td><a href="?route=admin&section=articles&action=visibility&slug={{ art.getArticleSlug }}&vis={{ art.getArticleIsPublished }}">{{ artVis }}</a></td>
+                <td><a href="?route=admin&section=articles&action=update&id={{ art.getArticleId }}"><img src="images/pencil.svg" alt="update"></a></td>
+                <td><a href="?route=admin&section=articles&action=visibility&id={{ art.getArticleId }}&vis={{ art.getArticleIsPublished }}">{{ artVis }}</a></td>
             </tr>
         {% endfor %}
 

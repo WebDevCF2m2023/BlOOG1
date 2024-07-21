@@ -11,6 +11,7 @@ use model\Interface\InterfaceSlugManager;
 use model\Mapping\UserMapping;
 use model\Mapping\CategoryMapping;
 use model\Mapping\TagMapping;
+use PDOException;
 
 /**
  * Class ArticleManager
@@ -440,61 +441,77 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
         // on ferme le curseur
         $query->closeCursor();
 
-            // si on a un user on l'instancie
-            $user = $mapping['user_login'] !== null ? new UserMapping($mapping) : null;
-            // si on a des catégories
-            if ($mapping['category_id'] !== null) {
-                // on crée un tableau de catégories
-                $tabCategories = [];
-                // on récupère les catégories
-                $tabCategoryIds = explode(",", $mapping['category_id']);
-                $tabCategoryNames = explode("|||", $mapping['category_name']);
-                $tabCategorySlugs = explode("|||", $mapping['category_slug']);
-                // on boucle sur les catégories
-                for ($i = 0; $i < count($tabCategoryIds); $i++) {
-                    // on instancie la catégorie
-                    $category = new CategoryMapping([
-                        'category_id' => $tabCategoryIds[$i],
-                        'category_name' => $tabCategoryNames[$i],
-                        'category_slug' => $tabCategorySlugs[$i]
-                    ]);
-                    // on ajoute la catégorie au tableau
-                    $tabCategories[] = $category;
-                }
-
-            } else {
-                $tabCategories = null;
-            }
-            // si on a des tags
-            if ($mapping['tag_slug'] !== null) {
-                // on crée un tableau de tags
-                $tabTags = [];
-                // on récupère les tags
-                $tabTagSlugs = explode("|||", $mapping['tag_slug']);
-                // on boucle sur les tags
-                for ($i = 0; $i < count($tabTagSlugs); $i++) {
-                    // on instancie le tag
-                    $tag = new TagMapping([
-                        'tag_slug' => $tabTagSlugs[$i]
-                    ]);
-                    // on ajoute le tag au tableau
-                    $tabTags[] = $tag;
-                }
-            } else {
-                $tabTags = null;
+        // si on a un user on l'instancie
+        $user = $mapping['user_login'] !== null ? new UserMapping($mapping) : null;
+        // si on a des catégories
+        if ($mapping['category_id'] !== null) {
+            // on crée un tableau de catégories
+            $tabCategories = [];
+            // on récupère les catégories
+            $tabCategoryIds = explode(",", $mapping['category_id']);
+            $tabCategoryNames = explode("|||", $mapping['category_name']);
+            $tabCategorySlugs = explode("|||", $mapping['category_slug']);
+            // on boucle sur les catégories
+            for ($i = 0; $i < count($tabCategoryIds); $i++) {
+                // on instancie la catégorie
+                $category = new CategoryMapping([
+                    'category_id' => $tabCategoryIds[$i],
+                    'category_name' => $tabCategoryNames[$i],
+                    'category_slug' => $tabCategorySlugs[$i]
+                ]);
+                // on ajoute la catégorie au tableau
+                $tabCategories[] = $category;
             }
 
+        } else {
+            $tabCategories = null;
+        }
+        // si on a des tags
+        if ($mapping['tag_slug'] !== null) {
+            // on crée un tableau de tags
+            $tabTags = [];
+            // on récupère les tags
+            $tabTagSlugs = explode("|||", $mapping['tag_slug']);
+            // on boucle sur les tags
+            for ($i = 0; $i < count($tabTagSlugs); $i++) {
+                // on instancie le tag
+                $tag = new TagMapping([
+                    'tag_slug' => $tabTagSlugs[$i]
+                ]);
+                // on ajoute le tag au tableau
+                $tabTags[] = $tag;
+            }
+        } else {
+            $tabTags = null;
+        }
 
-            // on instancie l'article
-            $article = new ArticleMapping($mapping);
-            // on ajoute user à l'article
-            $article->setUser($user);
-            // on ajoute les catégories à l'article
-            $article->setCategories($tabCategories);
-            // on ajoute les tags à l'article
-            $article->setTags($tabTags);
-            // on retourne l'article
+
+        // on instancie l'article
+        $article = new ArticleMapping($mapping);
+        // on ajoute user à l'article
+        $article->setUser($user);
+        // on ajoute les catégories à l'article
+        $article->setCategories($tabCategories);
+        // on ajoute les tags à l'article
+        $article->setTags($tabTags);
+        // on retourne l'article
 
         return $article;
     }
+
+    public function changeArticleVisibility(string $id, int $vis): bool|string
+    {
+        $vis == 0 ? $vis = 1 : $vis = 0;
+        $stmt = $this->db->prepare("UPDATE `article` SET `article_is_published` = :vis WHERE `article_id` = :id");
+        try{
+        $stmt->bindValue(':vis', $vis);
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+        }catch (PDOException $e){
+            return $e->getMessage();
+        }
+        return true;
+
+    }
+
 }

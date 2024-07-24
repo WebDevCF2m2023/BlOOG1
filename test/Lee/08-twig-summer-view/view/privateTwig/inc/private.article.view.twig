@@ -1,7 +1,7 @@
 <?php
 ?>
 
-<div class="table-responsive">
+<div class="table-responsive w-100">
 
     <table class="table table-bordered table-striped" data-toggle="table" data-show-columns="true" data-search="true" data-pagination="true">
         <thead>
@@ -24,12 +24,52 @@
             <tr>
                 <td>{{ art.getArticleId }}</td>
                 <td>{{ art.getArticleTitle }}</td>
-                <td><a href="?route=admin&section=articles&action=update&id={{ art.getArticleId }}"><img src="images/pencil.svg" alt="update"></a></td>
+                <td><a href="?route=admin&section=articles&action=update&slug={{ art.getArticleSlug }}"><img src="images/pencil.svg" alt="update"></a></td>
                 <td><a href="?route=admin&section=articles&action=visibility&id={{ art.getArticleId }}&vis={{ art.getArticleIsPublished }}">{{ artVis }}</a></td>
             </tr>
         {% endfor %}
 
         </tbody>
     </table>
+    {% if oneArt %}
+        <form class="d-flex flex-column align-items-center justify-content-center w-100" method="POST" action="" id="updateArtForm">
+            <div class="row w-100">
+
+                    <div class="form-group d-none">
+                        <input type="text" class="form-control text-center" name="articleIdUpdate" aria-describedby="artIdField" value="{{ oneArt.getArticleId }}">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control text-center" name="articleTitleUpdate" aria-describedby="artTitleField" value="{{ oneArt.getArticleTitle }}">
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control text-center" name="artTextUpdate" aria-describedby="artTextField">{{ oneArt.getArticleText }}</textarea>
+                    </div>
+
+                <div class="form-group">
+
+                    {% for cat in catList %}
+                        <input class="form-check-input catListName myCheckbox ms-3" type="checkbox" name="catListNames[]" value="{{ cat.getCategoryId }}" id="{{ cat.getCategorySlug }}">
+                    <label class="form-check-label categSlug" for="{{ cat.getCategorySlug }}">
+                        {{ cat.getCategoryName }}
+                    </label>
+                    {% endfor %}
+
+
+                </div>
+
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-dark btn-outline-danger rounded-pill my-3">Mise à Jour</button>
+                </div>
+            </div>
+        </form>
+
+        <ul class="d-none">
+            {% for artCat in oneArt.categories %}
+            <li class="categListHidden" id="{{ artCat.getCategorySlug }}">{{ artCat.getCategorySlug }}</li>
+
+            {% endfor %}
+
+        </ul>
+    {% endif %}
 
 </div>

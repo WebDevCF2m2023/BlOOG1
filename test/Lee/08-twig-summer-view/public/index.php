@@ -32,7 +32,7 @@ $twig = new Environment($loader, [
     'debug' => true,
 
 ]);
-
+$twig->addExtension(new \Twig\Extension\DebugExtension());
 
 try {
 // connexion à la database singleton

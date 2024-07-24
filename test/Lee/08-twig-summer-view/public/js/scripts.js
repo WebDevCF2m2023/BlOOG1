@@ -9,20 +9,29 @@
 if (document.querySelector(".categListHidden")) {
     const categListHidden = document.querySelectorAll(".categListHidden");
     const catListName = document.querySelectorAll(".catListName");
-
     for (let i = 0; i < catListName.length; i++) {
-
         for (let j = 0; j < categListHidden.length; j++) {
-
             if (categListHidden[j].id == catListName[i].id) {
                 console.log("match found : " + categListHidden[j].id +" + " +catListName[i].id);
                 let checkThis = catListName[i];
-                checkThis.toggleAttribute("checked"); // works fine but need to figure out how to update DB
+                checkThis.toggleAttribute("checked");
 
-                //     console.log(checkThis.attributes)
-                //      console.log(checkThis.classList);
             }
         }
     }
+}
 
+if (document.querySelector(".tagListHidden")) {
+    const tagListHidden = document.querySelectorAll(".tagListHidden");
+    const tagListName = document.querySelectorAll(".tagListName");
+    for (let i = 0; i < tagListName.length; i++) {
+        for (let j = 0; j < tagListHidden.length; j++) {
+            if (tagListHidden[j].id == tagListName[i].id) {
+                console.log("match found : " + tagListHidden[j].id +" + " +tagListName[i].id);
+                let checkThis = tagListName[i];
+                checkThis.toggleAttribute("checked");
+
+            }
+        }
+    }
 }

@@ -99,6 +99,8 @@ switch ($route) {
         $delTag=null;
         $users=null;
         $catList = $categoryManager->selectAll();
+        $tagList = $tagManager->selectAll();
+
         switch($section){
             case 'articles' :
                 $arts=$articleManager->selectAll();
@@ -151,7 +153,7 @@ switch ($route) {
                                                                             'cats' => $cats, 'oneCat' => $oneCat, 'delCat' => $delCat,
                                                                             'tags' => $tags, "oneTag" => $oneTag, "delTag" => $delTag,
                                                                             'users' => $users,
-                                                                            'catList' => $catList]);
+                                                                            'catList' => $catList, 'tagList' => $tagList]);
 
         break;
     default:

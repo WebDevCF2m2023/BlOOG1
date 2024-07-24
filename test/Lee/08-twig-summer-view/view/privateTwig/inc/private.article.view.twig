@@ -46,17 +46,22 @@
                     </div>
 
                 <div class="form-group">
-
                     {% for cat in catList %}
                         <input class="form-check-input catListName myCheckbox ms-3" type="checkbox" name="catListNames[]" value="{{ cat.getCategoryId }}" id="{{ cat.getCategorySlug }}">
                     <label class="form-check-label categSlug" for="{{ cat.getCategorySlug }}">
                         {{ cat.getCategoryName }}
                     </label>
                     {% endfor %}
-
-
                 </div>
+                <div class="form-group mt-5 border border-2">
+                    {% for tag in tagList %}
 
+                        <input class="form-check-input tagListName myCheckbox ms-3" type="checkbox" name="tagListNames[]" value="{{ tag.getTagId }}" id="{{ tag.getTagSlug }}">
+                        <label class="form-check-label tagSlug" for="{{ tag.getTagSlug }}">
+                            {{ tag.getTagSlug }}
+                        </label>
+                    {% endfor %}
+                </div>
                 <div class="form-group text-center">
                     <button type="submit" class="btn btn-dark btn-outline-danger rounded-pill my-3">Mise à Jour</button>
                 </div>
@@ -66,9 +71,10 @@
         <ul class="d-none">
             {% for artCat in oneArt.categories %}
             <li class="categListHidden" id="{{ artCat.getCategorySlug }}">{{ artCat.getCategorySlug }}</li>
-
             {% endfor %}
-
+            {% for artTag in oneArt.tags %}
+                <li class="tagListHidden" id="{{ artTag.getTagSlug }}">{{ artTag.getTagSlug }}</li>
+            {% endfor %}
         </ul>
     {% endif %}
 

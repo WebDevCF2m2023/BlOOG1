@@ -42,7 +42,7 @@
                         <input type="text" class="form-control text-center" name="articleTitleUpdate" aria-describedby="artTitleField" value="{{ oneArt.getArticleTitle }}">
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control text-center" name="artTextUpdate" aria-describedby="artTextField">{{ oneArt.getArticleText }}</textarea>
+                        <textarea class="form-control text-center" name="articleTextUpdate" aria-describedby="artTextField">{{ oneArt.getArticleText }}</textarea>
                     </div>
 
                 <div class="form-group">
@@ -56,7 +56,7 @@
                 <div class="form-group mt-5 border border-2">
                     {% for tag in tagList %}
 
-                        <input class="form-check-input tagListName myCheckbox ms-3" type="checkbox" name="tagListNames[]" value="{{ tag.getTagId }}" id="{{ tag.getTagSlug }}">
+                        <input class="form-check-input myCheckbox tagListName ms-3" type="checkbox" name="tagListNames[]" value="{{ tag.getTagId }}" id="{{ tag.getTagSlug }}">
                         <label class="form-check-label tagSlug" for="{{ tag.getTagSlug }}">
                             {{ tag.getTagSlug }}
                         </label>

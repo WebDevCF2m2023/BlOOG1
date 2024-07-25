@@ -9,6 +9,7 @@
 if (document.querySelector(".categListHidden")) {
     const categListHidden = document.querySelectorAll(".categListHidden");
     const catListName = document.querySelectorAll(".catListName");
+    console.log(catListName);
     for (let i = 0; i < catListName.length; i++) {
         for (let j = 0; j < categListHidden.length; j++) {
             if (categListHidden[j].id == catListName[i].id) {

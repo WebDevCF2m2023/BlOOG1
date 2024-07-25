@@ -81,7 +81,36 @@ if(isset($_POST["tagIdUpdate"])
      header("Location: ?route=admin&section=tags");
  }
 
+// MISE À JOUR D'UN ARTICLE
+if (isset($_POST["articleTitleUpdate"],
+          $_POST["articleTextUpdate"],
+          $_POST["articleIdUpdate"])
+    && ctype_digit($_POST["articleIdUpdate"])){
 
+    $cleanedId = filter_var($_POST["articleIdUpdate"], FILTER_SANITIZE_NUMBER_INT);
+    $removeCat = $categoryManager->removeCategoriesForUpdate($cleanedId);
+    $removeTag = $tagManager->removeTagsForUpdate($cleanedId);
+
+    if ($removeCat && $removeTag) {
+        $newCat = $_POST["catListNames"];
+        $newTag = $_POST["tagListNames"];
+    foreach ($newCat as $cat) {
+       $categoryManager->addCategoryToArticle($cat, $cleanedId);
+    }
+        foreach ($newTag as $tag) {
+          $tagManager->addTagToArticle($tag, $cleanedId);
+        }
+    }
+    $cleanTitle = htmlspecialchars(trim(strip_tags($_POST["articleTitleUpdate"])), ENT_QUOTES);
+    $cleanText = htmlspecialchars(trim(strip_tags($_POST["articleTextUpdate"])), ENT_QUOTES);
+    $getArticle = $articleManager->selectOneById($cleanedId);
+    $getArticle->setArticleTitle($cleanTitle);
+    $getArticle->setArticleSlug($cleanTitle);
+    $getArticle->setArticleText($cleanText);
+
+    $updateArticle = $articleManager->update($getArticle);
+    header("Location: ?route=admin&section=articles");
+    }
 
 $route = $_GET['route'] ?? 'admin';
 

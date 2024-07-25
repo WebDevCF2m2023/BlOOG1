@@ -384,7 +384,11 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
 
     public function selectOneById(int $id): object
     {
-        // TODO: Implement selectOneById() method.
+        $sql = $this->db->prepare("SELECT * FROM `article` WHERE `article_id` = :id");
+        $sql->execute(['id' => $id]);
+        $article = $sql->fetch();
+        $sql->closeCursor();
+        return new ArticleMapping($article);
     }
 
     public function insert(object $object): void
@@ -394,7 +398,17 @@ class ArticleManager implements InterfaceManager, InterfaceSlugManager
 
     public function update(object $object): void
     {
-        // TODO: Implement update() method.
+        $sql = $this->db->prepare("UPDATE `article` 
+                                         SET `article_title`= ?,
+                                             `article_slug`= ?,
+                                             `article_text`= ?
+                                         WHERE `article_id`= ?");
+        $sql->execute([$object->getArticleTitle(),
+                        $object->getArticleSlug(),
+                        $object->getArticleText(),
+                        $object->getArticleId()]);
+        $sql->closeCursor();
+
     }
 
     public function delete(int $id): void

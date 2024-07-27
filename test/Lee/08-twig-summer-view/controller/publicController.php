@@ -21,6 +21,18 @@ $tagManager = new TagManager($db);
 // on instancie le manager des utilisateurs
 $userManager = new UserManager($db);
 
+// au cas d'attentive connexion d'utilisateur
+if(isset($_POST["userLoginName"], $_POST["userLoginPass"])){
+
+ $name = htmlspecialchars(trim(strip_tags($_POST["userLoginName"])),ENT_QUOTES);
+ $pass = $_POST["userLoginPass"];
+ $loginUser = $userManager->login($name, $pass);
+
+ if($loginUser === true){
+     header("Location: ?route=admin");
+ }
+}
+
 // si la route n'est pas définie, on affiche la page d'accueil
 $route = $_GET['route'] ?? 'accueil';
 
@@ -118,42 +130,9 @@ switch ($route) {
         // vue de la base NON TWIG
         include PROJECT_DIRECTORY."/view/publicView/public.404.php";
         break;
-    case 'admin':
-        // TOUT CECI SERA MIS DANS UN SECTION PRIVÉ QUAND JE SAIS FAIRE DES LOGIN AVEC OO
-            $section = $_GET["section"] ?? "none";
-            $arts=null;
-            $cats=null;
-            $oneCat=null;
-            $delCat=null;
-            $tags=null;
-            $users=null;
-            switch($section){
-                case 'articles' :
-                    $arts=true;
-                    break;
-                case 'categories' :
-                    $cats = $categoryManager->selectAll();
-                    if (isset($_GET["action"])) {
-                        switch ($_GET["action"]) {
-                            case 'update':
-                                $oneCat = $categoryManager->selectOneBySlug($_GET["slug"]);
-                                break;
-                            case 'delete':
-                                $delCat = $categoryManager->selectOneBySlug($_GET["slug"]);
-                                break;
-                        }
-                    }
-                    break;
-                case 'tags' :
-                    $tags=true;
-                    break;
-                case 'users' :
-                    $users=true;
-                    break;
-            }
 
-        echo $twig->render('privateTwig/private.homepage.html.twig', ['arts' => $arts, 'cats' => $cats, 'oneCat' => $oneCat, 'delCat' => $delCat, 'tags' => $tags, 'users' => $users]);
-
+    case 'login' :
+        echo $twig->render('publicTwig/public.login.html.twig');
         break;
     default:
         include PROJECT_DIRECTORY."/view/publicView/public.404.php";

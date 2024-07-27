@@ -17,6 +17,8 @@ $categoryManager = new CategoryManager($db);
 $commentManager = new CommentManager($db);
 $tagManager = new TagManager($db);
 $userManager = new UserManager($db);
+$categories = $categoryManager->selectAll();
+
 
 // SUPPRIMER CATEGORY
 if(isset($_POST["categoryIdDelete"])
@@ -188,4 +190,8 @@ switch ($route) {
     default:
         include PROJECT_DIRECTORY."/view/publicView/public.404.php";
         break;
+}
+
+if (isset($_GET["logout"])) {
+    $userManager->logout();
 }

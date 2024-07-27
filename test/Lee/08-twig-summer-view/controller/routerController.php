@@ -3,12 +3,16 @@
  * Ce fichier sera le router général de notre application
  */
 
+
+
 // si nous sommes connectés
 if (isset($_SESSION['MySession'])) {
     // nous allons charger les autres routers en fonction des permissions
     $router = $_SESSION['permission_name'];
     switch ($router) {
         case 'Administrateur':
+            require_once PROJECT_DIRECTORY . "/controller/privateController.php";
+            die();
             // si nous sommes Administrateur
             break;
         case 'Modérateur':
@@ -22,8 +26,6 @@ if (isset($_SESSION['MySession'])) {
             // si nous sommes Abonné
             break;
     }
-}else if (isset($_GET["route"]) && $_GET["route"] == "admin") {
-    require_once PROJECT_DIRECTORY . "/controller/privateController.php";
 } else {
     // si nous ne sommes pas connectés,
     // nous chargeons le publicController

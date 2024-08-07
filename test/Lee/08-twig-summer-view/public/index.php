@@ -2,12 +2,7 @@
 
 // session
 session_start();
-// CHECK SESSION ACTIVITY OR LOGOUT AUTOMATICALLY
-if (isset($_SESSION["active"]) && time() - $_SESSION["active"] > 180) {
-    require_once "../model/logoutModel.php";
-    exit();
-}
-$_SESSION["active"] = time();
+
 // chemin vers les classes Twig
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;

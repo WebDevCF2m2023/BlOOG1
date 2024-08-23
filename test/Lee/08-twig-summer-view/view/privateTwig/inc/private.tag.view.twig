@@ -1,0 +1,74 @@
+<?php
+?>
+
+<div class="table-responsive">
+    <div class="my-2 border border-2 pb-3 px-2">
+        <p class="h6">Ajoute un Tag</p>
+        <form action="" method="POST" class="d-flex flex-row">
+            <input type="text" id="newTagSlug" class="form-control text-center w-100" name="tagSlugInsert" aria-describedby="tagSlugField" placeholder="Nommer le Tag">
+            <button type="submit" class="btn btn-dark rounded-pill">Add</button>
+        </form>
+    </div>
+    <table class="table table-bordered table-striped" data-toggle="table" data-show-columns="true" data-search="true" data-pagination="true">
+        <thead>
+        <tr>
+            <th class="text-center"  data-sortable="true">ID</th>
+            <th class="text-center"  data-sortable="true">Slug</th>
+            <th class="text-center">Modifier</th>
+            <th class="text-center">Supprimer</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+                {% for tag in tags %}
+            <tr>
+                <td>{{ tag.getTagId }}</td>
+                <td>{{ tag.getTagSlug }}</td>
+                <td><a href="?route=admin&section=tags&action=update&slug={{ tag.getTagSlug }}"><img src="images/pencil.svg" alt="update"></a></td>
+                <td><a href="?route=admin&section=tags&action=delete&slug={{ tag.getTagSlug }}"><img src="images/trash.svg" alt="delete"></a></td>
+            </tr>
+                {% endfor %}
+
+        </tbody>
+    </table>
+    {% if oneTag is defined and oneTag is not null %}
+        <form class="d-flex flex-column align-items-center justify-content-center" method="POST" action="" id="updateForm">
+            <div class="row w-100">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="tagSlug">Nom</label>
+                        <input type="text" id="tagSlug" class="form-control text-center" name="tagSlugUpdate" aria-describedby="tagSlugField" placeholder="{{ oneTag.getTagSlug }}" value="{{ oneTag.getTagSlug }}">
+                    </div>
+                    <div class="form-group d-none">
+                        <input type="text" class="form-control text-center hidden" name="tagIdUpdate" aria-describedby="tagIdField" value="{{ oneTag.getTagId }}">
+                    </div>
+
+                </div>
+
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-dark rounded-pill my-3" id="updateButton">Update</button>
+                </div>
+            </div>
+        </form>
+{% endif %}
+
+    {% if delTag is defined and delTag is not null %}
+        <form class="d-flex flex-column align-items-center justify-content-center" method="POST" action="" id="deleteForm">
+            <div class="row w-auto">
+                <div class="col">
+                    <div class="form-group">
+                        <p class="h4">Etes-vous sur de supprimer<br><span class="text-danger">{{ delTag.getTagSlug }}</span></p>
+                    </div>
+                    <div class="form-group d-none">
+                        <input type="text" class="form-control text-center hidden" name="tagIdDelete" aria-describedby="tagIdField" value="{{ delTag.getTagId }}">
+                    </div>
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-dark btn-outline-danger rounded-pill my-3">Supprimer</button>
+                </div>
+            </div>
+        </form>
+    {% endif %}
+</div>
+

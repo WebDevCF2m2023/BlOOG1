@@ -1,0 +1,19 @@
+{% extends 'template.startbootstrap.html.twig' %}
+{% block title %}{{ parent() }} | Login{% endblock %}
+
+    {% block innerContent %}
+        <div class="d-flex flex-column align-items-center justify-content-center text-center py-4 my-5">
+        <form method="POST" action="./">
+            <div class="mb-3">
+                <label for="userLoginName" class="form-label">Nom d'Utilisateur</label>
+                <input type="text" class="form-control" name="userLoginName">
+            </div>
+            <div class="mb-3">
+                <label for="userLoginPass" class="form-label">Password</label>
+                <input type="password" class="form-control" name="userLoginPass">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        </div>
+{% endblock %}
+

@@ -1,0 +1,7 @@
+# fichers non envoyés
+config.php
+# vendor contient les libairies externes en php
+vendor
+# PHPStorm
+.idea
+

@@ -1,0 +1,89 @@
+<?php
+?>
+
+<div class="table-responsive">
+    <div class="my-2 border border-2 pb-3 px-2">
+        <p class="h6">Ajoute un Categorie</p>
+    <form action="" method="POST" class="d-flex flex-row">
+        <input type="text" id="newCatName" class="form-control text-center w-50" name="categoryNameInsert" aria-describedby="catNameField" placeholder="Ajouter un nom ici">
+        <input type="text" id="newCatDesc" class="form-control text-center" name="categoryDescInsert" aria-describedby="catDescField" placeholder="Ajouter un description ici">
+        <input type="number" min="0" id="newCatParent" class="form-control text-center w-25" name="categoryParentInsert" aria-describedby="catParentField" placeholder="0" value="0">
+        <button type="submit" class="btn btn-dark rounded-pill">Add</button>
+    </form>
+    </div>
+    <table class="table table-bordered table-striped" data-toggle="table" data-show-columns="true" data-search="true" data-pagination="true">
+        <thead>
+        <tr>
+            <th class="text-center"  data-sortable="true">ID</th>
+            <th class="text-center"  data-sortable="true">Nom</th>
+            <th class="text-center"  data-sortable="true">Description</th>
+            <th class="text-center"  data-sortable="true">Parent</th>
+            <th class="text-center">Modifier</th>
+            <th class="text-center">Supprimer</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+
+                {% for cat in cats %}
+            <tr>
+                <td>{{ cat.getCategoryId }}</td>
+                <td>{{ cat.getCategoryName }}</td>
+                <td>{{ cat.getCategoryDescription|length > 20 ? cat.getCategoryDescription|slice(0, 21)|split(' ')|slice(0, -1)|join(' ') ~ '…' : cat.getCategoryDescription }}</td>
+                <td>{{ cat.getCategoryParent }}</td>
+                <td><a href="?route=admin&section=categories&action=update&slug={{ cat.getCategorySlug }}"><img src="images/pencil.svg" alt="update"></a></td>
+                <td><a href="?route=admin&section=categories&action=delete&slug={{ cat.getCategorySlug }}"><img src="images/trash.svg" alt="delete"></a></td>
+
+            </tr>
+                {% endfor %}
+
+        </tbody>
+    </table>
+    {% if oneCat is defined and oneCat is not null %}
+        <form class="d-flex flex-column align-items-center justify-content-center" method="POST" action="" id="updateForm">
+            <div class="row w-100">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="catName">Nom</label>
+                        <input type="text" id="catName" class="form-control text-center" name="categoryNameUpdate" aria-describedby="catNameField" placeholder="{{ oneCat.getCategoryName }}" value="{{ oneCat.getCategoryName }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="catDesc">Nom</label>
+                        <input type="text" id="catDesc" class="form-control text-center h-50" name="categoryDescUpdate" aria-describedby="catDescField" placeholder="{{ oneCat.getCategoryDescription }}" value="{{ oneCat.getCategoryDescription }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="catParent">Parent</label>
+                        <input type="text" id="catParent" class="form-control text-center h-50" name="categoryParentUpdate" aria-describedby="catParentField" placeholder="{{ oneCat.getCategoryParent }}" value="{{ oneCat.getCategoryParent }}">
+                    </div>
+                    <div class="form-group d-none">
+                        <input type="text" class="form-control text-center hidden" name="categoryIdUpdate" aria-describedby="catIdField" value="{{ oneCat.getCategoryId }}">
+                    </div>
+
+                </div>
+
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-dark rounded-pill my-3" id="insertButton">Update</button>
+                </div>
+            </div>
+        </form>
+{% endif %}
+    {% if delCat is defined and delCat is not null %}
+        <form class="d-flex flex-column align-items-center justify-content-center" method="POST" action="" id="deleteForm">
+            <div class="row w-auto">
+                <div class="col">
+                    <div class="form-group">
+                        <p class="h4">Etes-vous sur de supprimer<br><span class="text-danger">{{ delCat.getCategoryName }}</span></p>
+                    </div>
+                    <div class="form-group d-none">
+                        <input type="text" class="form-control text-center hidden" name="categoryIdDelete" aria-describedby="catIdField" value="{{ delCat.getCategoryId }}">
+                    </div>
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-dark btn-outline-danger rounded-pill my-3">Supprimer</button>
+                </div>
+            </div>
+        </form>
+    {% endif %}
+</div>
+

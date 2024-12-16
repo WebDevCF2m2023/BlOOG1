@@ -8,6 +8,7 @@ use model\Mapping\CommentMapping;
 use model\Abstract\AbstractMapping;
 use model\OurPDO;
 use model\Mapping\CategoryMapping;
+use PDO;
 
 class CategoryManager implements InterfaceManager{
 
@@ -57,7 +58,31 @@ class CategoryManager implements InterfaceManager{
 
     public function selectAllWithArticles():?array
     {
-        return [];
+        $sql = $this->connect->query("
+        SELECT c.*, 
+               GROUP_CONCAT(a.`article_id`) as article_id, 
+               GROUP_CONCAT(a.`article_title` SEPARATOR '|||') as article_title, 
+               GROUP_CONCAT(a.`article_slug` SEPARATOR '|||') as article_slug
+        FROM `category` c
+        LEFT JOIN `article_has_category` h 
+            ON h.`category_category_id` = c.`category_id` 
+            LEFT JOIN `article` a
+                ON h.`article_article_id` = a.`article_id`
+                    GROUP BY c.`category_id`;
+        ");
+        $datas = $sql->fetchAll(PDO::FETCH_ASSOC);
+        if($sql->rowCount()===0) return null;
+        foreach ($datas as $categ){
+            $result[] = new CategoryMapping($categ);
+            //ICI
+            if(is_null($result['article_id'])){
+                $articles = null;
+            }
+        }
+        return $result;
+        
+        
+
     }
 
     // récupération d'un commentaire via son id

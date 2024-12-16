@@ -22,7 +22,6 @@ spl_autoload_register(function ($class) {
 // chargement de l'autoload de composer
 require_once PROJECT_DIRECTORY.'/vendor/autoload.php';
 
-
 // chemin vers les templates twig
 $loader = new FilesystemLoader(PROJECT_DIRECTORY.'/view/');
 // création d'une instance de $twig
@@ -40,7 +39,7 @@ $db = OurPDO::getInstance( DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME.";port=".
 // résultats en tableau associatif
 $db->setAttribute(OurPDO::ATTR_ERRMODE, OurPDO::ERRMODE_EXCEPTION);
 
-// Appel du router
+// Appel du router général
 require_once PROJECT_DIRECTORY.'/controller/routerController.php';
 
 // fermeture de la connexion
